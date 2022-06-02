@@ -29,6 +29,16 @@ namespace MonoGame.CExt.Extensions
             return s;
         }
 
+        /// <summary>
+        /// Check if string is null terminated
+        /// </summary>
+        /// <param name="input">Input string</param>
+        /// <returns>true if null terminated. false otherwise</returns>
+        public static bool IsNullTerminated(this string input)
+        {
+            return (input[input.Length - 1] == char.MinValue);
+        }
+
         /*
         public static string ToLiteral(this string input)
         {
