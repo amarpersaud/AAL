@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.CExt.Input;
+using MonoGame.CExt.Extensions;
+using System;
 
 namespace AAL
 {
@@ -8,6 +11,8 @@ namespace AAL
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private SpriteFont spf;
+        private InputHelper ih = new InputHelper();
 
         public Game1()
         {
@@ -18,8 +23,6 @@ namespace AAL
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -27,15 +30,15 @@ namespace AAL
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            spf = Content.Load<SpriteFont>("Arial");
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            ih.Update();
+            if (ih.ExitRequested)
                 Exit();
 
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -44,7 +47,11 @@ namespace AAL
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+
+            //Draw
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
