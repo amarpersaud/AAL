@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Content\" />
-    <Folder Include="$(MSBuildThisFileDirectory)UI\" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
@@ -25,6 +24,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Input\MouseButtons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sprites\NineSliceSprite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sprites\StackedSprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UIControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UIControlEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\Clipboard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\FrameCounter.cs" />
     <Compile Include="..\MonoGame.CExt\Sprites\Borders.cs" />
