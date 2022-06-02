@@ -17,16 +17,16 @@ namespace MonoGame.CExt.Utility
 
 #if (!LINUX&&!XBOX)
         [DllImport("user32.dll")]
-        internal static extern bool OpenClipboard(IntPtr hWndNewOwner);
+        private static extern bool OpenClipboard(IntPtr hWndNewOwner);
 
         [DllImport("user32.dll")]
-        internal static extern bool CloseClipboard();
+        private static extern bool CloseClipboard();
 
         [DllImport("user32.dll")]
-        internal static extern bool SetClipboardData(uint uFormat, IntPtr data);
+        private static extern bool SetClipboardData(uint uFormat, IntPtr data);
 
         [DllImport("user32.dll")]
-        internal static extern IntPtr GetClipboardData(uint uFormat);
+        private static extern IntPtr GetClipboardData(uint uFormat);
 #endif
 
         public static string GetClipboardText()
