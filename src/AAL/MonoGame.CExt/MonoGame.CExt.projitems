@@ -15,4 +15,17 @@
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
     <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\MathExt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\SpriteBatchExt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\InputHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\KeySets.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\MouseButtons.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sprites\NineSliceSprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sprites\StackedSprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\FrameCounter.cs" />
+    <Compile Include="..\MonoGame.CExt\Sprites\Borders.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sprites\Sprite.cs" />
+  </ItemGroup>
 </Project>
