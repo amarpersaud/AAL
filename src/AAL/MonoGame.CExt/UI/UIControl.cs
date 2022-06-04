@@ -47,19 +47,29 @@ namespace MonoGame.CExt.UI
         public Point Size => new Point(Width, Height);
 
         /// <summary>
+        /// Borders representing directional margin between this control and neighboring controls
+        /// </summary>
+        public Borders Margin = Borders.Zero;
+
+        /// <summary>
+        /// Borders representing internal padding between the bounds of this control and its child controls
+        /// </summary>
+        public Borders Padding = Borders.Zero;
+
+        /// <summary>
         /// Rectangle representing bounds of the control
         /// </summary>
         public Rectangle Bounds => new Rectangle(X, Y, Width, Height);
 
         /// <summary>
-        /// Borders representing directional margin between this control and neighboring controls
+        /// Inner rectangle with padding
         /// </summary>
-        public Borders Margin;
+        public Rectangle InnerRect => new Rectangle(X + Padding.Left, Y + Padding.Top, Width - Padding.Left - Padding.Right, Height - Padding.Bottom - Padding.Top);
 
         /// <summary>
-        /// Borders representing internal padding between the bounds of this control and its child controls
+        /// Outer rectangle including margin
         /// </summary>
-        public Borders Padding;
+        public Rectangle OuterRect => new Rectangle(X - Margin.Left, Y - Margin.Top, Width + Margin.Left + Margin.Right, Height + Margin.Top + Margin.Bottom);
 
 
         /// <summary>
@@ -128,11 +138,6 @@ namespace MonoGame.CExt.UI
         public Sprite HoverTexture;
 
         /// <summary>
-        /// Inner rectangle with padding
-        /// </summary>
-        public Rectangle InnerRect => new Rectangle(X + Padding.Left, Y + Padding.Top, X + Width - Padding.Left - Padding.Right, Y + Height - Padding.Bottom - Padding.Top);
-
-        /// <summary>
         /// Draw order for control. If 1, this control is drawn after its parent.
         /// </summary>
         public int RelativeOrder { get; set; } = 1;
@@ -167,6 +172,11 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public bool DetectAllMousePresses { get; set; } = false;
 
+        /// <summary>
+        /// Is root element in a tree
+        /// </summary>
+        public bool IsRoot => Parent == null; 
+
         public UIControl()
         {
 
@@ -181,18 +191,19 @@ namespace MonoGame.CExt.UI
                     if (!Hover)
                     {
                         Hover = true;
-                        mouseEnter(new UIControlMouseEventArgs(this));
+                        TriggerMouseEnter(new UIControlMouseEventArgs(this));
                     }
-                    if (ih.IsNewPress(MouseButtons.LeftButton)) {
-                            
+                    if (ih.IsNewPress(MouseButtons.LeftButton))
+                    {
+
                         //Trigger button press event
-                        PressStart = ih.MousePosition.ToPoint() - Bounds.Location; 
-                        mousePressed(new UIControlClickEventArgs(this));
+                        PressStart = ih.MousePosition.ToPoint() - Bounds.Location;
+                        TriggerMousePressed(new UIControlClickEventArgs(this));
                         Pressed = true;
                     }
                     else if (ih.IsOldPress(MouseButtons.LeftButton) && Pressed)
                     {
-                        mouseReleased(new UIControlClickEventArgs(this));
+                        TriggerMouseReleased(new UIControlClickEventArgs(this));
                         Pressed = false;
                     }
                 }
@@ -201,7 +212,7 @@ namespace MonoGame.CExt.UI
                     if (Hover)
                     {
                         Hover = false;
-                        mouseLeave(new UIControlMouseEventArgs(this));
+                        TriggerMouseLeave(new UIControlMouseEventArgs(this));
                     }
                     Pressed = false;
                 }
@@ -213,10 +224,48 @@ namespace MonoGame.CExt.UI
         }
 
         /// <summary>
+        /// Returns Control with highest order which is visible at a given point.
+        /// </summary>
+        /// <returns>UI control with highest order within this control if the point is in the control, null otherwise</returns>
+        public UIControl DetermineHighestOrder(Point pt)
+        {
+            //if point is outside of the bounds, return nothing.
+            if (!Bounds.Contains(pt))
+            {
+                return null;
+            }
+
+            //Current highest order control at the point. By default is just this control.
+            UIControl control = this;
+            int HighestOrder = this.AbsoluteOrder;
+
+            //If there are child elements
+            if(Children != null && Children.Count > 0)
+            {
+                //loop over each child element
+                foreach (UIControl c in Children)
+                {
+                    //Get the highest order element in this child
+                    UIControl i = c.DetermineHighestOrder(pt);
+
+                    //If i contains the point and has a higher order than the current highest control,
+                    if(i != null && i.AbsoluteOrder > HighestOrder) 
+                    {
+                        //make it the new highest control
+                        control = i;
+                        HighestOrder = i.AbsoluteOrder;
+                    }
+                }
+            }
+            //return the highest control
+            return control;
+        }
+
+        /// <summary>
         /// Trigger button press event
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void mousePressed(UIControlClickEventArgs e)
+        public virtual void TriggerMousePressed(UIControlClickEventArgs e)
         {
             MousePressed?.Invoke(this, e);
         }
@@ -225,7 +274,7 @@ namespace MonoGame.CExt.UI
         /// Trigger button release
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void mouseReleased(UIControlClickEventArgs e)
+        public virtual void TriggerMouseReleased(UIControlClickEventArgs e)
         {
             MouseReleased?.Invoke(this, e);
         }
@@ -234,7 +283,7 @@ namespace MonoGame.CExt.UI
         /// Trigger mouse enter
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void mouseEnter(UIControlMouseEventArgs e)
+        public virtual void TriggerMouseEnter(UIControlMouseEventArgs e)
         {
             MouseEnter?.Invoke(this, e);
         }
@@ -243,7 +292,7 @@ namespace MonoGame.CExt.UI
         /// Trigger mouse leave
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void mouseLeave(UIControlMouseEventArgs e)
+        public virtual void TriggerMouseLeave(UIControlMouseEventArgs e)
         {
             MouseLeave?.Invoke(this, e);
         }
