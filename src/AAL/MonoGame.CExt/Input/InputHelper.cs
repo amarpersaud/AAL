@@ -34,8 +34,6 @@ namespace MonoGame.CExt.Input
         
         private bool refreshData = false;
 
-        private static bool initialized = false;
-
         /// <summary>
         /// Fetches the latest input states.
         /// </summary>
