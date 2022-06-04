@@ -186,19 +186,19 @@ namespace MonoGame.CExt.UI
                     if (!Hover)
                     {
                         Hover = true;
-                        TriggerMouseEnter(new UIControlMouseEventArgs(this));
+                        OnMouseEnter(new UIControlMouseEventArgs(this));
                     }
                     if (ih.IsNewPress(MouseButtons.LeftButton))
                     {
 
                         //Trigger button press event
                         PressStart = ih.MousePosition.ToPoint() - Bounds.Location;
-                        TriggerMousePressed(new UIControlClickEventArgs(this));
+                        OnMousePressed(new UIControlClickEventArgs(this));
                         Pressed = true;
                     }
                     else if (ih.IsOldPress(MouseButtons.LeftButton) && Pressed)
                     {
-                        TriggerMouseReleased(new UIControlClickEventArgs(this));
+                        OnMouseReleased(new UIControlClickEventArgs(this));
                         Pressed = false;
                     }
                 }
@@ -207,7 +207,7 @@ namespace MonoGame.CExt.UI
                     if (Hover)
                     {
                         Hover = false;
-                        TriggerMouseLeave(new UIControlMouseEventArgs(this));
+                        OnMouseLeave(new UIControlMouseEventArgs(this));
                     }
                     Pressed = false;
                 }
@@ -217,6 +217,43 @@ namespace MonoGame.CExt.UI
         {
 
         }
+
+        /// <summary>
+        /// Trigger button press event
+        /// </summary>
+        /// <param name="e"></param>
+        public virtual void OnMousePressed(UIControlClickEventArgs e)
+        {
+            MousePressed?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// Trigger button release
+        /// </summary>
+        /// <param name="e"></param>
+        public virtual void OnMouseReleased(UIControlClickEventArgs e)
+        {
+            MouseReleased?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// Trigger mouse enter
+        /// </summary>
+        /// <param name="e"></param>
+        public virtual void OnMouseEnter(UIControlMouseEventArgs e)
+        {
+            MouseEnter?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// Trigger mouse leave
+        /// </summary>
+        /// <param name="e"></param>
+        public virtual void OnMouseLeave(UIControlMouseEventArgs e)
+        {
+            MouseLeave?.Invoke(this, e);
+        }
+
 
         /// <summary>
         /// Returns Front-most Control which is visible at a given point. Sort order of the Children list affects draw and check order.
@@ -234,7 +271,7 @@ namespace MonoGame.CExt.UI
             UIControl control = this;
 
             //If there are child elements
-            if(Children != null)
+            if (Children != null)
             {
                 //loop over each child element, check if it has a frontmost control at the point and then set the current
                 //frontmost control to taht child. If two children overlap at the point, the last element is further
@@ -245,7 +282,7 @@ namespace MonoGame.CExt.UI
                     UIControl i = c.DetermineFrontMostDescendant(pt);
 
                     //If i contains the point
-                    if(i != null) 
+                    if (i != null)
                     {
                         //make it the new highest control.
                         control = i;
@@ -257,39 +294,18 @@ namespace MonoGame.CExt.UI
         }
 
         /// <summary>
-        /// Trigger button press event
+        /// Brings a child element to the front by moving it to the end of the Children list
         /// </summary>
-        /// <param name="e"></param>
-        public virtual void TriggerMousePressed(UIControlClickEventArgs e)
+        /// <param name="index">index of the child to move</param>
+        public void BringChildToFront(int index)
         {
-            MousePressed?.Invoke(this, e);
-        }
-
-        /// <summary>
-        /// Trigger button release
-        /// </summary>
-        /// <param name="e"></param>
-        public virtual void TriggerMouseReleased(UIControlClickEventArgs e)
-        {
-            MouseReleased?.Invoke(this, e);
-        }
-
-        /// <summary>
-        /// Trigger mouse enter
-        /// </summary>
-        /// <param name="e"></param>
-        public virtual void TriggerMouseEnter(UIControlMouseEventArgs e)
-        {
-            MouseEnter?.Invoke(this, e);
-        }
-
-        /// <summary>
-        /// Trigger mouse leave
-        /// </summary>
-        /// <param name="e"></param>
-        public virtual void TriggerMouseLeave(UIControlMouseEventArgs e)
-        {
-            MouseLeave?.Invoke(this, e);
+            if(Children == null || index >= Children.Count)
+            {
+                return;
+            }
+            UIControl c = Children.ElementAtOrDefault(index);
+            Children.RemoveAt(index);
+            Children.Add(c);
         }
     }
 }
