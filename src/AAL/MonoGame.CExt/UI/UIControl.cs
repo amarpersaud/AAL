@@ -216,7 +216,7 @@ namespace MonoGame.CExt.UI
         /// Trigger button press event
         /// </summary>
         /// <param name="e"></param>
-        private void mousePressed(UIControlClickEventArgs e)
+        protected virtual void mousePressed(UIControlClickEventArgs e)
         {
             MousePressed?.Invoke(this, e);
         }
@@ -225,7 +225,7 @@ namespace MonoGame.CExt.UI
         /// Trigger button release
         /// </summary>
         /// <param name="e"></param>
-        private void mouseReleased(UIControlClickEventArgs e)
+        protected virtual void mouseReleased(UIControlClickEventArgs e)
         {
             MouseReleased?.Invoke(this, e);
         }
@@ -234,7 +234,7 @@ namespace MonoGame.CExt.UI
         /// Trigger mouse enter
         /// </summary>
         /// <param name="e"></param>
-        private void mouseEnter(UIControlMouseEventArgs e)
+        protected virtual void mouseEnter(UIControlMouseEventArgs e)
         {
             MouseEnter?.Invoke(this, e);
         }
@@ -243,7 +243,7 @@ namespace MonoGame.CExt.UI
         /// Trigger mouse leave
         /// </summary>
         /// <param name="e"></param>
-        private void mouseLeave(UIControlMouseEventArgs e)
+        protected virtual void mouseLeave(UIControlMouseEventArgs e)
         {
             MouseLeave?.Invoke(this, e);
         }
