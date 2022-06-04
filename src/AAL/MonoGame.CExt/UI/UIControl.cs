@@ -128,6 +128,11 @@ namespace MonoGame.CExt.UI
         public bool Enabled { get; set; } = true;
 
         /// <summary>
+        /// If control is drawn
+        /// </summary>
+        public bool Visible { get; set; } = true;
+
+        /// <summary>
         /// Initial Texture for the control
         /// </summary>
         public Sprite BaseTexture;
