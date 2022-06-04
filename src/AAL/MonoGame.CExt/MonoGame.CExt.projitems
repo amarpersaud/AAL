@@ -24,7 +24,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Input\MouseButtons.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sprites\NineSliceSprite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sprites\StackedSprite.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\InvalidRootElementException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIControlEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIHandler.cs" />

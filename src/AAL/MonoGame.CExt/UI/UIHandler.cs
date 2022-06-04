@@ -39,9 +39,9 @@ namespace MonoGame.CExt.UI
             this.DetectAllMousePresses = true;
         }
 
-        public void Update(GameTime gameTime, InputHelper ih)
+        public void Update(GameTime gameTime, InputHelper ih, UIHandler uih = null)
         {
-            //Update the current control which contains the mouse
+            //Update which is the current control containing the mouse
             CurrentMouseControl = this.DetermineFrontMostDescendant(ih.MousePosition.ToPoint());
 
             double deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
@@ -49,7 +49,7 @@ namespace MonoGame.CExt.UI
             //Update child elements
             foreach(UIControl c in Children)
             {
-                c.Update(gameTime, deltaTime, ih);
+                c.Update(gameTime, deltaTime, ih, this);
             }
         }
 

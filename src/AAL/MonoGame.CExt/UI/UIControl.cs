@@ -172,69 +172,50 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public bool IsRoot => Parent == null; 
 
-        /// <summary>
-        /// Gets root element of the tree
-        /// </summary>
-        public UIControl RootElement
-        {
-            get
-            {
-                if(Parent == null)
-                {
-                    return this;
-                }
-                return Parent.RootElement;
-            }
-        }
-
         public UIControl()
         {
 
         }
 
-        public virtual void Update(GameTime gameTime, double timeScale, InputHelper ih)
+        public virtual void Update(GameTime gameTime, double timeScale, InputHelper ih, UIHandler uih)
         {
             if (Enabled)
             {
-                //Get root control and cast to UIHandler for managing
-                UIControl root = RootElement;
-                if(root is UIHandler uih)
+
+                if(uih == null)
                 {
-                    //Mouse is inside this element
-                    if(this == uih.CurrentMouseControl)
+                    throw new ArgumentNullException("uih", "root UIHandler cannot be null");
+                }
+
+                //Mouse is inside this element
+                if(this == uih.CurrentMouseControl)
+                {
+                    if (!Hover)
                     {
-                        if (!Hover)
-                        {
-                            Hover = true;
-                            OnMouseEnter(new UIControlMouseEventArgs(this));
-                        }
-                        if (ih.IsNewPress(MouseButtons.LeftButton))
-                        {
-                            //Trigger button press event
-                            PressStart = ih.MousePosition.ToPoint() - Bounds.Location;
-                            OnMousePressed(new UIControlClickEventArgs(this));
-                            Pressed = true;
-                        }
-                        else if (ih.IsOldPress(MouseButtons.LeftButton) && Pressed)
-                        {
-                            OnMouseReleased(new UIControlClickEventArgs(this));
-                            Pressed = false;
-                        }
+                        Hover = true;
+                        OnMouseEnter(new UIControlMouseEventArgs(this));
                     }
-                    else
+                    if (ih.IsNewPress(MouseButtons.LeftButton))
                     {
-                        if (Hover)
-                        {
-                            Hover = false;
-                            OnMouseLeave(new UIControlMouseEventArgs(this));
-                        }
+                        //Trigger button press event
+                        PressStart = ih.MousePosition.ToPoint() - Bounds.Location;
+                        OnMousePressed(new UIControlClickEventArgs(this));
+                        Pressed = true;
+                    }
+                    else if (ih.IsOldPress(MouseButtons.LeftButton) && Pressed)
+                    {
+                        OnMouseReleased(new UIControlClickEventArgs(this));
                         Pressed = false;
                     }
-
                 }
                 else
                 {
-                    throw new InvalidRootElementException("Failed to find UIHandler root element of UIControl", this);
+                    if (Hover)
+                    {
+                        Hover = false;
+                        OnMouseLeave(new UIControlMouseEventArgs(this));
+                    }
+                    Pressed = false;
                 }
             }
         }
