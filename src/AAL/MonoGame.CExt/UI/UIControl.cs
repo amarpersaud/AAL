@@ -138,11 +138,6 @@ namespace MonoGame.CExt.UI
         public Sprite HoverTexture;
 
         /// <summary>
-        /// Draw order for control. If 1, this control is drawn after its parent.
-        /// </summary>
-        public int RelativeOrder { get; set; } = 1;
-
-        /// <summary>
         /// Absolute draw order of the control
         /// </summary>
         public int AbsoluteOrder
@@ -151,9 +146,9 @@ namespace MonoGame.CExt.UI
             {
                 if(Parent != null)
                 {
-                    return Parent.AbsoluteOrder + RelativeOrder;
+                    return Parent.AbsoluteOrder + 1;
                 }
-                return RelativeOrder;
+                return 1;
             }
         }
 
@@ -224,36 +219,36 @@ namespace MonoGame.CExt.UI
         }
 
         /// <summary>
-        /// Returns Control with highest order which is visible at a given point.
+        /// Returns Front-most Control which is visible at a given point. Sort order of the Children list affects draw and check order.
         /// </summary>
         /// <returns>UI control with highest order within this control if the point is in the control, null otherwise</returns>
-        public UIControl DetermineHighestOrder(Point pt)
+        public UIControl DetermineFrontMostDescendant(Point pt)
         {
-            //if point is outside of the bounds, return nothing.
+            //if point is outside of the bounds, return null.
             if (!Bounds.Contains(pt))
             {
                 return null;
             }
 
-            //Current highest order control at the point. By default is just this control.
+            //Otherwise the point is within this control, so we must check if the point is in a child control
             UIControl control = this;
-            int HighestOrder = this.AbsoluteOrder;
 
             //If there are child elements
-            if(Children != null && Children.Count > 0)
+            if(Children != null)
             {
-                //loop over each child element
+                //loop over each child element, check if it has a frontmost control at the point and then set the current
+                //frontmost control to taht child. If two children overlap at the point, the last element is further
+                //forward in both drawing and checking and therefore overwrites the frontmost control.
                 foreach (UIControl c in Children)
                 {
-                    //Get the highest order element in this child
-                    UIControl i = c.DetermineHighestOrder(pt);
+                    //Get the frontmost element in this child at the point
+                    UIControl i = c.DetermineFrontMostDescendant(pt);
 
-                    //If i contains the point and has a higher order than the current highest control,
-                    if(i != null && i.AbsoluteOrder > HighestOrder) 
+                    //If i contains the point
+                    if(i != null) 
                     {
-                        //make it the new highest control
+                        //make it the new highest control.
                         control = i;
-                        HighestOrder = i.AbsoluteOrder;
                     }
                 }
             }
