@@ -416,7 +416,123 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public void UpdateChildControlBounds()
         {
-            throw new NotImplementedException();
+            if (!(Children is null) && Children.Count > 0)
+            {
+                foreach (var c in Children)
+                {
+                    c.UpdateBounds();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Update bounds. Called when parent's bounds have changed.
+        /// </summary>
+        protected virtual void UpdateBounds()
+        {
+            if (Parent is null)
+            {
+                //If the parent is null then this is a root element. Update children only
+                this.UpdateChildControlBounds();
+                return;
+            }
+
+            //Otherwise, the parent has updated it bounds, and we update only this control's bounds.
+
+            OldBounds = Bounds;
+            OldScreenBounds = ScreenBounds;
+
+            //Width changed
+            if (Parent.Width != Parent.OldBounds.Width)
+            {
+                //If left anchored
+                if (Anchor.Left)
+                {
+                    //both left and right anchored
+                    if (Anchor.Right)
+                    {
+                        //Find former distance of right edge to parent's right edge, relative to the parents left edge
+                        int OldRightDistance = Parent.OldBounds.Width - this.Bounds.Right;
+
+                        //Find new width
+                        int NewWidth = Parent.Width - OldRightDistance - X;
+                        
+                        //Make sure control width >= 0
+                        _width = MathExt.Max(NewWidth, 0);
+                    }
+                    else // only left anchored
+                    {
+                        //Same width as before, X position is identical --> do nothing
+                    }
+                }
+                else
+                {
+                    //Not left anchored and right anchored
+                    if (Anchor.Right)
+                    {
+                        //Distance of top left from the right edge of the parent
+                        int OldTopLeftDistance = Parent.OldBounds.Width - X;
+
+                        //Update left position of control
+                        _x = Parent.Width - OldTopLeftDistance;
+                    }
+                    else
+                    {
+                        //Neither is anchored. Control should remain in place.
+                        //Width remains the same, X position changes to keep the control in the same place.
+                        _x += (Parent.OldBounds.X - Parent.Bounds.X);
+                    }
+                }
+            }
+            else
+            //Height changed
+            if (Parent.Height != Parent.OldBounds.Height)
+            {
+                //If top anchored
+                if (Anchor.Top)
+                {
+                    //both top and bottom anchored
+                    if (Anchor.Bottom)
+                    {
+                        //Find former distance of bottom edge to parent's bottom edge, relative to the parents top edge
+                        int OldBottomDistance = Parent.OldBounds.Height - this.Bounds.Bottom;
+
+                        //Find new width
+                        int NewHeight = Parent.Height - OldBottomDistance - X;
+
+                        //Make sure control height >= 0
+                        _height = MathExt.Max(NewHeight, 0);
+                    }
+                    else // only top anchored
+                    {
+                        //Same height as before, relative Y position is identical --> do nothing
+                    }
+                }
+                else
+                {
+                    //Not top anchored and bottom anchored
+                    if (Anchor.Bottom)
+                    {
+                        //Distance of top from the bottom edge of the parent
+                        int OldBottomDistance = Parent.OldBounds.Height - Y;
+
+                        //Update top position of control
+                        _y = Parent.Height - OldBottomDistance;
+                    }
+                    else
+                    {
+                        //Neither is anchored. Control should remain in place.
+                        //Height remains the same, Y position changes to keep the control in the same place.
+                        _y += (Parent.OldBounds.Y - Parent.Bounds.Y);
+                    }
+                }
+            }
+
+            //Update children's control bounds if size has have changed
+            if ((Width != OldBounds.Width) || (Height != OldBounds.Height)) {
+                this.UpdateChildControlBounds();
+            }
+
         }
     }
 }
