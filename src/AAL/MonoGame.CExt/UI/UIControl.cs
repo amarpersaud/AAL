@@ -21,7 +21,6 @@ namespace MonoGame.CExt.UI
         private int _width;
         #endregion subfields
 
-
         /// <summary>
         /// X position of top left corner
         /// </summary>
@@ -136,6 +135,11 @@ namespace MonoGame.CExt.UI
         /// Borders representing internal padding between the bounds of this control and its child controls
         /// </summary>
         public Borders Padding = Borders.Zero;
+
+        /// <summary>
+        /// Anchors for edges to parent control
+        /// </summary>
+        public Anchor Anchor;
 
         /// <summary>
         /// Rectangle representing bounds of the control relative to parent control
