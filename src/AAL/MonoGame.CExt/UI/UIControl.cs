@@ -14,25 +14,73 @@ namespace MonoGame.CExt.UI
 {
     public abstract class UIControl
     {
+        #region subfields
+        private int _x;
+        private int _y;
+        private int _height;
+        private int _width;
+        #endregion subfields
+
+
         /// <summary>
         /// X position of top left corner
         /// </summary>
-        public int X;
+        public int X
+        {
+            get { return _x; }
+            set
+            {
+                OldBounds = Bounds;
+                OldScreenBounds = ScreenBounds;
+                _x = value;
+                UpdateChildControlBounds();
+            }
+        }
 
         /// <summary>
         /// Y position of top left corner
         /// </summary>
-        public int Y;
+        public int Y
+        {
+            get { return _y; }
+            set
+            {
+                OldBounds = Bounds;
+                OldScreenBounds = ScreenBounds;
+                _y = value;
+                UpdateChildControlBounds();
+            }
+        }
 
         /// <summary>
         /// Height of control bounds
         /// </summary>
-        public int Height;
+        public int Height
+        {
+            get { return _height; }
+            set
+            {
+                OldBounds = Bounds;
+                OldScreenBounds = ScreenBounds;
+                _height = value;
+                UpdateChildControlBounds();
+            }
+        }
 
         /// <summary>
         /// Width of control bounds
         /// </summary>
-        public int Width;
+        public int Width
+        {
+            get { return _width; }
+            set
+            {
+                OldBounds = Bounds;
+                OldScreenBounds = ScreenBounds;
+                _width = value;
+                UpdateChildControlBounds();
+            }
+        }
 
         /// <summary>
         /// X position in screen coordinates
@@ -98,6 +146,16 @@ namespace MonoGame.CExt.UI
         /// Rectangle representing bounds of the control in screen coordinates
         /// </summary>
         public Rectangle ScreenBounds => new Rectangle(X, Y, Width, Height);
+
+        /// <summary>
+        /// Former relative bounds of UI control 
+        /// </summary>
+        public Rectangle OldBounds { get; private set; }
+        
+        /// <summary>
+        /// Former screen coordinate bounds of UI control
+        /// </summary>
+        public Rectangle OldScreenBounds { get; private set; }
 
 
         /// <summary>
@@ -347,6 +405,14 @@ namespace MonoGame.CExt.UI
             UIControl c = Children.ElementAtOrDefault(index);
             Children.RemoveAt(index);
             Children.Add(c);
+        }
+
+        /// <summary>
+        /// Updates child controls on position or size changes.
+        /// </summary>
+        public void UpdateChildControlBounds()
+        {
+            throw new NotImplementedException();
         }
     }
 }
