@@ -34,12 +34,45 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public int Width;
 
+        /// <summary>
+        /// X position in screen coordinates
+        /// </summary>
+        public int ScreenX
+        {
+            get
+            {
+                if(Parent is null)
+                {
+                    return X;
+                }
+                return Parent.ScreenX + X;
+            }
+        }
 
+        /// <summary>
+        /// Y position in screen coordinates
+        /// </summary>
+        public int ScreenY
+        {
+            get
+            {
+                if (Parent is null)
+                {
+                    return Y;
+                }
+                return Parent.ScreenY + X;
+            }
+        }
 
         /// <summary>
         /// Location of top left corner
         /// </summary>
         public Point Location => new Point(X, Y);
+
+        /// <summary>
+        /// Location of top left corner
+        /// </summary>
+        public Point ScreenLocation => new Point(ScreenX, ScreenY);
 
         /// <summary>
         /// Size with width and height of control
@@ -57,9 +90,15 @@ namespace MonoGame.CExt.UI
         public Borders Padding = Borders.Zero;
 
         /// <summary>
-        /// Rectangle representing bounds of the control
+        /// Rectangle representing bounds of the control relative to parent control
         /// </summary>
         public Rectangle Bounds => new Rectangle(X, Y, Width, Height);
+
+        /// <summary>
+        /// Rectangle representing bounds of the control in screen coordinates
+        /// </summary>
+        public Rectangle ScreenBounds => new Rectangle(X, Y, Width, Height);
+
 
         /// <summary>
         /// Inner rectangle with padding
@@ -67,9 +106,20 @@ namespace MonoGame.CExt.UI
         public Rectangle InnerRect => new Rectangle(X + Padding.Left, Y + Padding.Top, Width - Padding.Left - Padding.Right, Height - Padding.Bottom - Padding.Top);
 
         /// <summary>
+        /// Inner rectangle with padding in screen coordinates
+        /// </summary>
+        public Rectangle ScreenInnerRect => new Rectangle(ScreenX + Padding.Left, ScreenY + Padding.Top, Width - Padding.Left - Padding.Right, Height - Padding.Bottom - Padding.Top);
+
+
+        /// <summary>
         /// Outer rectangle including margin
         /// </summary>
         public Rectangle OuterRect => new Rectangle(X - Margin.Left, Y - Margin.Top, Width + Margin.Left + Margin.Right, Height + Margin.Top + Margin.Bottom);
+
+        /// <summary>
+        /// Outer rectangle including margin in screen coordinates
+        /// </summary>
+        public Rectangle ScreenOuterRect => new Rectangle(ScreenX - Margin.Left, ScreenY - Margin.Top, Width + Margin.Left + Margin.Right, Height + Margin.Top + Margin.Bottom);
 
 
         /// <summary>
@@ -143,21 +193,6 @@ namespace MonoGame.CExt.UI
         public Sprite HoverTexture;
 
         /// <summary>
-        /// Absolute draw order of the control
-        /// </summary>
-        public int AbsoluteOrder
-        {
-            get
-            {
-                if(Parent != null)
-                {
-                    return Parent.AbsoluteOrder + 1;
-                }
-                return 1;
-            }
-        }
-
-        /// <summary>
         /// Parent of this control.
         /// </summary>
         public UIControl Parent { get; set; }
@@ -166,11 +201,6 @@ namespace MonoGame.CExt.UI
         /// List of child UI Controls
         /// </summary>
         public List<UIControl> Children = new List<UIControl>();
-
-        /// <summary>
-        /// Detects all mouse presses even if this control is occluded by another
-        /// </summary>
-        public bool DetectAllMousePresses { get; set; } = false;
 
         /// <summary>
         /// Is root element in a tree
@@ -273,7 +303,7 @@ namespace MonoGame.CExt.UI
         public UIControl DetermineFrontMostDescendant(Point pt)
         {
             //if point is outside of the bounds, return null.
-            if (!Bounds.Contains(pt))
+            if (!ScreenBounds.Contains(pt))
             {
                 return null;
             }

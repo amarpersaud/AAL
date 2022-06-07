@@ -36,7 +36,6 @@ namespace MonoGame.CExt.UI
             this.Padding = Borders.Zero;
 
             this.Parent = null;
-            this.DetectAllMousePresses = true;
         }
 
         public void Update(GameTime gameTime, InputHelper ih, UIHandler uih = null)
