@@ -12,9 +12,19 @@ namespace MonoGame.CExt.UI
         public bool Top;
 
         /// <summary>
+        /// Distance of Top edge from parent's top edge.
+        /// </summary>
+        public int TopDistance;
+
+        /// <summary>
         /// If right is anchored
         /// </summary>
         public bool Right;
+
+        /// <summary>
+        /// Distance of Right edge from parent's top edge.
+        /// </summary>
+        public int RightDistance;
 
         /// <summary>
         /// If bottom side is anchored
@@ -22,9 +32,19 @@ namespace MonoGame.CExt.UI
         public bool Bottom;
 
         /// <summary>
+        /// Distance of Bottom edge from parent's top edge.
+        /// </summary>
+        public int BottomDistance;
+
+        /// <summary>
         /// If left side is anchored
         /// </summary>
         public bool Left;
+
+        /// <summary>
+        /// Distance of Left edge from parent's top edge.
+        /// </summary>
+        public int LeftDistance;
 
         /// <summary>
         /// Default UI control anchors. Top and left side are anchored.

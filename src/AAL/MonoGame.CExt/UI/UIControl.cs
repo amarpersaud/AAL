@@ -31,8 +31,24 @@ namespace MonoGame.CExt.UI
             {
                 OldBounds = Bounds;
                 OldScreenBounds = ScreenBounds;
+
+                //Update anchors
+                if (Parent != null)
+                {
+                    Anchor temp = this.Anchor;
+                    if (Anchor.Left)
+                    {
+                        Anchor.LeftDistance = value;
+                    }
+                    if (Anchor.Right)
+                    {
+                        Anchor.RightDistance = Parent.Width - value - Width;
+                    }
+                    this.Anchor = temp;
+                }
+
                 _x = value;
-                UpdateChildControlBounds();
+                UpdateBounds();
             }
         }
 
@@ -46,8 +62,24 @@ namespace MonoGame.CExt.UI
             {
                 OldBounds = Bounds;
                 OldScreenBounds = ScreenBounds;
+
+                //Update anchors
+                if (Parent != null)
+                {
+                    Anchor temp = this.Anchor;
+                    if (Anchor.Top)
+                    {
+                        temp.TopDistance = value;
+                    }
+                    if (Anchor.Bottom)
+                    {
+                        temp.BottomDistance = Parent.Height - value - Height;
+                    }
+                    this.Anchor = temp;
+                }
+
                 _y = value;
-                UpdateChildControlBounds();
+                UpdateBounds();
             }
         }
 
@@ -61,8 +93,9 @@ namespace MonoGame.CExt.UI
             {
                 OldBounds = Bounds;
                 OldScreenBounds = ScreenBounds;
+
                 _height = value;
-                UpdateChildControlBounds();
+                UpdateBounds();
             }
         }
 
@@ -77,7 +110,7 @@ namespace MonoGame.CExt.UI
                 OldBounds = Bounds;
                 OldScreenBounds = ScreenBounds;
                 _width = value;
-                UpdateChildControlBounds();
+                UpdateBounds();
             }
         }
 
@@ -139,7 +172,7 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// Anchors for edges to parent control
         /// </summary>
-        public Anchor Anchor;
+        public Anchor Anchor = Anchor.Default;
 
         /// <summary>
         /// Rectangle representing bounds of the control relative to parent control
@@ -438,7 +471,7 @@ namespace MonoGame.CExt.UI
             }
 
             //Otherwise, the parent has updated it bounds, and we update only this control's bounds.
-
+            //TODO: fix double-caching if self called after modifying position or size.
             OldBounds = Bounds;
             OldScreenBounds = ScreenBounds;
 
@@ -451,11 +484,8 @@ namespace MonoGame.CExt.UI
                     //both left and right anchored
                     if (Anchor.Right)
                     {
-                        //Find former distance of right edge to parent's right edge, relative to the parents left edge
-                        int OldRightDistance = Parent.OldBounds.Width - this.Bounds.Right;
-
                         //Find new width
-                        int NewWidth = Parent.Width - OldRightDistance - X;
+                        int NewWidth = Parent.Width - Anchor.RightDistance - Anchor.LeftDistance;
                         
                         //Make sure control width >= 0
                         _width = MathExt.Max(NewWidth, 0);
@@ -471,16 +501,28 @@ namespace MonoGame.CExt.UI
                     if (Anchor.Right)
                     {
                         //Distance of top left from the right edge of the parent
-                        int OldTopLeftDistance = Parent.OldBounds.Width - X;
+                        int OldLeftDistance = Parent.OldBounds.Width - Anchor.LeftDistance;
 
                         //Update left position of control
-                        _x = Parent.Width - OldTopLeftDistance;
+                        _x = Parent.Width - OldLeftDistance;
                     }
                     else
                     {
-                        //Neither is anchored. Control should remain in place.
-                        //Width remains the same, X position changes to keep the control in the same place.
-                        _x += (Parent.OldBounds.X - Parent.Bounds.X);
+                        //Neither is anchored. Control should move horizontally so it occupies same position scale wise
+
+                        //Find percentage of distance from left edge of parent
+                        double p = (Anchor.LeftDistance) / (Anchor.LeftDistance + Anchor.RightDistance + Width);
+                        
+                        //Find new x position
+                        _x = (int)(p * Parent.Width);
+
+                        //Update anchors
+                        Anchor newAnchor = this.Anchor;
+
+                        newAnchor.LeftDistance = _x;
+                        newAnchor.RightDistance = Parent.Width - Anchor.LeftDistance - Width;
+
+                        this.Anchor = newAnchor;
                     }
                 }
             }
@@ -494,11 +536,8 @@ namespace MonoGame.CExt.UI
                     //both top and bottom anchored
                     if (Anchor.Bottom)
                     {
-                        //Find former distance of bottom edge to parent's bottom edge, relative to the parents top edge
-                        int OldBottomDistance = Parent.OldBounds.Height - this.Bounds.Bottom;
-
-                        //Find new width
-                        int NewHeight = Parent.Height - OldBottomDistance - X;
+                        //Find new Height
+                        int NewHeight = Parent.Height - Anchor.BottomDistance - Anchor.TopDistance;
 
                         //Make sure control height >= 0
                         _height = MathExt.Max(NewHeight, 0);
@@ -513,17 +552,29 @@ namespace MonoGame.CExt.UI
                     //Not top anchored and bottom anchored
                     if (Anchor.Bottom)
                     {
-                        //Distance of top from the bottom edge of the parent
-                        int OldBottomDistance = Parent.OldBounds.Height - Y;
+                        //Distance of top left from the bottom edge of the parent
+                        int OldRightDistance = Parent.OldBounds.Height - Anchor.RightDistance;
 
-                        //Update top position of control
-                        _y = Parent.Height - OldBottomDistance;
+                        //Update left position of control
+                        _y = Parent.Height - OldRightDistance;
                     }
                     else
                     {
-                        //Neither is anchored. Control should remain in place.
-                        //Height remains the same, Y position changes to keep the control in the same place.
-                        _y += (Parent.OldBounds.Y - Parent.Bounds.Y);
+                        //Neither is anchored. Control should move vertically so it occupies same position scale wise
+
+                        //Find percentage of distance from bottom edge of parent
+                        double p = (Anchor.TopDistance) / (Anchor.TopDistance + Anchor.BottomDistance + Height);
+
+                        //Find new x position
+                        _y = (int)(p * Parent.Height);
+
+                        //Update anchors
+                        Anchor newAnchor = this.Anchor;
+
+                        newAnchor.TopDistance = _y;
+                        newAnchor.BottomDistance = Parent.Height - Anchor.TopDistance - Height;
+
+                        this.Anchor = newAnchor;
                     }
                 }
             }
