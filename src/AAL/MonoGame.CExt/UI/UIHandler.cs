@@ -5,6 +5,7 @@ using System.Text;
 using MonoGame.CExt.Extensions;
 using MonoGame.CExt.Input;
 using MonoGame.CExt.Sprites;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.CExt.UI
 {
@@ -51,6 +52,13 @@ namespace MonoGame.CExt.UI
                 c.Update(gameTime, deltaTime, ih, this);
             }
         }
-
+        public override void Draw(SpriteBatch sb)
+        {
+            //Draw child elements
+            foreach (UIControl c in Children)
+            {
+                c.Draw(sb);
+            }
+        }
     }
 }
