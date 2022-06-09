@@ -118,6 +118,10 @@ namespace MonoGame.CExt.UI
                         _height = value;
                     }
                 }
+                else
+                {
+                    _height = value;
+                }
 
                 UpdateChildControlBounds();
             }
@@ -155,6 +159,10 @@ namespace MonoGame.CExt.UI
                         //Regardless of right anchor, change width
                         _width = value;
                     }
+                }
+                else
+                {
+                    _width = value;
                 }
 
                 UpdateChildControlBounds();
