@@ -177,15 +177,15 @@ namespace MonoGame.CExt.UI
             get { return X; }
             set
             {
-                int tw = _width + _x - value;
+                int targetWidth = _width + _x - value;
 
-                if(tw < 0)
+                if(targetWidth < 0)
                 {
                     throw new Exception("Setting the left value of UI Control creates a negative width control");
                 }
 
                 //Change width to keep right side in same place
-                _width = tw;
+                _width = targetWidth;
 
                 //Update x position
                 _x = value;
@@ -314,7 +314,7 @@ namespace MonoGame.CExt.UI
                 {
                     return Y;
                 }
-                return Parent.ScreenY + X;
+                return Parent.ScreenY + Y;
             }
         }
 
@@ -356,7 +356,7 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// Rectangle representing bounds of the control in screen coordinates
         /// </summary>
-        public Rectangle ScreenBounds => new Rectangle(X, Y, Width, Height);
+        public Rectangle ScreenBounds => new Rectangle(ScreenX, ScreenY, Width, Height);
 
         /// <summary>
         /// Former relative bounds of UI control 
@@ -701,7 +701,6 @@ namespace MonoGame.CExt.UI
                     }
                 }
             }
-            else
             //Height changed
             if (Parent.Height != Parent.OldBounds.Height)
             {
@@ -759,6 +758,57 @@ namespace MonoGame.CExt.UI
                 this.UpdateChildControlBounds();
             }
 
+        }
+    
+        public void SetAnchor(Side side, int? Distance = null)
+        {
+            if (Parent != null) {
+                if (Distance == null)
+                {
+                    //Set to current distance.
+                    switch (side)
+                    {
+                        case Side.Left:
+                            Anchor.Left = true;
+                            Anchor.LeftDistance = X;
+                            break;
+                        case Side.Top:
+                            Anchor.Top = true;
+                            Anchor.TopDistance = Y;
+                            break;
+                        case Side.Right:
+                            Anchor.Right = true;
+                            Anchor.RightDistance = Parent.Width - Right;
+                            break;
+                        case Side.Bottom:
+                            Anchor.Bottom = true;
+                            Anchor.BottomDistance = Parent.Height - Bottom;
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (side)
+                    {
+                        case Side.Left:
+                            Anchor.Left = true;
+                            Anchor.LeftDistance = (int)Distance;
+                            break;
+                        case Side.Top:
+                            Anchor.Top = true;
+                            Anchor.TopDistance = (int)Distance;
+                            break;
+                        case Side.Right:
+                            Anchor.Right = true;
+                            Anchor.RightDistance = (int)Distance;
+                            break;
+                        case Side.Bottom:
+                            Anchor.Bottom = true;
+                            Anchor.BottomDistance = (int)Distance;
+                            break;
+                    }
+                }
+            }
         }
     }
 }
