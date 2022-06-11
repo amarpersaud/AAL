@@ -91,7 +91,6 @@ namespace MonoGame.CExt.UI
             {
                 if(Parent != null)
                 {
-                    Anchor temp = Anchor;
                     if (Anchor.Bottom)
                     {
                         if (Anchor.Top)
@@ -101,8 +100,8 @@ namespace MonoGame.CExt.UI
                         else
                         {
                             //Bottom anchored, top not anchored. Change y position and height
-                            _y += _height - value;
                             _height = value;
+                            _y = Parent.Height - value - Anchor.BottomDistance;
                         }
                     }
                     else
@@ -130,7 +129,6 @@ namespace MonoGame.CExt.UI
             {
                 if (Parent != null)
                 {
-                    Anchor temp = Anchor;
                     if (Anchor.Right)
                     {
                         if (Anchor.Left)
@@ -140,8 +138,8 @@ namespace MonoGame.CExt.UI
                         else
                         {
                             //right anchored, left not anchored. Change x position and width
-                            _x += _width - value;
                             _width = value;
+                            _x = Parent.Width - value - Anchor.RightDistance;
                         }
                     }
                     else
@@ -326,7 +324,7 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// Anchors for edges to parent control
         /// </summary>
-        public Anchor Anchor = Anchor.Default;
+        public Anchor Anchor = Anchor.None;
 
         /// <summary>
         /// Rectangle representing bounds of the control relative to parent control
@@ -477,6 +475,14 @@ namespace MonoGame.CExt.UI
 
         }
 
+        /// <summary>
+        /// Updates this control
+        /// </summary>
+        /// <param name="gameTime">Time elapsed</param>
+        /// <param name="timeScale">Time elapsed as a double</param>
+        /// <param name="ih">Input helper instance</param>
+        /// <param name="uih">Root UI handler</param>
+        /// <exception cref="ArgumentNullException">Thrown if no UI handler is supplied</exception>
         public virtual void Update(GameTime gameTime, double timeScale, InputHelper ih, UIHandler uih)
         {
             if (Enabled)
@@ -519,6 +525,11 @@ namespace MonoGame.CExt.UI
                 }
             }
         }
+        
+        /// <summary>
+        /// Draws this control to screen.
+        /// </summary>
+        /// <param name="sb">Sprite batch for drawing textures</param>
         public virtual void Draw(SpriteBatch sb)
         {
 
