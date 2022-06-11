@@ -21,6 +21,8 @@ namespace MonoGame.CExt.UI
         private int _width;
         #endregion subfields
 
+        #region Position
+
         /// <summary>
         /// X position of top left corner. Does not affect width of control
         /// </summary>
@@ -322,16 +324,6 @@ namespace MonoGame.CExt.UI
         public Point Size => new Point(Width, Height);
 
         /// <summary>
-        /// Borders representing directional margin between this control and neighboring controls
-        /// </summary>
-        public Borders Margin = Borders.Zero;
-
-        /// <summary>
-        /// Borders representing internal padding between the bounds of this control and its child controls
-        /// </summary>
-        public Borders Padding = Borders.Zero;
-
-        /// <summary>
         /// Anchors for edges to parent control
         /// </summary>
         public Anchor Anchor = Anchor.Default;
@@ -347,6 +339,18 @@ namespace MonoGame.CExt.UI
         public Rectangle ScreenBounds => new Rectangle(ScreenX, ScreenY, Width, Height);
 
         /// <summary>
+        /// Borders representing directional margin between this control and neighboring controls
+        /// </summary>
+        public Borders Margin = Borders.Zero;
+
+        /// <summary>
+        /// Borders representing internal padding between the bounds of this control and its child controls
+        /// </summary>
+        public Borders Padding = Borders.Zero;
+
+        #region Additional Regions
+
+        /// <summary>
         /// Inner rectangle with padding
         /// </summary>
         public Rectangle InnerRect => new Rectangle(X + Padding.Left, Y + Padding.Top, Width - Padding.Left - Padding.Right, Height - Padding.Bottom - Padding.Top);
@@ -355,7 +359,6 @@ namespace MonoGame.CExt.UI
         /// Inner rectangle with padding in screen coordinates
         /// </summary>
         public Rectangle ScreenInnerRect => new Rectangle(ScreenX + Padding.Left, ScreenY + Padding.Top, Width - Padding.Left - Padding.Right, Height - Padding.Bottom - Padding.Top);
-
 
         /// <summary>
         /// Outer rectangle including margin
@@ -367,6 +370,11 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public Rectangle ScreenOuterRect => new Rectangle(ScreenX - Margin.Left, ScreenY - Margin.Top, Width + Margin.Left + Margin.Right, Height + Margin.Top + Margin.Bottom);
 
+        #endregion Additional Regions
+
+        #endregion Position
+
+        #region Appearance
 
         /// <summary>
         /// Foreground Color
@@ -379,24 +387,13 @@ namespace MonoGame.CExt.UI
         public Color BackgroundColor = Color.Black;
 
         /// <summary>
-        /// If mouse is hovered over control but not pressed
+        /// Initial Texture for the control
         /// </summary>
-        public virtual bool Hover { get; set; }
+        public Sprite BackgroundTexture;
 
-        /// <summary>
-        /// If mouse is on control and control clicked
-        /// </summary>
-        public virtual bool Pressed { get; set; }
+        #endregion Appearance
 
-        /// <summary>
-        /// Value for input controls
-        /// </summary>
-        public object Value { get; set; }
-
-        /// <summary>
-        /// Location where click first began relative to top left corner
-        /// </summary>
-        public Point PressStart;
+        #region Events
 
         /// <summary>
         /// Event triggered if Mouse is pressed on the control
@@ -418,6 +415,15 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public event EventHandler<UIControlMouseEventArgs> MouseLeave;
 
+        #endregion Events
+
+        #region Status
+
+        /// <summary>
+        /// Location where click first began relative to top left corner
+        /// </summary>
+        public Point PressStart;
+
         /// <summary>
         /// If control is enabled
         /// </summary>
@@ -429,14 +435,26 @@ namespace MonoGame.CExt.UI
         public bool Visible { get; set; } = true;
 
         /// <summary>
-        /// Initial Texture for the control
+        /// If mouse is hovered over control but not pressed
         /// </summary>
-        public Sprite BaseTexture;
+        public virtual bool Hover { get; set; }
 
         /// <summary>
-        /// Texture to use when hovering over the control
+        /// If mouse is on control and control clicked
         /// </summary>
-        public Sprite HoverTexture;
+        public virtual bool Pressed { get; set; }
+
+        /// <summary>
+        /// Value for input controls
+        /// </summary>
+        public object Value { get; set; }
+
+        /// <summary>
+        /// Is root element in a tree
+        /// </summary>
+        public bool IsRoot => Parent == null;
+
+        #endregion Status
 
         /// <summary>
         /// Parent of this control.
@@ -448,10 +466,6 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public List<UIControl> Children = new List<UIControl>();
 
-        /// <summary>
-        /// Is root element in a tree
-        /// </summary>
-        public bool IsRoot => Parent == null; 
 
         public UIControl()
         {
@@ -505,6 +519,8 @@ namespace MonoGame.CExt.UI
 
         }
 
+        #region Event Caller Functions
+
         /// <summary>
         /// Trigger button press event
         /// </summary>
@@ -541,6 +557,7 @@ namespace MonoGame.CExt.UI
             MouseLeave?.Invoke(this, e);
         }
 
+        #endregion Event Caller Functions
 
         /// <summary>
         /// Returns Front-most Control which is visible at a given point. Sort order of the Children list affects draw and check order.
@@ -719,8 +736,14 @@ namespace MonoGame.CExt.UI
             //Update children's control bounds
             this.UpdateChildControlBounds();
         }
-    
-        public void SetAnchor(Side side, int? Distance = null)
+
+        /// <summary>
+        /// Anchors one side of the control to its parent
+        /// </summary>
+        /// <param name="side">Side to set anchor on</param>
+        /// <param name="Distance">Distance from edge to set anchor. null uses current distance from edge. </param>
+        /// <returns>True if anchor is set. False otherwise</returns>
+        public bool SetAnchor(Side side, int? Distance = null)
         {
             if (Parent != null) {
                 if (Distance == null)
@@ -768,7 +791,9 @@ namespace MonoGame.CExt.UI
                             break;
                     }
                 }
+                return true;
             }
+            return false;
         }
     }
 }
