@@ -29,9 +29,6 @@ namespace MonoGame.CExt.UI
             get { return _x; }
             set
             {
-                OldBounds = Bounds;
-                OldScreenBounds = ScreenBounds;
-
                 //Update anchors
                 if (Parent != null)
                 {
@@ -61,9 +58,6 @@ namespace MonoGame.CExt.UI
             get { return _y; }
             set
             {
-                OldBounds = Bounds;
-                OldScreenBounds = ScreenBounds;
-
                 //Update anchors
                 if (Parent != null)
                 {
@@ -93,9 +87,6 @@ namespace MonoGame.CExt.UI
             get { return _height; }
             set
             {
-                OldBounds = Bounds;
-                OldScreenBounds = ScreenBounds;
-
                 if(Parent != null)
                 {
                     Anchor temp = Anchor;
@@ -135,9 +126,6 @@ namespace MonoGame.CExt.UI
             get { return _width; }
             set
             {
-                OldBounds = Bounds;
-                OldScreenBounds = ScreenBounds;
-
                 if (Parent != null)
                 {
                     Anchor temp = Anchor;
@@ -357,17 +345,6 @@ namespace MonoGame.CExt.UI
         /// Rectangle representing bounds of the control in screen coordinates
         /// </summary>
         public Rectangle ScreenBounds => new Rectangle(ScreenX, ScreenY, Width, Height);
-
-        /// <summary>
-        /// Former relative bounds of UI control 
-        /// </summary>
-        public Rectangle OldBounds { get; private set; }
-        
-        /// <summary>
-        /// Former screen coordinate bounds of UI control
-        /// </summary>
-        public Rectangle OldScreenBounds { get; private set; }
-
 
         /// <summary>
         /// Inner rectangle with padding
@@ -647,9 +624,6 @@ namespace MonoGame.CExt.UI
             }
 
             //Otherwise, the parent has updated it bounds, and we update only this control's bounds.
-            OldBounds = Bounds;
-            OldScreenBounds = ScreenBounds;
-
 
             //If left anchored
             if (Anchor.Left)
@@ -673,15 +647,13 @@ namespace MonoGame.CExt.UI
                 //Not left anchored and right anchored
                 if (Anchor.Right)
                 {
-                    //Distance of top left from the right edge of the parent
-                    int OldLeftDistance = Parent.OldBounds.Width - Anchor.LeftDistance;
-
                     //Update left position of control
-                    _x = Parent.Width - OldLeftDistance;
+                    _x = Parent.Width - Anchor.RightDistance - this.Width;
                 }
                 else
                 {
                     //Neither is anchored. Control should move horizontally so it occupies same position scale wise
+                    // and maintain the same width.
 
                     //Find percentage of distance from left edge of parent
                     double p = (Anchor.LeftDistance) / (Anchor.LeftDistance + Anchor.RightDistance + Width);
@@ -721,11 +693,8 @@ namespace MonoGame.CExt.UI
                 //Not top anchored and bottom anchored
                 if (Anchor.Bottom)
                 {
-                    //Distance of top left from the bottom edge of the parent
-                    int OldRightDistance = Parent.OldBounds.Height - Anchor.RightDistance;
-
                     //Update left position of control
-                    _y = Parent.Height - OldRightDistance;
+                    _y = Parent.Height - Anchor.BottomDistance - this.Height;
                 }
                 else
                 {
@@ -747,11 +716,8 @@ namespace MonoGame.CExt.UI
                 }
             }
 
-            //Update children's control bounds if size has have changed
-            if ((Width != OldBounds.Width) || (Height != OldBounds.Height)) {
-                this.UpdateChildControlBounds();
-            }
-
+            //Update children's control bounds
+            this.UpdateChildControlBounds();
         }
     
         public void SetAnchor(Side side, int? Distance = null)
