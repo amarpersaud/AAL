@@ -391,6 +391,11 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public Sprite BackgroundTexture;
 
+        /// <summary>
+        /// Font of the control's text
+        /// </summary>
+        public SpriteFont Font;
+
         #endregion Appearance
 
         #region Events
