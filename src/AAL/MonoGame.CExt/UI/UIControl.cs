@@ -650,106 +650,100 @@ namespace MonoGame.CExt.UI
             OldBounds = Bounds;
             OldScreenBounds = ScreenBounds;
 
-            //Width changed
-            if (Parent.Width != Parent.OldBounds.Width)
+
+            //If left anchored
+            if (Anchor.Left)
             {
-                //If left anchored
-                if (Anchor.Left)
+                //both left and right anchored
+                if (Anchor.Right)
                 {
-                    //both left and right anchored
-                    if (Anchor.Right)
-                    {
-                        //Find new width
-                        int NewWidth = Parent.Width - Anchor.RightDistance - Anchor.LeftDistance;
+                    //Find new width
+                    int NewWidth = Parent.Width - Anchor.RightDistance - Anchor.LeftDistance;
                         
-                        //Make sure control width >= 0
-                        _width = MathExt.Max(NewWidth, 0);
-                    }
-                    else // only left anchored
-                    {
-                        //Same width as before, X position is identical --> do nothing
-                    }
+                    //Make sure control width >= 0
+                    _width = MathExt.Max(NewWidth, 0);
                 }
-                else
+                else // only left anchored
                 {
-                    //Not left anchored and right anchored
-                    if (Anchor.Right)
-                    {
-                        //Distance of top left from the right edge of the parent
-                        int OldLeftDistance = Parent.OldBounds.Width - Anchor.LeftDistance;
-
-                        //Update left position of control
-                        _x = Parent.Width - OldLeftDistance;
-                    }
-                    else
-                    {
-                        //Neither is anchored. Control should move horizontally so it occupies same position scale wise
-
-                        //Find percentage of distance from left edge of parent
-                        double p = (Anchor.LeftDistance) / (Anchor.LeftDistance + Anchor.RightDistance + Width);
-                        
-                        //Find new x position
-                        _x = (int)(p * Parent.Width);
-
-                        //Update anchors
-                        Anchor newAnchor = this.Anchor;
-
-                        newAnchor.LeftDistance = _x;
-                        newAnchor.RightDistance = Parent.Width - Anchor.LeftDistance - Width;
-
-                        this.Anchor = newAnchor;
-                    }
+                    //Same width as before, X position is identical --> do nothing
                 }
             }
-            //Height changed
-            if (Parent.Height != Parent.OldBounds.Height)
+            else
             {
-                //If top anchored
-                if (Anchor.Top)
+                //Not left anchored and right anchored
+                if (Anchor.Right)
                 {
-                    //both top and bottom anchored
-                    if (Anchor.Bottom)
-                    {
-                        //Find new Height
-                        int NewHeight = Parent.Height - Anchor.BottomDistance - Anchor.TopDistance;
+                    //Distance of top left from the right edge of the parent
+                    int OldLeftDistance = Parent.OldBounds.Width - Anchor.LeftDistance;
 
-                        //Make sure control height >= 0
-                        _height = MathExt.Max(NewHeight, 0);
-                    }
-                    else // only top anchored
-                    {
-                        //Same height as before, relative Y position is identical --> do nothing
-                    }
+                    //Update left position of control
+                    _x = Parent.Width - OldLeftDistance;
                 }
                 else
                 {
-                    //Not top anchored and bottom anchored
-                    if (Anchor.Bottom)
-                    {
-                        //Distance of top left from the bottom edge of the parent
-                        int OldRightDistance = Parent.OldBounds.Height - Anchor.RightDistance;
+                    //Neither is anchored. Control should move horizontally so it occupies same position scale wise
 
-                        //Update left position of control
-                        _y = Parent.Height - OldRightDistance;
-                    }
-                    else
-                    {
-                        //Neither is anchored. Control should move vertically so it occupies same position scale wise
+                    //Find percentage of distance from left edge of parent
+                    double p = (Anchor.LeftDistance) / (Anchor.LeftDistance + Anchor.RightDistance + Width);
+                        
+                    //Find new x position
+                    _x = (int)(p * Parent.Width);
 
-                        //Find percentage of distance from bottom edge of parent
-                        double p = (Anchor.TopDistance) / (Anchor.TopDistance + Anchor.BottomDistance + Height);
+                    //Update anchors
+                    Anchor newAnchor = this.Anchor;
 
-                        //Find new x position
-                        _y = (int)(p * Parent.Height);
+                    newAnchor.LeftDistance = _x;
+                    newAnchor.RightDistance = Parent.Width - Anchor.LeftDistance - Width;
 
-                        //Update anchors
-                        Anchor newAnchor = this.Anchor;
+                    this.Anchor = newAnchor;
+                }
+            }
+            
+            //If top anchored
+            if (Anchor.Top)
+            {
+                //both top and bottom anchored
+                if (Anchor.Bottom)
+                {
+                    //Find new Height
+                    int NewHeight = Parent.Height - Anchor.BottomDistance - Anchor.TopDistance;
 
-                        newAnchor.TopDistance = _y;
-                        newAnchor.BottomDistance = Parent.Height - Anchor.TopDistance - Height;
+                    //Make sure control height >= 0
+                    _height = MathExt.Max(NewHeight, 0);
+                }
+                else // only top anchored
+                {
+                    //Same height as before, relative Y position is identical --> do nothing
+                }
+            }
+            else
+            {
+                //Not top anchored and bottom anchored
+                if (Anchor.Bottom)
+                {
+                    //Distance of top left from the bottom edge of the parent
+                    int OldRightDistance = Parent.OldBounds.Height - Anchor.RightDistance;
 
-                        this.Anchor = newAnchor;
-                    }
+                    //Update left position of control
+                    _y = Parent.Height - OldRightDistance;
+                }
+                else
+                {
+                    //Neither is anchored. Control should move vertically so it occupies same position scale wise
+
+                    //Find percentage of distance from bottom edge of parent
+                    double p = (Anchor.TopDistance) / (Anchor.TopDistance + Anchor.BottomDistance + Height);
+
+                    //Find new x position
+                    _y = (int)(p * Parent.Height);
+
+                    //Update anchors
+                    Anchor newAnchor = this.Anchor;
+
+                    newAnchor.TopDistance = _y;
+                    newAnchor.BottomDistance = Parent.Height - Anchor.TopDistance - Height;
+
+                    this.Anchor = newAnchor;
                 }
             }
 
