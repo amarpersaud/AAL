@@ -628,15 +628,17 @@ namespace MonoGame.CExt.UI
                 //loop over each child and update its bounds
                 foreach (var c in Children)
                 {
-                    c.ParentBoundsChanged();
+                    c.Invalidate();
                 }
             }
         }
 
         /// <summary>
-        /// Updates this control's bounds. Called when parent's bounds have changed.
+        /// Updates this control's variables then updates all children
+        /// Called when bounds and internal variables need to be updated
+        /// such as when the parent's bounds have changed.
         /// </summary>
-        protected virtual void ParentBoundsChanged()
+        public void Invalidate()
         {
             if (Parent is null)
             {
@@ -646,7 +648,18 @@ namespace MonoGame.CExt.UI
             }
 
             //Otherwise, the parent has updated it bounds, and we update only this control's bounds.
+            this.OnInvalidate();
 
+            //Update children's control bounds
+            this.UpdateChildControlBounds();
+        }
+
+        /// <summary>
+        /// Updates internal variables. Occurs before children are updated when
+        /// control is invalidated.
+        /// </summary>
+        protected virtual void OnInvalidate()
+        {
             //If left anchored
             if (Anchor.Left)
             {
@@ -655,7 +668,7 @@ namespace MonoGame.CExt.UI
                 {
                     //Find new width
                     int NewWidth = Parent.Width - Anchor.RightDistance - Anchor.LeftDistance;
-                        
+
                     //Make sure control width >= 0
                     _width = MathExt.Max(NewWidth, 0);
                 }
@@ -679,7 +692,7 @@ namespace MonoGame.CExt.UI
 
                     //Find percentage of distance from left edge of parent
                     double p = (Anchor.LeftDistance) / (Anchor.LeftDistance + Anchor.RightDistance + Width);
-                        
+
                     //Find new x position
                     _x = (int)(p * Parent.Width);
 
@@ -692,7 +705,7 @@ namespace MonoGame.CExt.UI
                     this.Anchor = newAnchor;
                 }
             }
-            
+
             //If top anchored
             if (Anchor.Top)
             {
@@ -737,9 +750,6 @@ namespace MonoGame.CExt.UI
                     this.Anchor = newAnchor;
                 }
             }
-
-            //Update children's control bounds
-            this.UpdateChildControlBounds();
         }
 
         /// <summary>
