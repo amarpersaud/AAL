@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Sprites\NineSliceSprite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sprites\StackedSprite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Anchor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Side.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIControlEventArgs.cs" />
