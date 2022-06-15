@@ -30,6 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIControlEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UIOverflow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\Clipboard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utility\FrameCounter.cs" />
     <Compile Include="..\MonoGame.CExt\Sprites\Borders.cs" />

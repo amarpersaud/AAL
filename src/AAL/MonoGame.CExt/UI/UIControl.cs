@@ -438,6 +438,11 @@ namespace MonoGame.CExt.UI
         public bool Visible { get; set; } = true;
 
         /// <summary>
+        /// Overflow is visible by default
+        /// </summary>
+        public UIOverflow Overflow = UIOverflow.Visible;
+
+        /// <summary>
         /// If mouse is hovered over control but not pressed
         /// </summary>
         public virtual bool Hover { get; set; }
@@ -468,7 +473,6 @@ namespace MonoGame.CExt.UI
         /// List of child UI Controls
         /// </summary>
         public List<UIControl> Children = new List<UIControl>();
-
 
         public UIControl()
         {
