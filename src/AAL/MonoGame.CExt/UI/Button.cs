@@ -80,6 +80,16 @@ namespace MonoGame.CExt.UI
                     sb.Draw(this.PressedTexture.BaseTexture, this.ScreenBounds, PressedColor);
                 }
 
+
+                //Copy the current scissor rect so we can restore it after
+                Rectangle currentRect = sb.GraphicsDevice.ScissorRectangle;
+
+                if (Overflow == UIOverflow.Hidden)
+                {
+                    //Set the current scissor rectangle
+                    sb.GraphicsDevice.ScissorRectangle = this.ScreenInnerRect;
+                }
+
                 if (Text != null && Font != null)
                 {
                     sb.DrawString(Font, Text, TextPosition.ToVector2(), ForeColor);
@@ -93,6 +103,9 @@ namespace MonoGame.CExt.UI
                         c.Draw(sb);
                     }
                 }
+
+                //Restore scissor rectangle
+                sb.GraphicsDevice.ScissorRectangle = currentRect;
             }
         }
 
