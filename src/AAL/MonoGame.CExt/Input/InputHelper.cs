@@ -143,6 +143,10 @@ namespace MonoGame.CExt.Input
         /// The current position of the left stick. 
         /// Y is automatically reversed for you.
         /// </summary>
+        /// <param name="i">
+        /// Player index
+        /// </param>
+        /// <returns>Vector2 position of i'th player's left stick</returns>
         public Vector2 LeftStickPosition(int gamepad)
         {
             return new Vector2(
@@ -153,6 +157,10 @@ namespace MonoGame.CExt.Input
         /// The current position of the right stick.
         /// Y is automatically reversed for you.
         /// </summary>
+        /// <param name="i">
+        /// Player index
+        /// </param>
+        /// <returns>Vector2 position of i'th player's right stick</returns>
         public Vector2 RightStickPosition(int gamepad)
         {
             return new Vector2(
@@ -165,6 +173,10 @@ namespace MonoGame.CExt.Input
         /// expressed as: 
         /// current stick position - last stick position.
         /// </summary>
+        /// <param name="i">
+        /// Player index
+        /// </param>
+        /// <returns>Vector2 velocity of i'th player's left stick</returns>
         public Vector2 LeftStickVelocity(int i)
         {
             Vector2 temp =
@@ -178,6 +190,10 @@ namespace MonoGame.CExt.Input
         /// expressed as: 
         /// current stick position - last stick position.
         /// </summary>
+        /// <param name="i">
+        /// Player index
+        /// </param>
+        /// <returns>Vector2 velocity of i'th player's right stick</returns>
         public Vector2 RightStickVelocity(int i)
         {
 
@@ -190,6 +206,10 @@ namespace MonoGame.CExt.Input
         /// <summary>
         /// the current position of the left trigger.
         /// </summary>
+        /// <param name="i">
+        /// Player index
+        /// </param>
+        /// <returns>Position of i'th player's right trigger</returns>
         public float LeftTriggerPosition(int i)
         {
             return _currentGamepadState[i].Triggers.Left;
@@ -197,6 +217,10 @@ namespace MonoGame.CExt.Input
         /// <summary>
         /// the current position of the right trigger.
         /// </summary>
+        /// <param name="i">
+        /// Player index
+        /// </param>
+        /// <returns>Positing of i'th player's right trigger</returns>
         public float RightTriggerPosition(int i)
         {
             return _currentGamepadState[i].Triggers.Right;
@@ -206,6 +230,10 @@ namespace MonoGame.CExt.Input
         /// expressed as: 
         /// current trigger position - last trigger position.
         /// </summary>
+        /// <param name="i">
+        /// Player index
+        /// </param>
+        /// <returns>Velocity magnitude of i'th player's left trigger</returns>
         public float LeftTriggerVelocity(int i)
         {
             return
@@ -218,6 +246,10 @@ namespace MonoGame.CExt.Input
         /// expressed as: 
         /// current trigger position - last trigger position.
         /// </summary>
+        /// <param name="i">
+        /// Player index
+        /// </param>
+        /// <returns>Velocity magnitude of i'th player's right trigger</returns>
         public float RightTriggerVelocity(int i)
         {
 
@@ -300,6 +332,9 @@ namespace MonoGame.CExt.Input
         /// <param name="button">
         /// The button to check.
         /// </param>
+        /// <param name="i">
+        /// Player index
+        /// </param>
         /// <returns>
         /// a bool indicating whether the selected button is being 
         /// pressed in the current state but not the last state.
@@ -325,6 +360,9 @@ namespace MonoGame.CExt.Input
         /// <param name="button">
         /// the button to check.
         /// </param>
+        /// <param name="i">
+        /// Player index
+        /// </param>
         /// <returns>
         /// a bool indicating whether the selected button is being 
         /// pressed in the current state and in the last state.
@@ -349,6 +387,9 @@ namespace MonoGame.CExt.Input
         /// </summary>
         /// <param name="button">
         /// the button to check.
+        /// </param>
+        /// <param name="i">
+        /// Player index
         /// </param>
         /// <returns>
         /// a bool indicating whether the selected button is not being
