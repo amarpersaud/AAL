@@ -39,5 +39,13 @@ namespace AAL.Contracts
         /// </summary>
         public bool SecondPartySigned { get; set; } = false;
 
+        public Contract(string contractTitle, Party firstParty = null, Party secondParty = null)
+        {
+            ContractTitle = contractTitle;
+            Clauses = new List<ContractClause>();
+            FirstParty = firstParty;
+            SecondParty = secondParty;
+        }
+
     }
 }
