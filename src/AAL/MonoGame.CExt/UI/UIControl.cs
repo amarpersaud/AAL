@@ -385,9 +385,9 @@ namespace MonoGame.CExt.UI
         public Color BackgroundColor = Color.Black;
 
         /// <summary>
-        /// Initial Texture for the control
+        /// Initial Sprite for the control
         /// </summary>
-        public Sprite BackgroundTexture;
+        public Sprite BackgroundSprite;
 
         /// <summary>
         /// Font of the control's text

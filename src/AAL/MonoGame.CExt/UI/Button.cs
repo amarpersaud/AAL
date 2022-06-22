@@ -40,7 +40,7 @@ namespace MonoGame.CExt.UI
 
         public Button(Sprite BaseTexture, Sprite PressedTexture) : base()
         {
-            this.BackgroundTexture = BaseTexture;
+            this.BackgroundSprite = BaseTexture;
             this.PressedTexture = PressedTexture;
 
             PressedColor = Color.Green;
@@ -73,7 +73,7 @@ namespace MonoGame.CExt.UI
             {
                 if (Hover & !Pressed)
                 {
-                    sb.Draw(this.BackgroundTexture.BaseTexture, this.ScreenBounds, BackgroundColor);
+                    sb.Draw(this.BackgroundSprite.BaseTexture, this.ScreenBounds, BackgroundColor);
                 }
                 else
                 {
