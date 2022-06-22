@@ -14,7 +14,12 @@
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
     <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+    <None Include="$(MSBuildThisFileDirectory)Extensions\README.md" />
+    <None Include="$(MSBuildThisFileDirectory)Input\README.md" />
+    <None Include="$(MSBuildThisFileDirectory)README.md" />
+    <None Include="$(MSBuildThisFileDirectory)Sprites\README.md" />
     <None Include="$(MSBuildThisFileDirectory)UI\README.md" />
+    <None Include="$(MSBuildThisFileDirectory)Utility\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\MathExt.cs" />
