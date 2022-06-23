@@ -15,6 +15,11 @@ namespace MonoGame.CExt.UI
     public class UIHandler : UIControl
     {
         /// <summary>
+        /// Rectangle representing the entire screesn.
+        /// </summary>
+        public Rectangle ScreenRect;
+
+        /// <summary>
         /// Current selected control
         /// </summary>
         public UIControl SelectedControl { get; private set; }
@@ -27,16 +32,19 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// Create a UI Handler
         /// </summary>
-        public UIHandler(Rectangle Screen) : base() {
+        public UIHandler(Rectangle ScreenRect) : base() {
             //Initialize Dimensions
-            this.X = Screen.X;
-            this.Y = Screen.Y;
-            this.Width = Screen.Width;
-            this.Height = Screen.Height;
+            this.X = ScreenRect.X;
+            this.Y = ScreenRect.Y;
+            this.Width = ScreenRect.Width;
+            this.Height = ScreenRect.Height;
             this.Margin = Borders.Zero;
             this.Padding = Borders.Zero;
 
             this.Parent = null;
+
+            this.ScreenRect = ScreenRect;
+
         }
 
         public void Update(GameTime gameTime, InputHelper ih, UIHandler uih = null)
