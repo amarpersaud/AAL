@@ -10,8 +10,9 @@ using MonoGame.CExt.Sprites;
 using MonoGame.CExt.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using AAL.Contracts;
 
-namespace AAL.Contracts
+namespace AAL.UI
 {
     /// <summary>
     /// A UI Control for physically displaying the contract on screen
@@ -21,7 +22,7 @@ namespace AAL.Contracts
         /// <summary>
         /// Contract object that holds contract information
         /// </summary>
-        public Contract BaseContract; 
+        public Contract BaseContract;
 
         public UIContract() : base()
         {
@@ -40,7 +41,7 @@ namespace AAL.Contracts
             if (Visible)
             {
                 //Draw panel background
-                sb.Draw(this.BackgroundSprite.BaseTexture, this.ScreenBounds, this.BackgroundColor);
+                sb.Draw(BackgroundSprite.BaseTexture, ScreenBounds, BackgroundColor);
 
 
                 //Copy the current scissor rect so we can restore it after
@@ -49,7 +50,7 @@ namespace AAL.Contracts
                 if (Overflow == UIOverflow.Hidden)
                 {
                     //Set the current scissor rectangle
-                    sb.GraphicsDevice.ScissorRectangle = this.ScreenInnerRect;
+                    sb.GraphicsDevice.ScissorRectangle = ScreenInnerRect;
                 }
 
                 //Draw title
