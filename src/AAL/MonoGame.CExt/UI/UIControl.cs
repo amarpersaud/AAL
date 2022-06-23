@@ -418,6 +418,11 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public event EventHandler<UIControlMouseEventArgs> MouseLeave;
 
+        /// <summary>
+        /// Event triggered if control is invalidated
+        /// </summary>
+        public event EventHandler<UIControlPaintEventArgs> Invalidated;
+
         #endregion Events
 
         #region Status
@@ -577,7 +582,14 @@ namespace MonoGame.CExt.UI
             MouseLeave?.Invoke(this, e);
         }
 
+        private void OnInvalidate(UIControlPaintEventArgs e)
+        {
+            Invalidated?.Invoke(this, e);
+        }
+
         #endregion Event Caller Functions
+
+        #region Descendant
 
         /// <summary>
         /// Returns Front-most Control which is visible at a given point. Sort order of the Children list affects draw and check order.
@@ -648,6 +660,10 @@ namespace MonoGame.CExt.UI
             }
         }
 
+        #endregion Descendant
+
+        #region Paint
+
         /// <summary>
         /// Updates this control's variables then updates all children
         /// Called when bounds and internal variables need to be updated
@@ -663,7 +679,7 @@ namespace MonoGame.CExt.UI
             }
 
             //Otherwise, the parent has updated it bounds, and we update only this control's bounds.
-            this.OnInvalidate();
+            this.ControlInvalidated();
 
             //Update children's control bounds
             this.UpdateChildControlBounds();
@@ -673,7 +689,7 @@ namespace MonoGame.CExt.UI
         /// Updates internal variables. Occurs before children are updated when
         /// control is invalidated.
         /// </summary>
-        protected virtual void OnInvalidate()
+        protected virtual void ControlInvalidated()
         {
             //If left anchored
             if (Anchor.Left)
@@ -765,7 +781,11 @@ namespace MonoGame.CExt.UI
                     this.Anchor = newAnchor;
                 }
             }
+
+            OnInvalidate(new UIControlPaintEventArgs(this));
         }
+
+        #endregion Paint
 
         /// <summary>
         /// Anchors one side of the control to its parent

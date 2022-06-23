@@ -20,4 +20,12 @@ namespace MonoGame.CExt.UI
             this.Sender = sender;
         }
     }
+    public class UIControlPaintEventArgs : EventArgs
+    {
+        public UIControl Sender { get; set; }
+        public UIControlPaintEventArgs(UIControl sender)
+        {
+            this.Sender = sender;
+        }
+    }
 }
