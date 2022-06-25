@@ -23,12 +23,13 @@ namespace AAL
         public Sprite whiteRect;
 
         public UIHandler uih;
-        
+
         private RasterizerState _rasterizerState = new RasterizerState() { ScissorTestEnable = true, MultiSampleAntiAlias = false };
 
         Button uic;
         Button uic2;
         UIContract uicontract;
+        public Panel uip;
 
         public Game1()
         {
@@ -101,7 +102,7 @@ namespace AAL
 
 
 
-            Panel uip = new Panel();
+            uip = new Panel();
             uip.BackgroundSprite = whiteRect;
             uip.BackgroundColor = Color.Blue;
 
@@ -113,21 +114,24 @@ namespace AAL
             uip.Font = spf;
             uip.Overflow = UIOverflow.Scroll;
 
-            uip.Padding = new Borders { Top = 20, Bottom = 20 };
+            uip.Padding = new Borders { Top = 20, Bottom = 20, Left = 10, Right = 10 };
 
             for (int i = 0; i < 30; i++)
             {
                 Button aa1 = new Button(whiteRect, whiteRect);
                 aa1.BackgroundColor = Color.White;
                 aa1.PressedColor = Color.Red;
-                aa1.X = 10;
-                aa1.Y = 10 + (30 * i);
+                aa1.X = 0;
+                aa1.Y = 0 + (30 * i);
                 aa1.Height = 20;
                 aa1.Width = 280;
                 aa1.Parent = uip;
                 aa1.Font = spf;
                 aa1.Text = String.Format("aa{0}", i+1);
                 uip.Children.Add(aa1);
+                aa1.SetAnchor(Side.Left, 0);
+                aa1.SetAnchor(Side.Right, 0);
+                aa1.ClearAnchor(Side.Top);
             }
             uih.Children.Add(uip);
             uih.BringChildToFront(uih.Children.IndexOf(uip));
@@ -143,6 +147,14 @@ namespace AAL
             
             uih.Update(gameTime, ih);
 
+            if (ih.IsCurPress(Keys.Up))
+            {
+                uip.Width += 3;
+            }
+            if (ih.IsCurPress(Keys.Down))
+            {
+                uip.Width -= 3;
+            }
 
             base.Update(gameTime);
         }
