@@ -275,7 +275,22 @@ namespace MonoGame.CExt.UI
                 UpdateChildControlBounds();
             }
         }
-       
+
+        /// <summary>
+        /// X Offset for children. Applied to screen coordinates.
+        /// </summary>
+        public int ChildOffsetX;
+
+        /// <summary>
+        /// Y Offset for children. Applied to screen coordinates.
+        /// </summary>
+        public int ChildOffsetY;
+
+        /// <summary>
+        /// Offset of child controls. Used for scrolling. Applied to screen coordinates.
+        /// </summary>
+        public Point ChildOffset => new Point(ChildOffsetX, ChildOffsetY);
+
         /// <summary>
         /// X position in screen coordinates
         /// </summary>
@@ -287,7 +302,7 @@ namespace MonoGame.CExt.UI
                 {
                     return X;
                 }
-                return Parent.ScreenX + X;
+                return Parent.ScreenX + X + Parent.ChildOffsetX;
             }
         }
 
@@ -302,7 +317,7 @@ namespace MonoGame.CExt.UI
                 {
                     return Y;
                 }
-                return Parent.ScreenY + Y;
+                return Parent.ScreenY + Y + Parent.ChildOffsetY;
             }
         }
 
