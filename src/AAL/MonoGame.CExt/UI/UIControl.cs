@@ -41,7 +41,7 @@ namespace MonoGame.CExt.UI
                     }
                     if (Anchor.Right)
                     {
-                        Anchor.RightDistance = Parent.Width - value - Width;
+                        Anchor.RightDistance = Parent.InnerRect.Width - value - Width;
                     }
                     this.Anchor = temp;
                 }
@@ -70,7 +70,7 @@ namespace MonoGame.CExt.UI
                     }
                     if (Anchor.Bottom)
                     {
-                        temp.BottomDistance = Parent.Height - value - Height;
+                        temp.BottomDistance = Parent.InnerRect.Height - value - Height;
                     }
                     this.Anchor = temp;
                 }
@@ -302,7 +302,7 @@ namespace MonoGame.CExt.UI
                 {
                     return X;
                 }
-                return Parent.ScreenX + X + Parent.ChildOffsetX;
+                return Parent.ScreenX + X + Parent.ChildOffsetX + Parent.Padding.Left;
             }
         }
 
@@ -317,7 +317,7 @@ namespace MonoGame.CExt.UI
                 {
                     return Y;
                 }
-                return Parent.ScreenY + Y + Parent.ChildOffsetY;
+                return Parent.ScreenY + Y + Parent.ChildOffsetY + Parent.Padding.Top;
             }
         }
 
@@ -718,7 +718,7 @@ namespace MonoGame.CExt.UI
                 if (Anchor.Right)
                 {
                     //Find new width
-                    int NewWidth = Parent.Width - Anchor.RightDistance - Anchor.LeftDistance;
+                    int NewWidth = Parent.InnerRect.Width - Anchor.RightDistance - Anchor.LeftDistance;
 
                     //Make sure control width >= 0
                     _width = MathExt.Max(NewWidth, 0);
@@ -734,7 +734,7 @@ namespace MonoGame.CExt.UI
                 if (Anchor.Right)
                 {
                     //Update left position of control
-                    _x = Parent.Width - Anchor.RightDistance - this.Width;
+                    _x = Parent.InnerRect.Width - Anchor.RightDistance - this.Width;
                 }
                 else
                 {
@@ -745,13 +745,13 @@ namespace MonoGame.CExt.UI
                     double p = (Anchor.LeftDistance) / (Anchor.LeftDistance + Anchor.RightDistance + Width);
 
                     //Find new x position
-                    _x = (int)(p * Parent.Width);
+                    _x = (int)(p * Parent.InnerRect.Width);
 
                     //Update anchors
                     Anchor newAnchor = this.Anchor;
 
                     newAnchor.LeftDistance = _x;
-                    newAnchor.RightDistance = Parent.Width - Anchor.LeftDistance - Width;
+                    newAnchor.RightDistance = Parent.InnerRect.Width - Anchor.LeftDistance - Width;
 
                     this.Anchor = newAnchor;
                 }
@@ -764,7 +764,7 @@ namespace MonoGame.CExt.UI
                 if (Anchor.Bottom)
                 {
                     //Find new Height
-                    int NewHeight = Parent.Height - Anchor.BottomDistance - Anchor.TopDistance;
+                    int NewHeight = Parent.InnerRect.Height - Anchor.BottomDistance - Anchor.TopDistance;
 
                     //Make sure control height >= 0
                     _height = MathExt.Max(NewHeight, 0);
@@ -780,7 +780,7 @@ namespace MonoGame.CExt.UI
                 if (Anchor.Bottom)
                 {
                     //Update left position of control
-                    _y = Parent.Height - Anchor.BottomDistance - this.Height;
+                    _y = Parent.InnerRect.Height - Anchor.BottomDistance - this.Height;
                 }
                 else
                 {
@@ -790,13 +790,13 @@ namespace MonoGame.CExt.UI
                     double p = (Anchor.TopDistance) / (Anchor.TopDistance + Anchor.BottomDistance + Height);
 
                     //Find new x position
-                    _y = (int)(p * Parent.Height);
+                    _y = (int)(p * Parent.InnerRect.Height);
 
                     //Update anchors
                     Anchor newAnchor = this.Anchor;
 
                     newAnchor.TopDistance = _y;
-                    newAnchor.BottomDistance = Parent.Height - Anchor.TopDistance - Height;
+                    newAnchor.BottomDistance = Parent.InnerRect.Height - Anchor.TopDistance - Height;
 
                     this.Anchor = newAnchor;
                 }
@@ -831,11 +831,11 @@ namespace MonoGame.CExt.UI
                             break;
                         case Side.Right:
                             Anchor.Right = true;
-                            Anchor.RightDistance = Parent.Width - Right;
+                            Anchor.RightDistance = Parent.InnerRect.Width - Right;
                             break;
                         case Side.Bottom:
                             Anchor.Bottom = true;
-                            Anchor.BottomDistance = Parent.Height - Bottom;
+                            Anchor.BottomDistance = Parent.InnerRect.Height - Bottom;
                             break;
                     }
                 }
@@ -864,6 +864,25 @@ namespace MonoGame.CExt.UI
                 return true;
             }
             return false;
+        }
+        public void ClearAnchor(Side side)
+        {
+            switch (side)
+            {
+                case Side.Left:
+                    Anchor.Left = false;
+                    break;
+                case Side.Right:
+                    Anchor.Right = false;
+                    break;
+                case Side.Top:
+                    Anchor.Top = false;
+                    break;
+                case Side.Bottom:
+                    Anchor.Bottom = false;
+                    break;
+
+            }
         }
     }
 }
