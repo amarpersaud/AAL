@@ -20,9 +20,14 @@ namespace MonoGame.CExt.UI
         public Rectangle ScreenRect;
 
         /// <summary>
+        /// Selected control
+        /// </summary>
+        private UIControl _selectedControl;
+
+        /// <summary>
         /// Current selected control
         /// </summary>
-        public UIControl SelectedControl { get; private set; }
+        public UIControl SelectedControl { get; set; }
 
         /// <summary>
         /// Current Control that the mouse is on top of.
@@ -54,8 +59,11 @@ namespace MonoGame.CExt.UI
 
             double deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
 
+            //Update this as a control in case it has been clicked.
+            base.Update(gameTime, deltaTime, ih, this);
+
             //Update child elements
-            foreach(UIControl c in Children)
+            foreach (UIControl c in Children)
             {
                 c.Update(gameTime, deltaTime, ih, this);
             }
