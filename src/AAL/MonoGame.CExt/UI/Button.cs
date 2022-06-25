@@ -84,7 +84,7 @@ namespace MonoGame.CExt.UI
                 //Copy the current scissor rect so we can restore it after
                 Rectangle currentRect = sb.GraphicsDevice.ScissorRectangle;
 
-                if (Overflow == UIOverflow.Hidden)
+                if (Overflow != UIOverflow.Visible)
                 {
                     //Set the current scissor rectangle
                     sb.GraphicsDevice.ScissorRectangle = this.ScreenInnerRect;
