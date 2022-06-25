@@ -742,18 +742,18 @@ namespace MonoGame.CExt.UI
                     // and maintain the same width.
 
                     //Find percentage of distance from left edge of parent
-                    double p = (Anchor.LeftDistance) / (Anchor.LeftDistance + Anchor.RightDistance + Width);
+                    //double p = (Anchor.LeftDistance) / (Anchor.LeftDistance + Anchor.RightDistance + Width);
 
                     //Find new x position
-                    _x = (int)(p * Parent.InnerRect.Width);
+                    //_x = (int)(p * Parent.InnerRect.Width);
 
                     //Update anchors
-                    Anchor newAnchor = this.Anchor;
+                    //Anchor newAnchor = this.Anchor;
 
-                    newAnchor.LeftDistance = _x;
-                    newAnchor.RightDistance = Parent.InnerRect.Width - Anchor.LeftDistance - Width;
+                    //newAnchor.LeftDistance = _x;
+                    //newAnchor.RightDistance = Parent.InnerRect.Width - Anchor.LeftDistance - Width;
 
-                    this.Anchor = newAnchor;
+                    //this.Anchor = newAnchor;
                 }
             }
 
@@ -787,18 +787,18 @@ namespace MonoGame.CExt.UI
                     //Neither is anchored. Control should move vertically so it occupies same position scale wise
 
                     //Find percentage of distance from bottom edge of parent
-                    double p = (Anchor.TopDistance) / (Anchor.TopDistance + Anchor.BottomDistance + Height);
+                    //double p = (Anchor.TopDistance) / (Anchor.TopDistance + Anchor.BottomDistance + Height);
 
-                    //Find new x position
-                    _y = (int)(p * Parent.InnerRect.Height);
+                    //Find new y position
+                    //_y = (int)(p * Parent.InnerRect.Height);
 
                     //Update anchors
-                    Anchor newAnchor = this.Anchor;
+                    //Anchor newAnchor = this.Anchor;
 
-                    newAnchor.TopDistance = _y;
-                    newAnchor.BottomDistance = Parent.InnerRect.Height - Anchor.TopDistance - Height;
+                    //newAnchor.TopDistance = _y;
+                    //newAnchor.BottomDistance = Parent.InnerRect.Height - Anchor.TopDistance - Height;
 
-                    this.Anchor = newAnchor;
+                    //this.Anchor = newAnchor;
                 }
             }
 
