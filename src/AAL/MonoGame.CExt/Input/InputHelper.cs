@@ -284,7 +284,7 @@ namespace MonoGame.CExt.Input
         /// the current mouse scroll wheel position.
         /// See the Mouse's ScrollWheel property for details.
         /// </summary>
-        public float MouseScrollWheelPosition
+        public float MouseScrollWheelPositionY
         {
             get
             {
@@ -297,13 +297,38 @@ namespace MonoGame.CExt.Input
         /// current scroll wheel position - 
         /// the last scroll wheel position.
         /// </summary>
-        public float MouseScrollWheelVelocity
+        public float MouseScrollWheelVelocityY
         {
             get
             {
                 return (_currentMouseState.ScrollWheelValue - _lastMouseState.ScrollWheelValue);
             }
         }
+        /// <summary>
+        /// the current horizontal mouse scroll wheel position.
+        /// See the Mouse's HorizontalScrollWheel property for details.
+        /// </summary>
+        public float MouseScrollWheelPositionX
+        {
+            get
+            {
+                return _currentMouseState.HorizontalScrollWheelValue;
+            }
+        }
+        /// <summary>
+        /// the horizontal mouse scroll wheel velocity.
+        /// Expressed as:
+        /// current horizontal scroll wheel position - 
+        /// the last horizontal scroll wheel position.
+        /// </summary>
+        public float MouseScrollWheelVelocityX
+        {
+            get
+            {
+                return (_currentMouseState.HorizontalScrollWheelValue - _lastMouseState.HorizontalScrollWheelValue);
+            }
+        }
+
 #endif
         /// <summary>
         /// Used for debug purposes.
