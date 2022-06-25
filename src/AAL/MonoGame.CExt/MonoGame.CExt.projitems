@@ -32,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Sprites\StackedSprite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Anchor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\CoordinateHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Label.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Panel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Side.cs" />
