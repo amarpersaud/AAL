@@ -634,14 +634,18 @@ namespace MonoGame.CExt.UI
                 //forward in both drawing and checking and therefore overwrites the frontmost control.
                 foreach (UIControl c in Children)
                 {
-                    //Get the frontmost element in this child at the point
-                    UIControl i = c.DetermineFrontMostDescendant(pt);
-
-                    //If i contains the point
-                    if (i != null)
+                    //If control is visible regardless of enabled status
+                    if (c.Visible)
                     {
-                        //make it the new highest control.
-                        control = i;
+                        //Get the frontmost element in this child at the point
+                        UIControl i = c.DetermineFrontMostDescendant(pt);
+
+                        //If i contains the point
+                        if (i != null)
+                        {
+                            //make it the new highest control.
+                            control = i;
+                        }
                     }
                 }
             }
