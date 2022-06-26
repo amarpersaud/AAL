@@ -47,5 +47,17 @@ namespace AAL.Contracts
             SecondParty = secondParty;
         }
 
+        public string GetFullText()
+        {
+            string s = "";
+
+            foreach(ContractClause cc in Clauses)
+            {
+                s += String.Format("{0}\n\n", cc.ClauseText);
+            }
+
+            return s;
+        }
+
     }
 }

@@ -19,6 +19,14 @@ namespace MonoGame.CExt.UI
                 if (_text != null)
                 {
                     TextDimensions = this.Font.MeasureString(Text);
+                    Width = (int)TextDimensions.X;
+                    Height = (int)TextDimensions.Y;
+                    if (Centered)
+                    {
+                        Point pos = (this.ScreenLocation.ToVector2() + (this.Size.ToVector2() / 2.0f) - (TextDimensions / 2.0f)).ToPoint();
+                        X = pos.X;
+                        Y = pos.Y;
+                    }
                 }
             }
         }

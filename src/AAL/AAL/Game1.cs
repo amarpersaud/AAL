@@ -50,7 +50,7 @@ namespace AAL
             whiteRect = new Sprite(wr);
 
 
-            duih = new DeskUIHandler(new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), whiteRect, whiteRect, whiteRect, whiteRect, spf);
+            duih = new DeskUIHandler(new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), whiteRect, spf);
         }
 
         protected override void Update(GameTime gameTime)

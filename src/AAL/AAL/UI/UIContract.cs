@@ -17,15 +17,72 @@ namespace AAL.UI
     /// <summary>
     /// A UI Control for physically displaying the contract on screen
     /// </summary>
-    public class UIContract : UIControl
+    public class UIContract : Panel
     {
+        public Label titleLabel;
+        public Label contentLabel;
+        public Button CloseButton;
+
+        private Contract _contract;
+
         /// <summary>
         /// Contract object that holds contract information
         /// </summary>
-        public Contract Contract;
-
-        public UIContract() : base()
+        public Contract Contract
         {
+            get { return _contract; }
+            set
+            {
+                _contract = value;
+                if (_contract != null)
+                {
+                    if(_contract.ContractTitle != null)
+                    {
+                        titleLabel.Text = _contract.ContractTitle;
+                    }
+                    contentLabel.Text = _contract.GetFullText();
+                }
+            }
+        }
+
+        public UIContract(int Width, int Height, SpriteFont spf, Sprite whiteRect) : base()
+        {
+            this.Width = Width;
+            this.Height = Height;
+            this.BackgroundSprite = whiteRect;
+            Initialize(spf, whiteRect);
+        }
+
+        public void Initialize(SpriteFont spf, Sprite whiteRect)
+        {
+            this.Overflow = UIOverflow.Auto;
+            this.Padding = new Borders { Top = 15, Bottom = 15, Left = 10, Right = 10 };            
+            
+            CoordinateHelper ch = new CoordinateHelper(this.Width, this.Height);
+            titleLabel = new Label();
+            titleLabel.Y = 10;
+            titleLabel.X = ch.atoiX(0.5);
+            titleLabel.Centered = true;
+            titleLabel.Font = spf;
+            titleLabel.ForeColor = Color.Black;
+            AddControl(titleLabel);
+
+            contentLabel = new Label();
+            contentLabel.X = 0;
+            contentLabel.Y = 30;
+            contentLabel.Font = spf;
+            contentLabel.Centered = false;
+            contentLabel.ForeColor = Color.Black;
+            AddControl(contentLabel);
+
+            CloseButton = new Button(whiteRect, whiteRect, spf);
+            CloseButton.Width = 20;
+            CloseButton.Height = 20;
+            CloseButton.X = this.InnerRect.Width - 20;
+            CloseButton.Y = 0;
+            CloseButton.BackgroundColor = Color.Red;
+            CloseButton.PressedColor = Color.Pink;
+            AddControl(CloseButton);
 
         }
 
@@ -37,45 +94,6 @@ namespace AAL.UI
         public override void Draw(SpriteBatch sb)
         {
             base.Draw(sb);
-
-            if (Visible)
-            {
-                //Draw panel background
-                sb.Draw(BackgroundSprite.BaseTexture, ScreenBounds, BackgroundColor);
-
-
-                //Copy the current scissor rect so we can restore it after
-                Rectangle currentRect = sb.GraphicsDevice.ScissorRectangle;
-
-                if (Overflow == UIOverflow.Hidden)
-                {
-                    //Set the current scissor rectangle
-                    sb.GraphicsDevice.ScissorRectangle = ScreenInnerRect;
-                }
-
-                //Draw title
-                //Draw text
-
-                /*
-                if (Text != null && Font != null)
-                {
-                    sb.DrawString(Font, Text, TextPosition.ToVector2(), ForeColor);
-                }
-                */
-
-
-                //Children should be null, but draw them if there are
-                if (Children != null)
-                {
-                    foreach (var c in Children)
-                    {
-                        c.Draw(sb);
-                    }
-                }
-
-                //Restore scissor rectangle
-                sb.GraphicsDevice.ScissorRectangle = currentRect;
-            }
         }
     }
 }
