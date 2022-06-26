@@ -22,14 +22,9 @@ namespace AAL
 
         public Sprite whiteRect;
 
-        public UIHandler uih;
-
         private RasterizerState _rasterizerState = new RasterizerState() { ScissorTestEnable = true, MultiSampleAntiAlias = false };
 
-        Button uic;
-        Button uic2;
-        UIContract uicontract;
-        public Panel uip;
+        public DeskUIHandler duih;
 
         public Game1()
         {
@@ -55,86 +50,7 @@ namespace AAL
             whiteRect = new Sprite(wr);
 
 
-            uih = new UIHandler(new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight));
-
-            uic = new Button(whiteRect, whiteRect);
-            uic.Font = spf;
-
-            uih.Children.Add(uic);
-
-            uic.Parent = uih;
-
-            uic.X = 50;
-            uic.Y = 10;
-            uic.Width = 80;
-            uic.Height = 120;
-
-            uic.Text = "Inbox";
-
-            uic2 = new Button(whiteRect, whiteRect);
-            uic2.Font = spf;
-
-            uih.Children.Add(uic2);
-
-            uic2.Parent = uih;
-
-            uic2.X = 660;
-            uic2.Y = 10;
-            uic2.Width = 80;
-            uic2.Height = 120;
-            uic2.BackgroundColor = Color.Pink;
-            uic2.PressedColor = Color.Brown;
-
-
-            uic2.Text = "Outbox";
-
-            uicontract = new UIContract();
-            uicontract.Font = spf;
-            uicontract.X = 245;
-            uicontract.Y = 50;
-            uicontract.Width = 300;
-            uicontract.Height = 300;
-            uicontract.BackgroundColor = Color.Tan;
-            uicontract.BackgroundSprite = whiteRect;
-            uicontract.Parent = uih;
-
-            uih.Children.Add(uicontract);
-
-
-
-            uip = new Panel();
-            uip.BackgroundSprite = whiteRect;
-            uip.BackgroundColor = Color.Blue;
-
-            uip.X = 100;
-            uip.Y = 100;
-            uip.Width = 300;
-            uip.Height = 300;
-            uip.Parent = uih;
-            uip.Font = spf;
-            uip.Overflow = UIOverflow.Scroll;
-
-            uip.Padding = new Borders { Top = 20, Bottom = 20, Left = 10, Right = 10 };
-
-            for (int i = 0; i < 30; i++)
-            {
-                Button aa1 = new Button(whiteRect, whiteRect);
-                aa1.BackgroundColor = Color.White;
-                aa1.PressedColor = Color.Red;
-                aa1.X = 0;
-                aa1.Y = 0 + (30 * i);
-                aa1.Height = 20;
-                aa1.Width = 280;
-                aa1.Parent = uip;
-                aa1.Font = spf;
-                aa1.Text = String.Format("aa{0}", i+1);
-                uip.Children.Add(aa1);
-                aa1.SetAnchor(Side.Left, 0);
-                aa1.SetAnchor(Side.Right, 0);
-                aa1.ClearAnchor(Side.Top);
-            }
-            uih.Children.Add(uip);
-            uih.BringChildToFront(uih.Children.IndexOf(uip));
+            duih = new DeskUIHandler(new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), whiteRect, whiteRect, whiteRect, whiteRect, spf);
         }
 
         protected override void Update(GameTime gameTime)
@@ -145,22 +61,10 @@ namespace AAL
                 Exit();
             }
             
-            uih.Update(gameTime, ih);
-
-            if (ih.IsCurPress(Keys.Up))
-            {
-                uip.Width += 3;
-            }
-            if (ih.IsCurPress(Keys.Down))
-            {
-                uip.Width -= 3;
-            }
+            duih.Update(gameTime, ih);
 
             base.Update(gameTime);
         }
-
-
-        Rectangle Fire = new Rectangle(660, 325, 80, 80);
 
         protected override void Draw(GameTime gameTime)
         {
@@ -169,9 +73,8 @@ namespace AAL
             _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, _rasterizerState);
 
             //Draw
-            _spriteBatch.Draw(whiteRect.BaseTexture, Fire, Color.Red);
-            uih.Draw(_spriteBatch);
-            _spriteBatch.DrawString(spf, "Contract", new Vector2(300, 250), Color.White);
+
+            duih.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
