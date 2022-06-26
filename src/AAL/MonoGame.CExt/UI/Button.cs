@@ -16,7 +16,7 @@ namespace MonoGame.CExt.UI
             set
             {
                 _text = value;
-                if (_text != null)
+                if (_text != null && Font != null)
                 {
                     TextDimensions = this.Font.MeasureString(Text);
                 }
@@ -38,10 +38,11 @@ namespace MonoGame.CExt.UI
         public Color PressedColor;
         public Sprite PressedTexture;
 
-        public Button(Sprite BaseTexture, Sprite PressedTexture) : base()
+        public Button(Sprite BaseTexture, Sprite PressedTexture, SpriteFont spf) : base()
         {
             this.BackgroundSprite = BaseTexture;
             this.PressedTexture = PressedTexture;
+            this.Font = spf;
 
             PressedColor = Color.Green;
             BackgroundColor = Color.Gray;
