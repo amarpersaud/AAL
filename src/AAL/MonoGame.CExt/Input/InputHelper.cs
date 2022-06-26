@@ -16,6 +16,10 @@ namespace MonoGame.CExt.Input
     /// </summary>
     public class InputHelper
     {
+        private bool keyboardInitialized = false;
+        private bool mouseInitialized = false;
+        private bool gamepadInitialized = false;
+
         /// <summary>
         /// Gamepad states
         /// </summary>
@@ -41,8 +45,9 @@ namespace MonoGame.CExt.Input
         {
             if (!refreshData)
                 refreshData = true;
-            if (_lastGamepadState == null && _currentGamepadState == null)
+            if (!gamepadInitialized)
             {
+                gamepadInitialized = true;
                 _lastGamepadState = new GamePadState[GamePad.MaximumGamePadCount];
                 _currentGamepadState = new GamePadState[GamePad.MaximumGamePadCount];
                 for (int i = 0; i < GamePad.MaximumGamePadCount; i++)
@@ -60,8 +65,9 @@ namespace MonoGame.CExt.Input
                 }
             }
 #if (!XBOX)
-            if (_lastKeyboardState == null && _currentKeyboardState == null)
+            if (!keyboardInitialized)
             {
+                keyboardInitialized = true;
                 _lastKeyboardState = _currentKeyboardState = Keyboard.GetState();
             }
             else
@@ -69,8 +75,9 @@ namespace MonoGame.CExt.Input
                 _lastKeyboardState = _currentKeyboardState;
                 _currentKeyboardState = Keyboard.GetState();
             }
-            if (_lastMouseState == null && _currentMouseState == null)
+            if (!mouseInitialized)
             {
+                mouseInitialized = true;
                 _lastMouseState = _currentMouseState = Mouse.GetState();
             }
             else
