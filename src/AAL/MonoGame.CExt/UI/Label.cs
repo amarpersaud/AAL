@@ -21,12 +21,6 @@ namespace MonoGame.CExt.UI
                     TextDimensions = this.Font.MeasureString(Text);
                     Width = (int)TextDimensions.X;
                     Height = (int)TextDimensions.Y;
-                    if (Centered)
-                    {
-                        Point pos = (this.ScreenLocation.ToVector2() + (this.Size.ToVector2() / 2.0f) - (TextDimensions / 2.0f)).ToPoint();
-                        X = pos.X;
-                        Y = pos.Y;
-                    }
                 }
             }
         }
@@ -50,7 +44,7 @@ namespace MonoGame.CExt.UI
             {
                 if (Centered)
                 {
-                    return (this.ScreenLocation.ToVector2() + (this.Size.ToVector2() / 2.0f) - (TextDimensions / 2.0f)).ToPoint();
+                    return (this.ScreenLocation.ToVector2() - (TextDimensions / 2.0f)).ToPoint();
                 }
                 return this.ScreenLocation;
             }
