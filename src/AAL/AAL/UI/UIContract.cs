@@ -50,18 +50,18 @@ namespace AAL.UI
             this.Width = Width;
             this.Height = Height;
             this.BackgroundSprite = whiteRect;
-            Initialize(spf, whiteRect);
+            Initialize(Width, Height, spf, whiteRect);
         }
 
-        public void Initialize(SpriteFont spf, Sprite whiteRect)
+        public void Initialize(int Width, int Height, SpriteFont spf, Sprite whiteRect)
         {
             this.Overflow = UIOverflow.Auto;
             this.Padding = new Borders { Top = 15, Bottom = 15, Left = 10, Right = 10 };            
             
-            CoordinateHelper ch = new CoordinateHelper(this.Width, this.Height);
+            CoordinateHelper ch = new CoordinateHelper(Width, Height);
             titleLabel = new Label();
-            titleLabel.Y = 10;
             titleLabel.X = ch.atoiX(0.5);
+            titleLabel.Y = 10;
             titleLabel.Centered = true;
             titleLabel.Font = spf;
             titleLabel.ForeColor = Color.Black;
