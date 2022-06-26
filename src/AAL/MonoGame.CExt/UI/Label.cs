@@ -57,27 +57,30 @@ namespace MonoGame.CExt.UI
 
         public override void Draw(SpriteBatch sb)
         {
+            if (!Visible)
+            {
+                return;
+            }
+
             base.Draw(sb);
 
-            if (Visible)
+            
+            //Copy the current scissor rect so we can restore it after
+            Rectangle currentRect = sb.GraphicsDevice.ScissorRectangle;
+
+            if (Overflow == UIOverflow.Hidden)
             {
-                //Copy the current scissor rect so we can restore it after
-                Rectangle currentRect = sb.GraphicsDevice.ScissorRectangle;
-
-                if (Overflow == UIOverflow.Hidden)
-                {
-                    //Set the current scissor rectangle
-                    sb.GraphicsDevice.ScissorRectangle = this.ScreenInnerRect;
-                }
-
-                if (Text != null && Font != null)
-                {
-                    sb.DrawString(Font, Text, TextPosition.ToVector2(), ForeColor);
-                }
-
-                //Restore scissor rectangle
-                sb.GraphicsDevice.ScissorRectangle = currentRect;
+                //Set the current scissor rectangle
+                sb.GraphicsDevice.ScissorRectangle = this.ScreenInnerRect;
             }
+
+            if (Text != null && Font != null)
+            {
+                sb.DrawString(Font, Text, TextPosition.ToVector2(), ForeColor);
+            }
+
+            //Restore scissor rectangle
+            sb.GraphicsDevice.ScissorRectangle = currentRect;
         }
 
 

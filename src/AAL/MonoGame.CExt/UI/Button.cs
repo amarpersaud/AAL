@@ -50,66 +50,67 @@ namespace MonoGame.CExt.UI
 
         public override void Update(GameTime gameTime, double timeScale, InputHelper ih, UIHandler uih)
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
             base.Update(gameTime, timeScale, ih, uih);
 
-            if (Enabled)
-            {
-
-                //Children should be null, but update them if there are
-                if (Children != null)
+            //Children should be null, but update them if there are
+            if (Children != null)
                 {
                     foreach (var c in Children)
                     {
                         c.Update(gameTime, timeScale, ih, uih);
                     }
                 }
-            }
         }
 
         public override void Draw(SpriteBatch sb)
         {
+            if (!Visible)
+            {
+                return;
+            }
+
             base.Draw(sb);
 
-            if (Visible)
+            if (Hover & !Pressed)
             {
-                if (Hover & !Pressed)
-                {
-                    sb.Draw(this.BackgroundSprite.BaseTexture, this.ScreenBounds, BackgroundColor);
-                }
-                else
-                {
-                    sb.Draw(this.PressedTexture.BaseTexture, this.ScreenBounds, PressedColor);
-                }
-
-
-                //Copy the current scissor rect so we can restore it after
-                Rectangle currentRect = sb.GraphicsDevice.ScissorRectangle;
-
-                if (Overflow != UIOverflow.Visible)
-                {
-                    //Set the current scissor rectangle
-                    sb.GraphicsDevice.ScissorRectangle = this.ScreenInnerRect;
-                }
-
-                if (Text != null && Font != null)
-                {
-                    sb.DrawString(Font, Text, TextPosition.ToVector2(), ForeColor);
-                }
-
-                //Children should be null, but draw them if there are
-                if (Children != null)
-                {
-                    foreach (var c in Children)
-                    {
-                        c.Draw(sb);
-                    }
-                }
-
-                //Restore scissor rectangle
-                sb.GraphicsDevice.ScissorRectangle = currentRect;
+                sb.Draw(this.BackgroundSprite.BaseTexture, this.ScreenBounds, BackgroundColor);
             }
+            else
+            {
+                sb.Draw(this.PressedTexture.BaseTexture, this.ScreenBounds, PressedColor);
+            }
+
+
+            //Copy the current scissor rect so we can restore it after
+            Rectangle currentRect = sb.GraphicsDevice.ScissorRectangle;
+
+            if (Overflow != UIOverflow.Visible)
+            {
+                //Set the current scissor rectangle
+                sb.GraphicsDevice.ScissorRectangle = this.ScreenInnerRect;
+            }
+
+            if (Text != null && Font != null)
+            {
+                sb.DrawString(Font, Text, TextPosition.ToVector2(), ForeColor);
+            }
+
+            //Children should be null, but draw them if there are
+            if (Children != null)
+            {
+                foreach (var c in Children)
+                {
+                    c.Draw(sb);
+                }
+            }
+
+            //Restore scissor rectangle
+            sb.GraphicsDevice.ScissorRectangle = currentRect;
         }
-
-
     }
 }

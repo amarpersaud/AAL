@@ -509,49 +509,51 @@ namespace MonoGame.CExt.UI
         /// <exception cref="ArgumentNullException">Thrown if no UI handler is supplied</exception>
         public virtual void Update(GameTime gameTime, double timeScale, InputHelper ih, UIHandler uih)
         {
-            if (Enabled)
+            if (!Enabled)
             {
-                if(uih == null)
-                {
-                    throw new ArgumentNullException("uih", "root UIHandler cannot be null");
-                }
+                return;
+            }
 
-                //Mouse is inside this element
-                if(this == uih.CurrentMouseControl)
+            if (uih == null)
+            {
+                throw new ArgumentNullException("uih", "root UIHandler cannot be null");
+            }
+
+            //Mouse is inside this element
+            if(this == uih.CurrentMouseControl)
+            {
+                if (!Hover)
                 {
-                    if (!Hover)
-                    {
-                        Hover = true;                                           //Mouse is now in control
-                        OnMouseEnter(new UIControlMouseEventArgs(this));        //Trigger mouse enter event
-                    }
-                    if (ih.IsNewPress(MouseButtons.LeftButton))
-                    {
-                        //Store location where click initially occurred. Useful for dragging/dropping.
-                        PressStart = ih.MousePosition.ToPoint() - Bounds.Location;
+                    Hover = true;                                           //Mouse is now in control
+                    OnMouseEnter(new UIControlMouseEventArgs(this));        //Trigger mouse enter event
+                }
+                if (ih.IsNewPress(MouseButtons.LeftButton))
+                {
+                    //Store location where click initially occurred. Useful for dragging/dropping.
+                    PressStart = ih.MousePosition.ToPoint() - Bounds.Location;
                        
-                        OnMousePressed(new UIControlClickEventArgs(this));      //Trigger button press event
+                    OnMousePressed(new UIControlClickEventArgs(this));      //Trigger button press event
                         
-                        Pressed = true;                                         //Set this control as pressed
-                        uih.SelectedControl = this;                             //Set this control as the new selected control
-                    }
-                    else if (ih.IsOldPress(MouseButtons.LeftButton) && Pressed)
-                    {
-                        OnMouseReleased(new UIControlClickEventArgs(this));     //Trigger mouse release event
-                        Pressed = false;                                        //Mouse no longer pressed
-                    }
+                    Pressed = true;                                         //Set this control as pressed
+                    uih.SelectedControl = this;                             //Set this control as the new selected control
                 }
-                else
+                else if (ih.IsOldPress(MouseButtons.LeftButton) && Pressed)
                 {
-                    //If mouse was hovering over the element before and now is not
-                    if (Hover)
-                    {
-                        //mouse has left control
-                        OnMouseLeave(new UIControlMouseEventArgs(this));
-                    }
-                    //Disable hover and pressing
-                    Hover = false;
-                    Pressed = false;
+                    OnMouseReleased(new UIControlClickEventArgs(this));     //Trigger mouse release event
+                    Pressed = false;                                        //Mouse no longer pressed
                 }
+            }
+            else
+            {
+                //If mouse was hovering over the element before and now is not
+                if (Hover)
+                {
+                    //mouse has left control
+                    OnMouseLeave(new UIControlMouseEventArgs(this));
+                }
+                //Disable hover and pressing
+                Hover = false;
+                Pressed = false;
             }
         }
         

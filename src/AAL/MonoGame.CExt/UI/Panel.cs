@@ -50,6 +50,11 @@ namespace MonoGame.CExt.UI
 
         public override void Update(GameTime gameTime, double timeScale, InputHelper ih, UIHandler uih)
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
             base.Update(gameTime, timeScale, ih, uih);
 
             float ScrollVelocityScale = 0.1f;
@@ -106,6 +111,11 @@ namespace MonoGame.CExt.UI
 
         public override void Draw(SpriteBatch sb)
         {
+            if (!Visible)
+            {
+                return;
+            }
+
             base.Draw(sb);
 
             //Draw panel background
