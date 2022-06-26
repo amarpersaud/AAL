@@ -680,6 +680,16 @@ namespace MonoGame.CExt.UI
             }
         }
 
+        public void AddControl(UIControl c)
+        {
+            c.Parent = this;
+            if(Children is null)
+            {
+                Children = new List<UIControl>();
+            }
+            Children.Add(c);
+        }
+
         #endregion Descendant
 
         #region Paint
