@@ -22,7 +22,7 @@ namespace AAL.UI
         /// <summary>
         /// Contract object that holds contract information
         /// </summary>
-        public Contract BaseContract;
+        public Contract Contract;
 
         public UIContract() : base()
         {
