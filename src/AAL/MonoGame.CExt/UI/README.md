@@ -27,3 +27,5 @@ Root element in a UI tree. Handles determining which of the controls is the topm
   - Event arguements for UIControl events (e.g. mouse events)
 - UIOverflow
   - How overflow of contents is shown (visible, hidden, scroll)
+- CoordinateHelper
+  - Helper class for converting between percentage coordinates (0.0-1.0) and pixel coordinates
