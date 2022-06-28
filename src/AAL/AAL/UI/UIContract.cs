@@ -81,7 +81,7 @@ namespace AAL.UI
             CloseButton.X = this.InnerRect.Width - 20;
             CloseButton.Y = 0;
             CloseButton.BackgroundColor = Color.Red;
-            CloseButton.PressedColor = Color.Pink;
+            CloseButton.HoverColor = Color.Pink;
             AddControl(CloseButton);
 
         }

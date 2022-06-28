@@ -147,7 +147,7 @@ namespace AAL.UI
             b.Height = r.Height;
             b.SetAnchor(Side.Left);
             b.SetAnchor(Side.Right);
-            b.PressedColor = Color.Yellow;
+            b.HoverColor = Color.Yellow;
             b.BackgroundColor = Color.Violet;
             b.Font = this.Font;
 

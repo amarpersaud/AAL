@@ -35,16 +35,16 @@ namespace MonoGame.CExt.UI
 
         private string _text;
 
-        public Color PressedColor;
-        public Sprite PressedTexture;
+        public Color HoverColor;
+        public Sprite HoverTexture;
 
         public Button(Sprite BaseTexture, Sprite PressedTexture, SpriteFont spf) : base()
         {
             this.BackgroundSprite = BaseTexture;
-            this.PressedTexture = PressedTexture;
+            this.HoverTexture = PressedTexture;
             this.Font = spf;
 
-            PressedColor = Color.Green;
+            HoverColor = Color.Green;
             BackgroundColor = Color.Gray;
         }
 
@@ -78,11 +78,11 @@ namespace MonoGame.CExt.UI
 
             if (Hover & !Pressed)
             {
-                sb.Draw(this.BackgroundSprite.BaseTexture, this.ScreenBounds, BackgroundColor);
+                sb.Draw(this.HoverTexture.BaseTexture, this.ScreenBounds, HoverColor);
             }
             else
             {
-                sb.Draw(this.PressedTexture.BaseTexture, this.ScreenBounds, PressedColor);
+                sb.Draw(this.BackgroundSprite.BaseTexture, this.ScreenBounds, BackgroundColor);
             }
 
 
