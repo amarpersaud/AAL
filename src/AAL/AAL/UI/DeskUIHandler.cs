@@ -64,6 +64,7 @@ namespace AAL.UI
             outbox.Overflow = UIOverflow.Visible;
             outbox.Text = "Outbox";
             outbox.Font = spf;
+            outbox.MouseReleased += OutboxButtonClicked;
             Desk.AddControl(outbox);
 
             ContractControl = new UIContract(sch.atoiX(0.5), sch.atoiY(0.75), spf, whiterect);
@@ -94,14 +95,40 @@ namespace AAL.UI
 
             for (int j = 0; j < 10; j++)
             {
-                Contract a = new Contract(String.Format("Test contract {0}", j));
+                Contract a = new Contract(String.Format("Test contract {0}", j + 1));
                 for (int i = 0; i < 10; i++)
                 {
-                    ContractClause cc = new ContractClause(String.Format("Test clause {0}", i));
+                    ContractClause cc = new ContractClause(String.Format("Test clause {0}", i + 1));
                     a.Clauses.Add(cc);
                 }
                 AddContractToInbox(a);
             }
+
+            OutboxPanel = new Panel();
+            OutboxPanel.Width = sch.atoiX(0.5);
+            OutboxPanel.Height = sch.atoiY(0.75);
+            OutboxPanel.X = sch.atoiX(0.5) - OutboxPanel.Width / 2;
+            OutboxPanel.Y = sch.atoiY(0.5) - OutboxPanel.Height / 2;
+            OutboxPanel.BackgroundColor = Color.Blue;
+            OutboxPanel.BackgroundSprite = whiterect;
+            OutboxPanel.Font = spf;
+            OutboxPanel.Padding = new Borders { Top = 10, Bottom = 10, Left = 10, Right = 10 };
+            OutboxPanel.Overflow = UIOverflow.Auto;
+            OutboxPanel.Enabled = false;
+            OutboxPanel.Visible = false;
+            AddControl(OutboxPanel);
+
+            for (int j = 0; j < 10; j++)
+            {
+                Contract a = new Contract(String.Format("Test outbox contract {0}", j + 1));
+                for (int i = 0; i < 10; i++)
+                {
+                    ContractClause cc = new ContractClause(String.Format("Test clause {0}", i+1));
+                    a.Clauses.Add(cc);
+                }
+                AddContractToOutbox(a);
+            }
+
         }
 
         public void DisplayContract(Contract c)
@@ -135,7 +162,7 @@ namespace AAL.UI
 
         public void AddContractToInbox(Contract c)
         {
-            GridHelper gh = new GridHelper(new Point(0,0), new Point(InboxPanel.InnerRect.Width, 20), new Point(0, 10));
+            GridHelper gh = new GridHelper(new Point(0,0), new Point(InboxPanel.InnerRect.Width, 30), new Point(0, 10));
             if(c == null) { return; }
 
             Rectangle r = gh.GetRect(0, InboxPanel.Children.Count);
@@ -150,6 +177,7 @@ namespace AAL.UI
             b.HoverColor = Color.Yellow;
             b.BackgroundColor = Color.Violet;
             b.Font = this.Font;
+            b.Text = c.ContractTitle;
 
 
             InboxPanel.AddControl(b);
@@ -157,6 +185,44 @@ namespace AAL.UI
             b.MouseReleased += InboxPanelButtonClicked;
 
         }
+
+        public void OutboxPanelButtonClicked(object sender, UIControlClickEventArgs e)
+        {
+            Contract c = (Contract)e.Sender.Value;
+            HideOutboxPanel();
+            DisplayContract(c);
+        }
+        public void OutboxButtonClicked(object sender, UIControlClickEventArgs e)
+        {
+            ShowOutboxPanel();
+        }
+
+        public void AddContractToOutbox(Contract c)
+        {
+            GridHelper gh = new GridHelper(new Point(0, 0), new Point(OutboxPanel.InnerRect.Width, 30), new Point(0, 10));
+            if (c == null) { return; }
+
+            Rectangle r = gh.GetRect(0, OutboxPanel.Children.Count);
+
+            Button b = new Button(this.BackgroundSprite, this.BackgroundSprite, outbox.Font);
+            b.X = r.X;
+            b.Y = r.Y;
+            b.Width = r.Width;
+            b.Height = r.Height;
+            b.SetAnchor(Side.Left);
+            b.SetAnchor(Side.Right);
+            b.HoverColor = Color.Purple;
+            b.BackgroundColor = Color.Gray;
+            b.Font = this.Font;
+            b.Text = c.ContractTitle;
+
+
+            OutboxPanel.AddControl(b);
+            b.Value = c;
+            b.MouseReleased += OutboxPanelButtonClicked;
+
+        }
+
 
         public void ShowInboxPanel()
         {
@@ -167,6 +233,17 @@ namespace AAL.UI
         {
             InboxPanel.Enabled = false;
             InboxPanel.Visible = false;
+        }
+
+        public void ShowOutboxPanel()
+        {
+            OutboxPanel.Enabled = true;
+            OutboxPanel.Visible = true;
+        }
+        public void HideOutboxPanel()
+        {
+            OutboxPanel.Enabled = false;
+            OutboxPanel.Visible = false;
         }
     }                         
 }
