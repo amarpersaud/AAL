@@ -76,13 +76,13 @@ namespace AAL.UI
             AddControl(contentLabel);
 
             CloseButton = new Button(whiteRect, whiteRect, spf);
+            AddControl(CloseButton);
             CloseButton.Width = 20;
             CloseButton.Height = 20;
-            CloseButton.X = this.InnerRect.Width - 20;
-            CloseButton.Y = 0;
+            CloseButton.SetAnchor(Side.Right, 0);
+            CloseButton.SetAnchor(Side.Top, 0);
             CloseButton.BackgroundColor = Color.Red;
-            CloseButton.HoverColor = Color.Pink;
-            AddControl(CloseButton);
+            CloseButton.HoverColor = Color.OrangeRed;
 
         }
 
