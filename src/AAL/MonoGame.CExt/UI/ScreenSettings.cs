@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AAL
+namespace MonoGame.CExt.UI
 {
     /// <summary>
     /// Keeps track of window and game screen coordinate systems
