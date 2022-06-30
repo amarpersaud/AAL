@@ -33,7 +33,27 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// Centers the text on the given position
         /// </summary>
-        public bool Centered { get; set; } = false;
+        public bool Centered {
+            get
+            {
+                return CenterX && CenterY;       
+            }
+            set {
+                CenterX = value;
+                CenterY = value;
+            }
+        }
+        
+        /// <summary>
+        /// Centers the text horizontally, only
+        /// </summary>
+        public bool CenterX { get; set; }
+
+        /// <summary>
+        /// Centers the text vertically, only
+        /// </summary>
+        public bool CenterY { get; set; }
+
 
         /// <summary>
         /// Position on screen of top left corner of text
@@ -42,11 +62,21 @@ namespace MonoGame.CExt.UI
         {
             get
             {
-                if (Centered)
+                int TPX = ScreenX;
+                int TPY = ScreenX;
+
+
+                if (CenterX)
                 {
-                    return (this.ScreenLocation.ToVector2() - (TextDimensions / 2.0f)).ToPoint();
+                    TPX = (int)((float)ScreenX - TextDimensions.X / 2.0f);
                 }
-                return this.ScreenLocation;
+
+                if (CenterY)
+                {
+                    TPY = (int)((float)ScreenY - TextDimensions.Y / 2.0f);
+                }
+
+                return new Point(TPX,TPY);
             }
         }
 
