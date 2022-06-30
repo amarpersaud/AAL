@@ -36,6 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\GridHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Label.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Panel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Position.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Side.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIControlEventArgs.cs" />
