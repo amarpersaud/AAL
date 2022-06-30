@@ -19,6 +19,7 @@ namespace MonoGame.CExt.UI
         private int _y;
         private int _height;
         private int _width;
+        private UIControl _parent;
         #endregion subfields
 
         #region Position
@@ -487,7 +488,18 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// Parent of this control.
         /// </summary>
-        public UIControl Parent { get; set; }
+        public UIControl Parent
+        {
+            get
+            {
+                return _parent;
+            }
+            set
+            {
+                _parent = value;
+                Invalidate();
+            }
+        }
 
         /// <summary>
         /// List of child UI Controls
