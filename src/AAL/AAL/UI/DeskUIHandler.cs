@@ -18,6 +18,9 @@ namespace AAL.UI
         public Button InboxButton;
         public Button OutboxButton;
         public Panel Desk;
+        public Button MapButton;
+        public UIMap MapPanel;
+        public Map WorldMap;
 
         public DeskUIHandler(Rectangle screen, Sprite whiterect, SpriteFont spf) : base(screen){
 
@@ -67,14 +70,24 @@ namespace AAL.UI
             OutboxButton.MouseReleased += OutboxButtonClicked;
             Desk.AddControl(OutboxButton);
 
+            MapButton = new Button(whiterect, whiterect, spf);
+            MapButton.Width = dch.atoiX(0.15);
+            MapButton.Height = dch.atoiY(0.25);
+            MapButton.X = dch.atoiX(0.5) - (MapButton.Width / 2);
+            MapButton.Y = dch.atoiY(0.5) - (MapButton.Height / 2);
+            MapButton.Overflow = UIOverflow.Visible;
+            MapButton.Text = "Map";
+            MapButton.Font = spf;
+            MapButton.MouseReleased += MapButtonClicked;
+            Desk.AddControl(MapButton);
+
             ContractControl = new UIContract(sch.atoiX(0.5), sch.atoiY(0.75), spf, whiterect);
             ContractControl.X = sch.atoiX(0.5) - ContractControl.Width/2;
             ContractControl.Y = sch.atoiY(0.5) - ContractControl.Height/2;
             ContractControl.BackgroundColor = Color.Tan;
             ContractControl.Font = spf;
             ContractControl.Overflow = UIOverflow.Auto;
-            ContractControl.Enabled = false;
-            ContractControl.Visible = false;
+            ContractControl.Hide();
             AddControl(ContractControl);
 
             ContractControl.CloseButton.MouseReleased += ContractControlCloseClicked;
@@ -89,8 +102,7 @@ namespace AAL.UI
             InboxPanel.Font = spf;
             InboxPanel.Padding = new Borders { Top = 10, Bottom = 10, Left = 10, Right = 10 };
             InboxPanel.Overflow = UIOverflow.Auto;
-            InboxPanel.Enabled = false;
-            InboxPanel.Visible = false;
+            InboxPanel.Hide();
             AddControl(InboxPanel);
 
             for (int j = 0; j < 10; j++)
@@ -114,8 +126,7 @@ namespace AAL.UI
             OutboxPanel.Font = spf;
             OutboxPanel.Padding = new Borders { Top = 10, Bottom = 10, Left = 10, Right = 10 };
             OutboxPanel.Overflow = UIOverflow.Auto;
-            OutboxPanel.Enabled = false;
-            OutboxPanel.Visible = false;
+            OutboxPanel.Hide();
             AddControl(OutboxPanel);
 
             for (int j = 0; j < 10; j++)
@@ -129,41 +140,47 @@ namespace AAL.UI
                 AddContractToOutbox(a);
             }
 
-        }
-
-        public void DisplayContract(Contract c)
-        {
-            ContractControl.Contract = c;
-            ContractControl.Enabled = true;
-            ContractControl.Visible = true;
-        }   
-        
-        public void HideContract()
-        {
-            ContractControl.Enabled = false;
-            ContractControl.Visible = false;
+            WorldMap = new Map();
+            WorldMap.WorldName = "Test World";
+            WorldMap.Regions = new List<Region>();
+            MapPanel = new UIMap(screen, WorldMap, whiterect, spf);
+            MapPanel.Hide();
+            AddControl(MapPanel);
+            MapPanel.CloseButton.MouseReleased += MapPanelCloseButtonClicked;
+            
         }
 
         public void ContractControlCloseClicked(object sender, UIControlClickEventArgs e)
         {
-            HideContract();
+            ContractControl.Hide();
         }
-
         public void InboxPanelButtonClicked(object sender, UIControlClickEventArgs e)
         {
             Contract c = (Contract)e.Sender.Value;
-            HideInboxPanel();
-            DisplayContract(c);
+            InboxPanel.Hide();
+            ContractControl.Contract = c;
+            ContractControl.Show();
         }
         public void InboxButtonClicked(object sender, UIControlClickEventArgs e)
         {
-            ShowInboxPanel();
+            InboxPanel.Show();
+        }
+        public void OutboxPanelButtonClicked(object sender, UIControlClickEventArgs e)
+        {
+            Contract c = (Contract)e.Sender.Value;
+            OutboxPanel.Hide();
+            ContractControl.Contract = c;
+            ContractControl.Show();
+        }
+        public void OutboxButtonClicked(object sender, UIControlClickEventArgs e)
+        {
+            OutboxPanel.Show();
         }
 
         public void AddContractToInbox(Contract c)
         {
-            GridHelper gh = new GridHelper(new Point(0,0), new Point(InboxPanel.InnerRect.Width, 30), new Point(0, 10));
-            if(c == null) { return; }
+            GridHelper gh = new GridHelper(new Point(0, 0), new Point(InboxPanel.InnerRect.Width, 30), new Point(0, 10));
+            if (c == null) { return; }
 
             Rectangle r = gh.GetRect(0, InboxPanel.Children.Count);
 
@@ -184,17 +201,6 @@ namespace AAL.UI
             b.Value = c;
             b.MouseReleased += InboxPanelButtonClicked;
 
-        }
-
-        public void OutboxPanelButtonClicked(object sender, UIControlClickEventArgs e)
-        {
-            Contract c = (Contract)e.Sender.Value;
-            HideOutboxPanel();
-            DisplayContract(c);
-        }
-        public void OutboxButtonClicked(object sender, UIControlClickEventArgs e)
-        {
-            ShowOutboxPanel();
         }
 
         public void AddContractToOutbox(Contract c)
@@ -222,27 +228,14 @@ namespace AAL.UI
             b.MouseReleased += OutboxPanelButtonClicked;
 
         }
-
-        public void ShowInboxPanel()
+        public void MapButtonClicked(object sender, UIControlClickEventArgs e)
         {
-            InboxPanel.Enabled = true;
-            InboxPanel.Visible = true;
-        }
-        public void HideInboxPanel()
-        {
-            InboxPanel.Enabled = false;
-            InboxPanel.Visible = false;
+            MapPanel.Show();
         }
 
-        public void ShowOutboxPanel()
+        public void MapPanelCloseButtonClicked(object sender, UIControlClickEventArgs e)
         {
-            OutboxPanel.Enabled = true;
-            OutboxPanel.Visible = true;
-        }
-        public void HideOutboxPanel()
-        {
-            OutboxPanel.Enabled = false;
-            OutboxPanel.Visible = false;
+            MapPanel.Hide();
         }
     }                         
 }
