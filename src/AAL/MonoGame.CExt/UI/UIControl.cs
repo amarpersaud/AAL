@@ -763,6 +763,7 @@ namespace MonoGame.CExt.UI
 
                     //Make sure control width >= 0
                     _width = MathExt.Max(NewWidth, 0);
+                    _x = Anchor.LeftDistance;
                 }
                 else // only left anchored
                 {
@@ -809,6 +810,7 @@ namespace MonoGame.CExt.UI
 
                     //Make sure control height >= 0
                     _height = MathExt.Max(NewHeight, 0);
+                    _y = Anchor.TopDistance;
                 }
                 else // only top anchored
                 {
@@ -920,6 +922,7 @@ namespace MonoGame.CExt.UI
                             break;
                     }
                 }
+                Invalidate();
                 return true;
             }
             return false;
