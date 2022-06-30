@@ -28,6 +28,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Input\InputHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Input\KeySets.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Input\MouseButtons.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utility\ResourceHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ScreenSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sprites\NineSliceSprite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sprites\StackedSprite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Anchor.cs" />
