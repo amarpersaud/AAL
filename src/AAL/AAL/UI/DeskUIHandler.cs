@@ -15,8 +15,8 @@ namespace AAL.UI
         public UIContract ContractControl;
         public Panel InboxPanel;
         public Panel OutboxPanel;
-        public Button inbox;
-        public Button outbox;
+        public Button InboxButton;
+        public Button OutboxButton;
         public Panel Desk;
 
         public DeskUIHandler(Rectangle screen, Sprite whiterect, SpriteFont spf) : base(screen){
@@ -46,26 +46,26 @@ namespace AAL.UI
 
             //InboxPanel = new Panel();
 
-            inbox = new Button(whiterect, whiterect, spf);
-            inbox.Width = dch.atoiX(0.15);
-            inbox.Height = dch.atoiY(0.25);
-            inbox.X = dch.atoiX(0.15) - (inbox.Width / 2);
-            inbox.Y = dch.atoiY(0.25) - (inbox.Height / 2);
-            inbox.Overflow = UIOverflow.Visible;
-            inbox.Text = "Inbox";
-            inbox.MouseReleased += InboxButtonClicked;
-            Desk.AddControl(inbox);
+            InboxButton = new Button(whiterect, whiterect, spf);
+            InboxButton.Width = dch.atoiX(0.15);
+            InboxButton.Height = dch.atoiY(0.25);
+            InboxButton.X = dch.atoiX(0.15) - (InboxButton.Width / 2);
+            InboxButton.Y = dch.atoiY(0.25) - (InboxButton.Height / 2);
+            InboxButton.Overflow = UIOverflow.Visible;
+            InboxButton.Text = "Inbox";
+            InboxButton.MouseReleased += InboxButtonClicked;
+            Desk.AddControl(InboxButton);
 
-            outbox = new Button(whiterect, whiterect, spf);
-            outbox.Width = dch.atoiX(0.15);
-            outbox.Height = dch.atoiY(0.25);
-            outbox.X = dch.atoiX(0.85) - (outbox.Width / 2);
-            outbox.Y = dch.atoiY(0.25) - (outbox.Height / 2);
-            outbox.Overflow = UIOverflow.Visible;
-            outbox.Text = "Outbox";
-            outbox.Font = spf;
-            outbox.MouseReleased += OutboxButtonClicked;
-            Desk.AddControl(outbox);
+            OutboxButton = new Button(whiterect, whiterect, spf);
+            OutboxButton.Width = dch.atoiX(0.15);
+            OutboxButton.Height = dch.atoiY(0.25);
+            OutboxButton.X = dch.atoiX(0.85) - (OutboxButton.Width / 2);
+            OutboxButton.Y = dch.atoiY(0.25) - (OutboxButton.Height / 2);
+            OutboxButton.Overflow = UIOverflow.Visible;
+            OutboxButton.Text = "Outbox";
+            OutboxButton.Font = spf;
+            OutboxButton.MouseReleased += OutboxButtonClicked;
+            Desk.AddControl(OutboxButton);
 
             ContractControl = new UIContract(sch.atoiX(0.5), sch.atoiY(0.75), spf, whiterect);
             ContractControl.X = sch.atoiX(0.5) - ContractControl.Width/2;
@@ -167,7 +167,7 @@ namespace AAL.UI
 
             Rectangle r = gh.GetRect(0, InboxPanel.Children.Count);
 
-            Button b = new Button(this.BackgroundSprite, this.BackgroundSprite, inbox.Font);
+            Button b = new Button(this.BackgroundSprite, this.BackgroundSprite, InboxButton.Font);
             b.X = r.X;
             b.Y = r.Y;
             b.Width = r.Width;
@@ -204,7 +204,7 @@ namespace AAL.UI
 
             Rectangle r = gh.GetRect(0, OutboxPanel.Children.Count);
 
-            Button b = new Button(this.BackgroundSprite, this.BackgroundSprite, outbox.Font);
+            Button b = new Button(this.BackgroundSprite, this.BackgroundSprite, OutboxButton.Font);
             b.X = r.X;
             b.Y = r.Y;
             b.Width = r.Width;
@@ -222,7 +222,6 @@ namespace AAL.UI
             b.MouseReleased += OutboxPanelButtonClicked;
 
         }
-
 
         public void ShowInboxPanel()
         {
