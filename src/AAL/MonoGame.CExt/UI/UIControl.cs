@@ -661,13 +661,38 @@ namespace MonoGame.CExt.UI
         /// <param name="index">index of the child to move</param>
         public void BringChildToFront(int index)
         {
-            if(Children == null || index >= Children.Count)
+            if (Children == null || index >= Children.Count || Children.Count == 0)
             {
                 return;
             }
-            UIControl c = Children.ElementAtOrDefault(index);
-            Children.RemoveAt(index);
-            Children.Add(c);
+
+            //Copy list
+            UIControl[] temp = new UIControl[Children.Count];
+            Children.CopyTo(temp);
+            List<UIControl> newList = temp.ToList();
+            
+            UIControl c = temp.ElementAtOrDefault(index);
+            newList.RemoveAt(index);
+            newList.Add(c);
+
+            this.Children = newList;
+        }
+        public void BringChildToFront(UIControl c)
+        {
+            if (Children == null || c == null || !Children.Contains(c))
+            {
+                return;
+            }
+
+            //Copy list
+            UIControl[] temp = new UIControl[Children.Count];
+            Children.CopyTo(temp);
+            List<UIControl> newList = temp.ToList();
+
+            newList.Remove(c);
+            newList.Add(c);
+
+            this.Children = newList;
         }
 
         /// <summary>
@@ -821,6 +846,24 @@ namespace MonoGame.CExt.UI
             OnInvalidate(new UIControlPaintEventArgs(this));
         }
 
+
+        public virtual void Show()
+        {
+            this.Visible = true;
+            this.Enabled = true;
+
+            if(Parent != null)
+            {
+                Parent.BringChildToFront(this);
+            }
+        }
+
+        public virtual void Hide()
+        {
+            this.Visible = false;
+            this.Enabled = false;
+        }
+
         #endregion Paint
 
         /// <summary>
@@ -900,5 +943,6 @@ namespace MonoGame.CExt.UI
 
             }
         }
+
     }
 }
