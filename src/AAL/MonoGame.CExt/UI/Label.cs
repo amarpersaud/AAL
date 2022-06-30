@@ -18,7 +18,6 @@ namespace MonoGame.CExt.UI
                 _text = value;
                 if (_text != null)
                 {
-                    TextDimensions = this.Font.MeasureString(Text);
                     Width = (int)TextDimensions.X;
                     Height = (int)TextDimensions.Y;
                 }
@@ -28,7 +27,17 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// Dimensions of text with given font
         /// </summary>
-        private Vector2 TextDimensions;
+        private Vector2 TextDimensions
+        {
+            get
+            {
+                if (Font == null || Text == null)
+                {
+                    return Vector2.Zero;
+                }
+                return Font.MeasureString(Text);
+            }
+        }
 
         /// <summary>
         /// Centers the text on the given position
@@ -63,7 +72,7 @@ namespace MonoGame.CExt.UI
             get
             {
                 int TPX = ScreenX;
-                int TPY = ScreenX;
+                int TPY = ScreenY;
 
 
                 if (CenterX)
