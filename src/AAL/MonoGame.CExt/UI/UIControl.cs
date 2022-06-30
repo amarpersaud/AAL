@@ -9,11 +9,14 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.CExt.Sprites;
 using MonoGame.CExt.Input;
 using MonoGame.CExt.Extensions;
+using MonoGame.CExt.Utility;
 
 namespace MonoGame.CExt.UI
 {
     public abstract class UIControl
     {
+        private readonly ResourceHandler _rh;
+
         #region subfields
         private int _x;
         private int _y;
@@ -508,7 +511,7 @@ namespace MonoGame.CExt.UI
 
         public UIControl()
         {
-
+            //_rh = resourceHandler;
         }
 
         /// <summary>

@@ -30,7 +30,7 @@ namespace MonoGame.CExt.Utility
         public FrameCounter _fc { get; private set; }
 
         /// <summary>
-        /// Screen settings, resolution and 
+        /// Screen settings, resolution 
         /// </summary>
         public ScreenSettings ScreenSettings { get; private set; }
 
