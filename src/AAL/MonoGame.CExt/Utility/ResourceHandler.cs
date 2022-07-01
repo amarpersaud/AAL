@@ -43,5 +43,25 @@ namespace MonoGame.CExt.Utility
         /// Dictionary of fonts
         /// </summary>
         public Dictionary<string, SpriteFont> Fonts = new Dictionary<string, SpriteFont>();
+
+        /// <summary>
+        /// Get sprite using file name. 
+        /// </summary>
+        /// <param name="name">Name of sprite</param>
+        /// <returns>Sprite if found. null otherwise</returns>
+        public Sprite GetSprite(string name)
+        {
+            return Sprites.GetValueOrDefault(name);
+        }
+
+        /// <summary>
+        /// Get SpriteFont using file name. 
+        /// </summary>
+        /// <param name="name">Name of font</param>
+        /// <returns>SpriteFont if found. null otherwise</returns>
+        public SpriteFont GetFont(string name)
+        {
+            return Fonts.GetValueOrDefault(name);
+        }
     }
 }
