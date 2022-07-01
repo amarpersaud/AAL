@@ -35,8 +35,13 @@ namespace MonoGame.CExt.Utility
         public ScreenSettings ScreenSettings { get; private set; }
 
         /// <summary>
-        /// List of sprites
+        /// Dictionary of sprites
         /// </summary>
         public Dictionary<string, Sprite> Sprites = new Dictionary<string, Sprite>();
+
+        /// <summary>
+        /// Dictionary of fonts
+        /// </summary>
+        public Dictionary<string, SpriteFont> Fonts = new Dictionary<string, SpriteFont>();
     }
 }
