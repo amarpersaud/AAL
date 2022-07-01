@@ -44,6 +44,14 @@ namespace MonoGame.CExt.Utility
         /// </summary>
         public Dictionary<string, SpriteFont> Fonts = new Dictionary<string, SpriteFont>();
 
+        public ResourceHandler(SpriteBatch sb, InputHelper ih, FrameCounter fc, ScreenSettings screenSettings)
+        {
+            _sb = sb;
+            _ih = ih;
+            _fc = fc;
+            ScreenSettings = screenSettings;
+        }
+
         /// <summary>
         /// Get sprite using file name. 
         /// </summary>

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.CExt.Extensions;
 using MonoGame.CExt.Input;
+using MonoGame.CExt.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -44,18 +45,18 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// UI Panel that holds other controls
         /// </summary>
-        public Panel() : base() {
+        public Panel(ResourceHandler resourceHandler) : base(resourceHandler) {
             
         }
 
-        public override void Update(GameTime gameTime, double timeScale, InputHelper ih, UIHandler uih)
+        public override void Update(GameTime gameTime, double timeScale, UIHandler uih)
         {
             if (!Enabled)
             {
                 return;
             }
 
-            base.Update(gameTime, timeScale, ih, uih);
+            base.Update(gameTime, timeScale, uih);
 
             float ScrollVelocityScale = 0.1f;
 
@@ -104,19 +105,19 @@ namespace MonoGame.CExt.UI
             {
                 foreach(var c in Children)
                 {
-                    c.Update(gameTime, timeScale, ih, uih);
+                    c.Update(gameTime, timeScale, uih);
                 }
             }
         }
 
-        public override void Draw(SpriteBatch sb)
+        public override void Draw()
         {
             if (!Visible)
             {
                 return;
             }
 
-            base.Draw(sb);
+            base.Draw();
 
             //Draw panel background
             sb.Draw(this.BackgroundSprite.BaseTexture, this.ScreenBounds, this.BackgroundColor);
@@ -133,7 +134,7 @@ namespace MonoGame.CExt.UI
 
             foreach (var c in Children)
             {
-                c.Draw(sb);
+                c.Draw();
             }
 
             sb.GraphicsDevice.ScissorRectangle = currentRect;

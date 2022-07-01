@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.CExt.Input;
 using MonoGame.CExt.Sprites;
+using MonoGame.CExt.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -91,19 +92,19 @@ namespace MonoGame.CExt.UI
 
         private string _text;
 
-        public Label() : base()
+        public Label(ResourceHandler resourceHandler) : base(resourceHandler)
         {
 
         }
 
-        public override void Draw(SpriteBatch sb)
+        public override void Draw()
         {
             if (!Visible)
             {
                 return;
             }
 
-            base.Draw(sb);
+            base.Draw();
 
             
             //Copy the current scissor rect so we can restore it after
@@ -123,7 +124,6 @@ namespace MonoGame.CExt.UI
             //Restore scissor rectangle
             sb.GraphicsDevice.ScissorRectangle = currentRect;
         }
-
 
     }
 }

@@ -45,37 +45,35 @@ namespace AAL.UI
             }
         }
 
-        public UIContract(int Width, int Height, SpriteFont spf, Sprite whiteRect) : base()
+        public UIContract(ResourceHandler resourceHandler, int Width, int Height) : base(resourceHandler)
         {
             this.Width = Width;
             this.Height = Height;
-            this.BackgroundSprite = whiteRect;
-            Initialize(Width, Height, spf, whiteRect);
+            this.BackgroundSprite = _rh.GetSprite("whiteRect");
+            Initialize(resourceHandler);
         }
 
-        public void Initialize(int Width, int Height, SpriteFont spf, Sprite whiteRect)
+        public void Initialize(ResourceHandler resourceHandler)
         {
             this.Overflow = UIOverflow.Auto;
-            this.Padding = new Borders { Top = 15, Bottom = 15, Left = 10, Right = 10 };            
+            this.Padding = new Borders { Top = 15, Bottom = 15, Left = 10, Right = 10 };
             
             CoordinateHelper ch = new CoordinateHelper(Width, Height);
-            titleLabel = new Label();
+            titleLabel = new Label(_rh);
             titleLabel.X = ch.atoiX(0.5);
             titleLabel.Y = 10;
             titleLabel.Centered = true;
-            titleLabel.Font = spf;
             titleLabel.ForeColor = Color.Black;
             AddControl(titleLabel);
 
-            contentLabel = new Label();
+            contentLabel = new Label(_rh);
             contentLabel.X = 0;
             contentLabel.Y = 30;
-            contentLabel.Font = spf;
             contentLabel.Centered = false;
             contentLabel.ForeColor = Color.Black;
             AddControl(contentLabel);
 
-            CloseButton = new Button(whiteRect, whiteRect, spf);
+            CloseButton = new Button(_rh);
             AddControl(CloseButton);
             CloseButton.Width = 20;
             CloseButton.Height = 20;
@@ -86,14 +84,14 @@ namespace AAL.UI
 
         }
 
-        public override void Update(GameTime gameTime, double timeScale, InputHelper ih, UIHandler uih)
+        public override void Update(GameTime gameTime, double timeScale, UIHandler uih)
         {
-            base.Update(gameTime, timeScale, ih, uih);
+            base.Update(gameTime, timeScale, uih);
 
         }
-        public override void Draw(SpriteBatch sb)
+        public override void Draw()
         {
-            base.Draw(sb);
+            base.Draw();
         }
     }
 }

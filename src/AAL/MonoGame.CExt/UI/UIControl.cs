@@ -15,7 +15,13 @@ namespace MonoGame.CExt.UI
 {
     public abstract class UIControl
     {
-        private readonly ResourceHandler _rh;
+        #region Resources
+
+        protected readonly ResourceHandler _rh;
+        protected SpriteBatch sb => _rh._sb;
+        protected InputHelper ih => _rh._ih;
+
+        #endregion Resources
 
         #region subfields
         private int _x;
@@ -23,6 +29,7 @@ namespace MonoGame.CExt.UI
         private int _height;
         private int _width;
         private UIControl _parent;
+        private string _fontName;
         #endregion subfields
 
         #region Position
@@ -411,7 +418,22 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// Font of the control's text
         /// </summary>
-        public SpriteFont Font;
+        public SpriteFont Font { get; private set; }
+
+        /// <summary>
+        /// Name of the font
+        /// </summary>
+        public string FontName {
+            get { return _fontName; }
+            set
+            {
+                _fontName = value;
+                Font = _rh.GetFont(value);
+            }
+        
+        }
+
+        public const string DefaultFontName = "Arial";
 
         #endregion Appearance
 
@@ -509,9 +531,10 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public List<UIControl> Children = new List<UIControl>();
 
-        public UIControl()
+        public UIControl(ResourceHandler resourceHandler)
         {
-            //_rh = resourceHandler;
+            this._rh = resourceHandler;
+            FontName = DefaultFontName;
         }
 
         /// <summary>
@@ -522,7 +545,7 @@ namespace MonoGame.CExt.UI
         /// <param name="ih">Input helper instance</param>
         /// <param name="uih">Root UI handler</param>
         /// <exception cref="ArgumentNullException">Thrown if no UI handler is supplied</exception>
-        public virtual void Update(GameTime gameTime, double timeScale, InputHelper ih, UIHandler uih)
+        public virtual void Update(GameTime gameTime, double timeScale, UIHandler uih)
         {
             if (!Enabled)
             {
@@ -576,7 +599,7 @@ namespace MonoGame.CExt.UI
         /// Draws this control to screen.
         /// </summary>
         /// <param name="sb">Sprite batch for drawing textures</param>
-        public virtual void Draw(SpriteBatch sb)
+        public virtual void Draw()
         {
 
         }

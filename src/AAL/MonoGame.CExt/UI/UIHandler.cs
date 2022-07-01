@@ -6,6 +6,7 @@ using MonoGame.CExt.Extensions;
 using MonoGame.CExt.Input;
 using MonoGame.CExt.Sprites;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.CExt.Utility;
 
 namespace MonoGame.CExt.UI
 {
@@ -15,14 +16,9 @@ namespace MonoGame.CExt.UI
     public class UIHandler : UIControl
     {
         /// <summary>
-        /// Rectangle representing the entire screesn.
+        /// Rectangle representing the area the UI Handler covers.
         /// </summary>
-        public Rectangle ScreenRect;
-
-        /// <summary>
-        /// Selected control
-        /// </summary>
-        private UIControl _selectedControl;
+        public Rectangle ScreenArea;
 
         /// <summary>
         /// Current selected control
@@ -37,19 +33,16 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// Create a UI Handler
         /// </summary>
-        public UIHandler(Rectangle ScreenRect) : base() {
+        public UIHandler(ResourceHandler resourceHandler, Rectangle ScreenArea) : base(resourceHandler) {
             //Initialize Dimensions
-            this.X = ScreenRect.X;
-            this.Y = ScreenRect.Y;
-            this.Width = ScreenRect.Width;
-            this.Height = ScreenRect.Height;
+            this.X = ScreenArea.X;
+            this.Y = ScreenArea.Y;
+            this.Width = ScreenArea.Width;
+            this.Height = ScreenArea.Height;
             this.Margin = Borders.Zero;
             this.Padding = Borders.Zero;
-
             this.Parent = null;
-
-            this.ScreenRect = ScreenRect;
-
+            this.ScreenArea = ScreenArea;
         }
 
         public void Update(GameTime gameTime, InputHelper ih, UIHandler uih = null)
@@ -60,20 +53,20 @@ namespace MonoGame.CExt.UI
             double deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
 
             //Update this as a control in case it has been clicked.
-            base.Update(gameTime, deltaTime, ih, this);
+            base.Update(gameTime, deltaTime, this);
 
             //Update child elements
             foreach (UIControl c in Children)
             {
-                c.Update(gameTime, deltaTime, ih, this);
+                c.Update(gameTime, deltaTime, this);
             }
         }
-        public override void Draw(SpriteBatch sb)
+        public override void Draw()
         {
             //Draw child elements
             foreach (UIControl c in Children)
             {
-                c.Draw(sb);
+                c.Draw();
             }
         }
     }

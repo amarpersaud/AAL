@@ -10,6 +10,7 @@ using MonoGame.CExt.UI;
 using MonoGame.CExt.Utility;
 using MonoGame.CExt.Sprites;
 using AAL.UI;
+using System.Collections.Generic;
 
 namespace AAL
 {
@@ -17,8 +18,14 @@ namespace AAL
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private SpriteFont spf;
         private InputHelper ih = new InputHelper();
+        private FrameCounter fc = new FrameCounter();
+        private ScreenSettings ss = new ScreenSettings();
+
+        private ResourceHandler _rh;
+
+        List<string> fonts = new List<string> { "Arial" };
+        List<string> textures = new List<string>();
 
         public Sprite whiteRect;
 
@@ -31,6 +38,7 @@ namespace AAL
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
         }
 
         protected override void Initialize()
@@ -41,16 +49,37 @@ namespace AAL
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            ss = new ScreenSettings();
+            ss.WindowDimensions = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            ss.GameScreenDimensions = ss.WindowDimensions.ToVector2();
+            _rh = new ResourceHandler(_spriteBatch, ih, fc, ss);
 
-            spf = Content.Load<SpriteFont>("Arial");
+            //Load Fonts
+            foreach (string s in fonts)
+            {
+                SpriteFont spf = Content.Load<SpriteFont>(s);
+                string fontname = System.IO.Path.GetFileName(s);
+                _rh.Fonts.Add(fontname, spf);
+            }
 
+            //Load textures
+            foreach (string t in textures)
+            {
+                Texture2D tex = Content.Load<Texture2D>(t);
+                string texturename = System.IO.Path.GetFileName(t);
+                Sprite s = new Sprite(tex);
+                _rh.Sprites.Add(texturename, s);
+            }
+
+            //Create white rectangle placeholder graphic
             Texture2D wr = new Texture2D(_graphics.GraphicsDevice, 1, 1);
             Color[] col = new Color[] { Color.White };
             wr.SetData<Color>(col);
             whiteRect = new Sprite(wr);
 
+            _rh.Sprites.Add("whiteRect", whiteRect);
 
-            duih = new DeskUIHandler(new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight), whiteRect, spf);
+            duih = new DeskUIHandler(_rh, ss.WindowRectangle);
         }
 
         protected override void Update(GameTime gameTime)
@@ -74,7 +103,7 @@ namespace AAL
 
             //Draw
 
-            duih.Draw(_spriteBatch);
+            duih.Draw();
 
             _spriteBatch.End();
 

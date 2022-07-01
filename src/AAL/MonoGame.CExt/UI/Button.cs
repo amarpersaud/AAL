@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.CExt.Input;
 using MonoGame.CExt.Sprites;
+using MonoGame.CExt.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,43 +39,43 @@ namespace MonoGame.CExt.UI
         public Color HoverColor;
         public Sprite HoverTexture;
 
-        public Button(Sprite BaseTexture, Sprite PressedTexture, SpriteFont spf) : base()
+        public Button(ResourceHandler resourceHandler) : base(resourceHandler)
         {
-            this.BackgroundSprite = BaseTexture;
-            this.HoverTexture = PressedTexture;
-            this.Font = spf;
+            this.BackgroundSprite = _rh.GetSprite("whiteRect");
+            this.HoverTexture = _rh.GetSprite("whiteRect");
+            this.FontName = "Arial";
 
             HoverColor = Color.Green;
             BackgroundColor = Color.Gray;
         }
 
-        public override void Update(GameTime gameTime, double timeScale, InputHelper ih, UIHandler uih)
+        public override void Update(GameTime gameTime, double timeScale, UIHandler uih)
         {
             if (!Enabled)
             {
                 return;
             }
 
-            base.Update(gameTime, timeScale, ih, uih);
+            base.Update(gameTime, timeScale, uih);
 
             //Children should be null, but update them if there are
             if (Children != null)
                 {
                     foreach (var c in Children)
                     {
-                        c.Update(gameTime, timeScale, ih, uih);
+                        c.Update(gameTime, timeScale, uih);
                     }
                 }
         }
 
-        public override void Draw(SpriteBatch sb)
+        public override void Draw()
         {
             if (!Visible)
             {
                 return;
             }
 
-            base.Draw(sb);
+            base.Draw();
 
             if (Hover & !Pressed)
             {
@@ -105,7 +106,7 @@ namespace MonoGame.CExt.UI
             {
                 foreach (var c in Children)
                 {
-                    c.Draw(sb);
+                    c.Draw();
                 }
             }
 

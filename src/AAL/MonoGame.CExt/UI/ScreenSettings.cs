@@ -31,6 +31,11 @@ namespace MonoGame.CExt.UI
         /// Aspect ratio of window
         /// </summary>
         public float WindowAspectRatio => WindowDimensions.X / (float)(WindowDimensions.Y);
+        
+        /// <summary>
+        /// Rectangle representing window
+        /// </summary>
+        public Rectangle WindowRectangle => new Rectangle(Point.Zero, WindowDimensions);
 
     }
 }
