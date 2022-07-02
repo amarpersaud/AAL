@@ -355,7 +355,17 @@ namespace MonoGame.CExt.UI
         /// <summary>
         /// Rectangle representing bounds of the control relative to parent control
         /// </summary>
-        public Rectangle Bounds => new Rectangle(X, Y, Width, Height);
+        public Rectangle Bounds
+        {
+            get { return new Rectangle(X, Y, Width, Height); }
+            set
+            {
+                X = value.X;
+                Y = value.Y;
+                Width = value.Width;
+                Height = value.Height;
+            }
+        }
 
         /// <summary>
         /// Rectangle representing bounds of the control in screen coordinates

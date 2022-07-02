@@ -85,12 +85,16 @@ namespace AAL
         protected override void Update(GameTime gameTime)
         {
             ih.Update();
+            
             if (ih.ExitRequested)
             {
                 Exit();
             }
             
             duih.Update(gameTime, ih);
+
+
+
 
             base.Update(gameTime);
         }
@@ -106,6 +110,9 @@ namespace AAL
             duih.Draw();
 
             _spriteBatch.End();
+
+
+
 
             base.Draw(gameTime);
         }

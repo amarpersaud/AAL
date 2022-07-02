@@ -45,10 +45,9 @@ namespace AAL.UI
             }
         }
 
-        public UIContract(ResourceHandler resourceHandler, int Width, int Height) : base(resourceHandler)
+        public UIContract(ResourceHandler resourceHandler, Rectangle bounds) : base(resourceHandler)
         {
-            this.Width = Width;
-            this.Height = Height;
+            this.Bounds = bounds;
             this.BackgroundSprite = _rh.GetSprite("whiteRect");
             Initialize(resourceHandler);
         }

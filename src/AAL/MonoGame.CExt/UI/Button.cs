@@ -37,6 +37,7 @@ namespace MonoGame.CExt.UI
         private string _text;
 
         public Color HoverColor;
+
         public Sprite HoverTexture;
 
         public Button(ResourceHandler resourceHandler) : base(resourceHandler)
@@ -60,12 +61,12 @@ namespace MonoGame.CExt.UI
 
             //Children should be null, but update them if there are
             if (Children != null)
+            {
+                foreach (var c in Children)
                 {
-                    foreach (var c in Children)
-                    {
-                        c.Update(gameTime, timeScale, uih);
-                    }
+                    c.Update(gameTime, timeScale, uih);
                 }
+            }
         }
 
         public override void Draw()

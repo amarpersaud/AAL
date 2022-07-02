@@ -33,55 +33,41 @@ namespace AAL.UI
             this.BackgroundColor = Color.Transparent;
             this.BackgroundSprite = _rh.GetSprite("whiteRect");
 
-            CoordinateHelper sch = new CoordinateHelper(screen.Width, screen.Height);
+            CoordinateHelper sch = new CoordinateHelper(screen);
 
             Desk = new Panel(_rh);
-            Desk.Width = sch.atoiX(0.75);
-            Desk.Height = sch.atoiY(0.55);
-            Desk.X = sch.atoiX(0.5) - (Desk.Width / 2);
-            Desk.Y = sch.atoiY(0.60) - (Desk.Height / 2);
+            Desk.Bounds = sch.GetRectCentered(0.5, 0.6, 0.75, 0.55);
+
             Desk.Overflow = UIOverflow.Visible;
             Desk.BackgroundSprite = _rh.GetSprite("whiteRect");
             Desk.BackgroundColor = Color.Brown;
             this.AddControl(Desk);
 
-            CoordinateHelper dch = new CoordinateHelper(Desk.Width, Desk.Height);
+            CoordinateHelper dch = new CoordinateHelper(Desk.Bounds);
 
-            //InboxPanel = new Panel();
 
             InboxButton = new Button(_rh);
-            InboxButton.Width = dch.atoiX(0.15);
-            InboxButton.Height = dch.atoiY(0.25);
-            InboxButton.X = dch.atoiX(0.15) - (InboxButton.Width / 2);
-            InboxButton.Y = dch.atoiY(0.25) - (InboxButton.Height / 2);
+            InboxButton.Bounds = dch.GetRectCentered(0.15, 0.25, 0.15, 0.25);
             InboxButton.Overflow = UIOverflow.Visible;
             InboxButton.Text = "Inbox";
             InboxButton.MouseReleased += InboxButtonClicked;
             Desk.AddControl(InboxButton);
 
             OutboxButton = new Button(_rh);
-            OutboxButton.Width = dch.atoiX(0.15);
-            OutboxButton.Height = dch.atoiY(0.25);
-            OutboxButton.X = dch.atoiX(0.85) - (OutboxButton.Width / 2);
-            OutboxButton.Y = dch.atoiY(0.25) - (OutboxButton.Height / 2);
+            OutboxButton.Bounds = dch.GetRectCentered(0.85, 0.25, 0.15, 0.25);
             OutboxButton.Overflow = UIOverflow.Visible;
             OutboxButton.Text = "Outbox";
             OutboxButton.MouseReleased += OutboxButtonClicked;
             Desk.AddControl(OutboxButton);
 
             MapButton = new Button(_rh);
-            MapButton.Width = dch.atoiX(0.15);
-            MapButton.Height = dch.atoiY(0.25);
-            MapButton.X = dch.atoiX(0.5) - (MapButton.Width / 2);
-            MapButton.Y = dch.atoiY(0.5) - (MapButton.Height / 2);
+            MapButton.Bounds = dch.GetRectCentered(0.5, 0.5, 0.15, 0.25);
             MapButton.Overflow = UIOverflow.Visible;
             MapButton.Text = "Map";
             MapButton.MouseReleased += MapButtonClicked;
             Desk.AddControl(MapButton);
 
-            ContractControl = new UIContract(_rh, sch.atoiX(0.5), sch.atoiY(0.75));
-            ContractControl.X = sch.atoiX(0.5) - ContractControl.Width/2;
-            ContractControl.Y = sch.atoiY(0.5) - ContractControl.Height/2;
+            ContractControl = new UIContract(_rh, sch.GetRectCentered(0.5, 0.5, 0.5, 0.75));
             ContractControl.BackgroundColor = Color.Tan;
             ContractControl.Overflow = UIOverflow.Auto;
             ContractControl.Hide();
@@ -90,10 +76,7 @@ namespace AAL.UI
             ContractControl.CloseButton.MouseReleased += ContractControlCloseClicked;
 
             InboxPanel = new Panel(_rh);
-            InboxPanel.Width = sch.atoiX(0.5);
-            InboxPanel.Height = sch.atoiY(0.75);
-            InboxPanel.X = sch.atoiX(0.5) - InboxPanel.Width / 2;
-            InboxPanel.Y = sch.atoiY(0.5) - InboxPanel.Height / 2;
+            InboxPanel.Bounds = sch.GetRectCentered(0.5, 0.5, 0.5, 0.75);
             InboxPanel.BackgroundColor = Color.Blue;
             InboxPanel.BackgroundSprite = _rh.GetSprite("whiteRect");
             InboxPanel.Padding = new Borders { Top = 10, Bottom = 10, Left = 10, Right = 10 };
@@ -113,10 +96,7 @@ namespace AAL.UI
             }
 
             OutboxPanel = new Panel(_rh);
-            OutboxPanel.Width = sch.atoiX(0.5);
-            OutboxPanel.Height = sch.atoiY(0.75);
-            OutboxPanel.X = sch.atoiX(0.5) - OutboxPanel.Width / 2;
-            OutboxPanel.Y = sch.atoiY(0.5) - OutboxPanel.Height / 2;
+            OutboxPanel.Bounds = sch.GetRectCentered(0.5, 0.5, 0.5, 0.75);
             OutboxPanel.BackgroundColor = Color.Blue;
             OutboxPanel.BackgroundSprite = _rh.GetSprite("whiteRect");
             OutboxPanel.Padding = new Borders { Top = 10, Bottom = 10, Left = 10, Right = 10 };
@@ -142,7 +122,7 @@ namespace AAL.UI
             MapPanel.Hide();
             AddControl(MapPanel);
             MapPanel.CloseButton.MouseReleased += MapPanelCloseButtonClicked;
-            
+
         }
 
         public void ContractControlCloseClicked(object sender, UIControlClickEventArgs e)
