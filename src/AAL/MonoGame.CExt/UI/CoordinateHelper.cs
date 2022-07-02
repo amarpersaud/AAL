@@ -70,10 +70,10 @@ namespace MonoGame.CExt.UI
         /// <param name="rect">Rectangle with dimensions</param>
         public CoordinateHelper(Rectangle rect)
         {
-            this.X = X;
-            this.Y = Y;
-            this.Width = Width;
-            this.Height = Height;
+            this.X = rect.X;
+            this.Y = rect.Y;
+            this.Width = rect.Width;
+            this.Height = rect.Height;
         }
 
 
@@ -104,5 +104,86 @@ namespace MonoGame.CExt.UI
         /// <param name="x">Vertical position</param>
         /// <returns>percentage of point to parent height</returns>
         public double itoaY(int y) => ((double)(y-this.Y)) / Height;
+
+        /// <summary>
+        /// Create rectangle from percentage of parent dimensions
+        /// </summary>
+        /// <param name="x">X percentage of parent width</param>
+        /// <param name="y">Y percentage of parent width</param>
+        /// <param name="width">Width percentage of parent width</param>
+        /// <param name="height">Height percentage of parent width</param>
+        /// <returns>Rectangle with dimensions</returns>
+        public Rectangle GetRect(double x, double y, double width, double height)
+        {
+            return new Rectangle(atoiX(x), atoiY(y), atoiX(width), atoiY(height));
+        }
+
+        /// <summary>
+        /// Create rectangle from percentage of parent dimensions
+        /// </summary>
+        /// <param name="x">X percentage of parent width</param>
+        /// <param name="y">Y percentage of parent width</param>
+        /// <param name="width">Width</param>
+        /// <param name="height">Height</param>
+        /// <returns>Rectangle with dimensions</returns>
+        public Rectangle GetRect(double x, double y, int width, int height)
+        {
+            return new Rectangle(atoiX(x), atoiY(y), width, height);
+        }
+
+        /// <summary>
+        /// Get rectangle
+        /// </summary>
+        /// <param name="x">X</param>
+        /// <param name="y">Y</param>
+        /// <param name="width">Width percentage of parent width</param>
+        /// <param name="height">Height percentage of parent width</param>
+        /// <returns>Rectangle centered on position with percent dimensions</returns>
+        public Rectangle GetRect(int x, int y, double width, double height)
+        {
+            return new Rectangle(x, y, atoiX(width), atoiY(height));
+        }
+
+        /// <summary>
+        /// Get rectangle centered on a position
+        /// </summary>
+        /// <param name="x">X percentage of parent width</param>
+        /// <param name="y">Y percentage of parent width</param>
+        /// <param name="width">Width percentage of parent width</param>
+        /// <param name="height">Height percentage of parent width</param>
+        /// <returns>Rectangle centered on position with percent dimensions</returns>
+        public Rectangle GetRectCentered(double x, double y, double width, double height)
+        {
+            int aw = atoiX(width);
+            int ah = atoiY(height);
+            return new Rectangle(atoiX(x) - aw/2, atoiY(y) - ah/2, aw, ah);
+        }
+
+        /// <summary>
+        /// Get rectangle centered on a position
+        /// </summary>
+        /// <param name="x">X percentage of parent width</param>
+        /// <param name="y">Y percentage of parent width</param>
+        /// <param name="width">Width</param>
+        /// <param name="height">Height</param>
+        /// <returns>Rectangle centered on position with percent dimensions</returns>
+        public Rectangle GetRectCentered(double x, double y, int width, int height)
+        {
+            return new Rectangle(atoiX(x) - width / 2, atoiY(y) - height / 2, width, height);
+        }
+
+
+        /// <summary>
+        /// Get rectangle centered on a position
+        /// </summary>
+        /// <param name="x">X</param>
+        /// <param name="y">Y</param>
+        /// <param name="width">Width percentage of parent width</param>
+        /// <param name="height">Height percentage of parent width</param>
+        /// <returns>Rectangle centered on position with percent dimensions</returns>
+        public Rectangle GetRectCentered(int x, int y, double width, double height)
+        {
+            return new Rectangle(x - atoiX(width) / 2, y - atoiY(height) / 2, atoiX(width), atoiY(height));
+        }
     }
 }
