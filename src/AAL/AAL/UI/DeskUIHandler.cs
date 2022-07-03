@@ -83,15 +83,12 @@ namespace AAL.UI
             InboxPanel.Hide();
             AddControl(InboxPanel);
 
+            ContractGenerator.Initialize();
+
             for (int j = 0; j < 10; j++)
             {
-                Contract a = new Contract(String.Format("Test contract {0}", j + 1));
-                for (int i = 0; i < 10; i++)
-                {
-                    ContractClause cc = new ContractClause(String.Format("Test clause {0}", i + 1));
-                    a.Clauses.Add(cc);
-                }
-                AddContractToInbox(a);
+                Contract c = ContractGenerator.GenerateContract();
+                AddContractToInbox(c);
             }
 
             OutboxPanel = new Panel(_rh);
@@ -105,13 +102,8 @@ namespace AAL.UI
 
             for (int j = 0; j < 10; j++)
             {
-                Contract a = new Contract(String.Format("Test outbox contract {0}", j + 1));
-                for (int i = 0; i < 10; i++)
-                {
-                    ContractClause cc = new ContractClause(String.Format("Test clause {0}", i+1));
-                    a.Clauses.Add(cc);
-                }
-                AddContractToOutbox(a);
+                Contract c = ContractGenerator.GenerateContract();
+                AddContractToOutbox(c);
             }
 
             WorldMap = new Map();
