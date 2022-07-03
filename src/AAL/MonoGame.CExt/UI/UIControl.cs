@@ -518,6 +518,8 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public bool IsRoot => Parent == null;
 
+        public virtual bool Selectable { get; set; } = true;
+
         #endregion Status
 
         /// <summary>
@@ -583,7 +585,24 @@ namespace MonoGame.CExt.UI
                     OnMousePressed(new UIControlClickEventArgs(this));      //Trigger button press event
                         
                     Pressed = true;                                         //Set this control as pressed
-                    uih.SelectedControl = this;                             //Set this control as the new selected control
+
+                    if (Selectable)
+                    {
+                        uih.SelectedControl = this;                             //Set this control as the new selected control
+                    }
+                    else
+                    {
+                        //Find most recent selectable ancestor.
+                        UIControl c = Parent;
+                        while(c.Parent != null && !c.Selectable)
+                        {
+                            c = c.Parent;
+                        }
+                        if(c != null && c.Selectable)
+                        {
+                            uih.SelectedControl = c;
+                        }
+                    }
                 }
                 else if (ih.IsOldPress(MouseButtons.LeftButton) && Pressed)
                 {

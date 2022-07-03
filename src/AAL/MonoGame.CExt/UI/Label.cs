@@ -64,6 +64,7 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public bool CenterY { get; set; }
 
+        public override bool Selectable => false;
 
         /// <summary>
         /// Position on screen of top left corner of text
