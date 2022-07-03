@@ -43,8 +43,7 @@ namespace AAL.UI
             Desk.BackgroundColor = Color.Brown;
             this.AddControl(Desk);
 
-            CoordinateHelper dch = new CoordinateHelper(Desk.Bounds);
-
+            CoordinateHelper dch = new CoordinateHelper(Desk.Bounds, true);
 
             InboxButton = new Button(_rh);
             InboxButton.Bounds = dch.GetRectCentered(0.15, 0.25, 0.15, 0.25);
