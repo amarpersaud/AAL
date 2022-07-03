@@ -22,6 +22,7 @@
     <None Include="$(MSBuildThisFileDirectory)Utility\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\CollectionExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\MathExt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\SpriteBatchExt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\StringExt.cs" />
