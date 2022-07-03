@@ -72,7 +72,7 @@ namespace MonoGame.CExt.UI
         /// Create coordinate helper object
         /// </summary>
         /// <param name="rect">Rectangle with dimensions</param>
-        public CoordinateHelper(Rectangle rect, bool ignoreOffset = false)
+        public CoordinateHelper(Rectangle rect, bool ignoreOffset = true)
         {
             this.X = rect.X;
             this.Y = rect.Y;
