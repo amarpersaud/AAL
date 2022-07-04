@@ -13,8 +13,8 @@ namespace AAL.Contracts
     public static class ContractGenerator
     {
         private static Random r = new Random();
-        private static Party PlayerParty = new Party();
-        private static List<Party> Parties = new List<Party>();
+        private static Person PlayerParty = new Person();
+        private static List<Person> Parties = new List<Person>();
         private static List<string> Names = "Albert – Alexander – Alfred – Algernon – Allen – Ambrose – Andrew – Anthony – Archibald – Archie – Arthur – Aubrey – August – Augustine – Augustus – Basil – Ben – Benjamin – Bernard – Bert – Bertram – Carl – Cecil – Cedric – Charles – Charley – Charlie – Chester – Clarence – Claude – Clement – Clifford – Clyde – Cornelius – Cuthbert – Cyril – Daniel – David – Donald – Douglas – Duncan – Earl – Ebenezer – Ed – Eddie – Edgar – Edmund – Edward – Edwin – Elmer – Ernest – Eugene – Eustace – Evan – Everett – Ewart – Felix – Fergus – Floyd – Francis – Frank – Franklin – Fred – Frederick – Geoffrey – George – Gerald – Gilbert – Grover – Guy – Harold – Harry – Harvey – Henry – Herbert – Herman – Horace – Howard – Hubert – Hugh – Hugo – Humphrey – Ira – Isaac – Ivan – Ivor – Jack – Jacob – James – Jasper – Jessie – Jim – Joe – John – Jonathan – Joseph – Julian – Julius – Kenneth – Laurence – Lawrence – Lee – Leo – Leonard – Leopold – Leroy – Leslie – Lewis – Lionel – Llewellyn – Lloyd – Louis – Luther – Malcolm – Marion – Martin – Maurice – Maxwell – Michael – Miles – Montague – Neville – Nigel – Oliver – Oscar – Otto – Owen – Patrick – Paul – Percival – Percy – Peter – Philip – Ralph – Randolph – Ray – Raymond – Reginald – Reuben – Richard – Robert – Roderick – Roger – Roy – Rufus – Rupert – Sam – Samuel – Septimus – Sidney – Silas – Simeon – Stanley – Stephen – Theodore – Thomas – Timothy – Tom – Valentine – Vernon – Victor – Vincent – Walter – Warren – Wilfred – Will – William – Willie".Split(" – ").ToList();
        public static List<string> ClauseStrings = new List<string>{
             "Provide {0} amount of {1}",
@@ -49,7 +49,7 @@ namespace AAL.Contracts
             ///Generate parties
             for(int i = 0; i < Names.Count; i++)
             {
-                Party p = new Party();
+                Person p = new Person();
                 p.Name = Names[i];
                 Parties.Add(p);
             }
@@ -63,7 +63,7 @@ namespace AAL.Contracts
         /// <returns>Contract with randomly selected clauses</returns>
         public static Contract GenerateContract()
         {
-            Party p = Parties.Random();
+            Person p = Parties.Random();
 
             Contract c = new Contract(String.Format("Contract with {0}", p.Name), PlayerParty, p);
             c.Clauses = new List<ContractClause>();

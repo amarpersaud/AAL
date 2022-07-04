@@ -22,12 +22,12 @@ namespace AAL.Contracts
         /// <summary>
         /// First signer (player if applicable)
         /// </summary>
-        public Party FirstParty;
+        public Person FirstParty;
  
         /// <summary>
         /// Second signer
         /// </summary>
-        public Party SecondParty;
+        public Person SecondParty;
 
         /// <summary>
         /// True if first party has signed the contract
@@ -39,7 +39,7 @@ namespace AAL.Contracts
         /// </summary>
         public bool SecondPartySigned { get; set; } = false;
 
-        public Contract(string contractTitle, Party firstParty = null, Party secondParty = null)
+        public Contract(string contractTitle, Person firstParty = null, Person secondParty = null)
         {
             ContractTitle = contractTitle;
             Clauses = new List<ContractClause>();

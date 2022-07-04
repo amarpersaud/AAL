@@ -5,17 +5,13 @@ using AAL.Contracts;
 
 namespace AAL
 {
-    public class Party
+    public class Person
     {
         /// <summary>
-        /// Name of party
+        /// Name of person
         /// </summary>
         public string Name { get; set; }
 
-        /// <summary>
-        /// List of signed contracts with that party
-        /// </summary>
-        public List<Contract> SignedContracts;
 
     }
 }
