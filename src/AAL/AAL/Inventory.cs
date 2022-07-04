@@ -9,15 +9,19 @@ namespace AAL
     public class Inventory
     {
         public int Money { get; set; }
-        public List<Resource> Resources = new List<Resource>();
+        public Dictionary<int, int> Resources = new Dictionary<int, int>();
 
-        public bool HasResource(string ResourceName)
+        public bool HasResource(int ResourceId)
         {
-            return Resources.Where(x => x.ResourceName == ResourceName).Count() > 0;
+            return Resources.Where(x => x.Key == ResourceId).Count() > 0;
         }
-        public Resource GetResource(string ResourceName)
+        public int GetAmount(int ResourceId)
         {
-            return Resources.Where(x => x.ResourceName == ResourceName).FirstOrDefault();
+            if (!HasResource(ResourceId))
+            {
+                return 0;
+            }
+            return Resources[ResourceId];
         }
     }
 }

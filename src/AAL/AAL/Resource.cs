@@ -9,8 +9,19 @@ namespace AAL
 {
     public class Resource
     {
+        /// <summary>
+        /// Resource Id number
+        /// </summary>
+        public int ResourceId { get; set; }
+
+        /// <summary>
+        /// Resource Name
+        /// </summary>
         public string ResourceName { get; set; }
 
+        /// <summary>
+        /// Thumbnail Sprite
+        /// </summary>
         public Sprite ThumbnailSprite { get; set; }
     }
 }
