@@ -20,6 +20,6 @@ namespace AAL
         /// </summary>
         public string Name { get; set; }
 
-
+        public Inventory Inventory { get; set; }
     }
 }
