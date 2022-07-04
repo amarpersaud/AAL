@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AAL.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,11 @@ namespace AAL
         {
             return Resources.Where(x => x.Key == ResourceId).Count() > 0;
         }
+        public bool HasResource(Resource res)
+        {
+            return Resources.Where(x => x.Key == res.ResourceId).Count() > 0;
+        }
+
         public int GetAmount(int ResourceId)
         {
             if (!HasResource(ResourceId))
@@ -23,5 +29,15 @@ namespace AAL
             }
             return Resources[ResourceId];
         }
+
+        public int GetAmount(Resource res)
+        {
+            if (!HasResource(res))
+            {
+                return 0;
+            }
+            return Resources[res.ResourceId];
+        }
+
     }
 }
