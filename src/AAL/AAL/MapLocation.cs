@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AAL
 {
-    public class RegionLocation
+    public class MapLocation
     {
         public string LocationName { get; set; }
 
