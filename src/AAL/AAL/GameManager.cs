@@ -33,6 +33,11 @@ namespace AAL
         public Player Player;
 
         /// <summary>
+        /// Settings
+        /// </summary>
+        public GameSettings Settings;
+
+        /// <summary>
         /// CustomExtension Resource Handler
         /// </summary>
         public ResourceHandler rh;
