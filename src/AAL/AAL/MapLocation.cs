@@ -10,9 +10,7 @@ namespace AAL
     {
         public string LocationName { get; set; }
 
-        public Party Party { get; set; }
-
-
+        public Person Representative { get; set; }
 
     }
 }
