@@ -16,6 +16,7 @@ namespace AAL
 {
     public class Game1 : Game
     {
+        private GameManager gm;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private InputHelper ih = new InputHelper();
@@ -53,6 +54,15 @@ namespace AAL
             ss.WindowDimensions = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             ss.GameScreenDimensions = ss.WindowDimensions.ToVector2();
             _rh = new ResourceHandler(_spriteBatch, ih, fc, ss);
+
+
+            gm = new GameManager();
+            gm.rh = _rh;
+            //gm.Clock = new GameClock();
+            //gm.Player = new Player();
+            //gm.Settings = new GameSettings();
+            //gm.GameMap = new Map();
+            //gm.Resources = new Dictionary<int, Resources.Resource>();
 
             //Load Fonts
             foreach (string s in fonts)
@@ -110,9 +120,6 @@ namespace AAL
             duih.Draw();
 
             _spriteBatch.End();
-
-
-
 
             base.Draw(gameTime);
         }
