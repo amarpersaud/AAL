@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using AAL.Resources;
 
-namespace AAL
+namespace AAL.Map
 {
     public class MapLocation
     {

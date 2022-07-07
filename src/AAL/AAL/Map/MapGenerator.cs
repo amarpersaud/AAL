@@ -1,11 +1,12 @@
 ﻿using MonoGame.CExt.Extensions;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AAL
+namespace AAL.Map
 {
     public class MapGenerator
     {
@@ -13,7 +14,7 @@ namespace AAL
 
         #region Parameters
 
-        public List<string> PlaceNames = new List<string> { 
+        public List<string> PlaceNames = new List<string> {
             "New York",
             "London",
             "England",
@@ -22,6 +23,7 @@ namespace AAL
             "Hell",
             "France"
         };
+
 
         public int MinRegions { get; set; }
         public int MaxRegions { get; set; }
@@ -36,7 +38,7 @@ namespace AAL
             m.Regions = new List<Region>();
             int numRegions = r.Next(MinRegions, MaxRegions + 1);
 
-            for(int i = 0; i < numRegions; i++)
+            for (int i = 0; i < numRegions; i++)
             {
                 Region reg = new Region();
                 reg.Name = PlaceNames.Random();
