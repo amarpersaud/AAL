@@ -53,7 +53,7 @@ namespace AAL
             ss = new ScreenSettings();
             ss.WindowDimensions = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             ss.GameScreenDimensions = ss.WindowDimensions.ToVector2();
-            _rh = new ResourceHandler(_spriteBatch, ih, fc, ss);
+            _rh = new ResourceHandler(Content, _spriteBatch, ih, fc, ss);
 
 
             gm = new GameManager();

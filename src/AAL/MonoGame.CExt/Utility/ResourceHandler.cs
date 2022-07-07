@@ -1,8 +1,13 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
+
+using Newtonsoft.Json;
+
 using MonoGame.CExt.Input;
 using MonoGame.CExt.Sprites;
 using MonoGame.CExt.Utility;
 using MonoGame.CExt.UI;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +19,11 @@ namespace MonoGame.CExt.Utility
 
     public class ResourceHandler
     {
+        /// <summary>
+        /// Content manager
+        /// </summary>
+        public ContentManager _content { get; private set; }
+
         /// <summary>
         /// Sprite batch for drawing 
         /// </summary>
@@ -44,12 +54,13 @@ namespace MonoGame.CExt.Utility
         /// </summary>
         public Dictionary<string, SpriteFont> Fonts = new Dictionary<string, SpriteFont>();
 
-        public ResourceHandler(SpriteBatch sb, InputHelper ih, FrameCounter fc, ScreenSettings screenSettings)
+        public ResourceHandler(ContentManager content, SpriteBatch sb, InputHelper ih, FrameCounter fc, ScreenSettings screenSettings)
         {
-            _sb = sb;
-            _ih = ih;
-            _fc = fc;
-            ScreenSettings = screenSettings;
+            this._content = content;
+            this._sb = sb;
+            this._ih = ih;
+            this._fc = fc;
+            this.ScreenSettings = screenSettings;
         }
 
         /// <summary>
@@ -71,5 +82,6 @@ namespace MonoGame.CExt.Utility
         {
             return Fonts.GetValueOrDefault(name);
         }
+
     }
 }
