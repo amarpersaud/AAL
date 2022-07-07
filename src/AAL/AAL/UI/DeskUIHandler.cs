@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using AAL.Contracts;
 using MonoGame.CExt.Utility;
+using AAL.Map;
 
 namespace AAL.UI
 {
