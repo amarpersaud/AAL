@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AAL.Resources;
+using AAL.Map;
 
 namespace AAL
 {
@@ -21,7 +22,7 @@ namespace AAL
         /// <summary>
         /// Game map
         /// </summary>
-        public Map GameMap;
+        public WorldMap GameMap;
 
         /// <summary>
         /// Clock for managing in game time
