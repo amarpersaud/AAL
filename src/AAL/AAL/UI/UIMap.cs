@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using MonoGame.CExt.Sprites;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.CExt.Utility;
+using AAL.Map;
 
 namespace AAL.UI
 {
@@ -17,9 +18,9 @@ namespace AAL.UI
         public Label TitleLabel;
         public Button CloseButton;
 
-        public Map WorldMap;
+        public WorldMap WorldMap;
 
-        public UIMap(ResourceHandler resourceHandler, Rectangle screen, Map WorldMap) : base(resourceHandler)
+        public UIMap(ResourceHandler resourceHandler, Rectangle screen, WorldMap WorldMap) : base(resourceHandler)
         {
             this.WorldMap = WorldMap;
             Initialize(screen);

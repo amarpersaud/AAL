@@ -22,7 +22,7 @@ namespace AAL.UI
         public Panel Desk;
         public Button MapButton;
         public UIMap MapPanel;
-        public Map WorldMap;
+        public WorldMap WorldMap;
 
         public DeskUIHandler(ResourceHandler resourceHandler, Rectangle screen) : base(resourceHandler, screen){
 
@@ -107,7 +107,7 @@ namespace AAL.UI
                 AddContractToOutbox(c);
             }
 
-            WorldMap = new Map();
+            WorldMap = new WorldMap();
             WorldMap.WorldName = "Test World";
             WorldMap.Regions = new List<Region>();
             MapPanel = new UIMap(_rh, screen, WorldMap);
