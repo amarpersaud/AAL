@@ -9,6 +9,7 @@ namespace AAL
     public class Map
     {
         public string WorldName { get; set; }
+        
         public List<Region> Regions { get; set; }
 
     }
