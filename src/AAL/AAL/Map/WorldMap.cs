@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AAL.Map
 {
-    public class Map
+    public class WorldMap
     {
         public string WorldName { get; set; }
 

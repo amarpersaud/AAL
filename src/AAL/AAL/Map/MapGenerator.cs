@@ -32,9 +32,9 @@ namespace AAL.Map
 
         #endregion Parameters
 
-        public Map GenerateRandomMap()
+        public WorldMap GenerateRandomMap()
         {
-            Map m = new Map();
+            WorldMap m = new WorldMap();
             m.Regions = new List<Region>();
             int numRegions = r.Next(MinRegions, MaxRegions + 1);
 
