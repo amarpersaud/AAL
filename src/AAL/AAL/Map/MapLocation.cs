@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using AAL.Resources;
 
+using Microsoft.Xna.Framework;
+
 namespace AAL.Map
 {
     public class MapLocation
@@ -14,6 +16,11 @@ namespace AAL.Map
         /// Name of location
         /// </summary>
         public string LocationName { get; set; }
+
+        /// <summary>
+        /// Location within the map
+        /// </summary>
+        public Vector2 Location { get; private set; }
 
         /// <summary>
         /// Person representing this location
@@ -29,5 +36,6 @@ namespace AAL.Map
         /// Dictionary of resources needed by this location
         /// </summary>
         public Dictionary<int, int> ResourcesNeeded = new Dictionary<int, int>();
+
     }
 }

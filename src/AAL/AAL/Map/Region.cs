@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,15 @@ namespace AAL.Map
         /// </summary>
         public string Name { get; set; }
 
-        /*
-         * Stats for region
-         */
+        /// <summary>
+        /// List of locations
+        /// </summary>
+        List<MapLocation> Locations = new List<MapLocation>();
+
+        /// <summary>
+        /// List of vertices of outside edges
+        /// </summary>
+        List<Vector2> Vertices;
 
     }
 }
