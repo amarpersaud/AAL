@@ -30,12 +30,12 @@ namespace AAL.Map
         /// <summary>
         /// List of resources produced by this location
         /// </summary>
-        public Dictionary<int, int> ResourcesProduced = new Dictionary<int, int>();
+        public List<ResourceRate> ResourcesProduced = new List<ResourceRate>(0);
 
         /// <summary>
-        /// Dictionary of resources needed by this location
+        /// List of resources needed by this location
         /// </summary>
-        public Dictionary<int, int> ResourcesNeeded = new Dictionary<int, int>();
-
+        public List<ResourceRate> ResourcesNeeded = new List<ResourceRate>();
+        
     }
 }
