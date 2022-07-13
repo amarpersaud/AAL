@@ -17,12 +17,12 @@ namespace AAL.Map
         /// <summary>
         /// List of locations
         /// </summary>
-        List<MapLocation> Locations = new List<MapLocation>();
+        public List<MapLocation> Locations = new List<MapLocation>();
 
         /// <summary>
         /// List of vertices of outside edges
         /// </summary>
-        List<Vector2> Vertices;
+        public List<Vector2> Vertices;
 
     }
 }

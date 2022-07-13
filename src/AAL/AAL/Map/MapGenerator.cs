@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using AAL.Resources;
+
 namespace AAL.Map
 {
     public class MapGenerator
@@ -25,10 +27,10 @@ namespace AAL.Map
         };
 
 
-        public int MinRegions { get; set; }
-        public int MaxRegions { get; set; }
-        public int MinLocationsPerRegion { get; set; }
-        public int MaxLocationsPerRegion { get; set; }
+        public int MinRegions { get; set; } = 4;
+        public int MaxRegions { get; set; } = 10;
+        public int MinLocationsPerRegion { get; set; } = 2;
+        public int MaxLocationsPerRegion { get; set; } = 6;
 
         #endregion Parameters
 
@@ -36,12 +38,24 @@ namespace AAL.Map
         {
             WorldMap m = new WorldMap();
             m.Regions = new List<Region>();
-            int numRegions = r.Next(MinRegions, MaxRegions + 1);
+            int numRegions = r.Next(MinRegions, MaxRegions);
 
             for (int i = 0; i < numRegions; i++)
             {
                 Region reg = new Region();
                 reg.Name = PlaceNames.Random();
+
+                int numLocations = r.Next(MinLocationsPerRegion, MaxLocationsPerRegion);
+
+                for(int j = 0; j < numLocations; j++)
+                {
+                    MapLocation ml = new MapLocation();
+                    ml.LocationName = PlaceNames.Random();
+                    ml.ResourcesNeeded = new List<ResourceRate>();
+                    //Generate resource usage and production 
+                    reg.Locations.Add(ml);
+                }
+
                 m.Regions.Add(reg);
             }
 
