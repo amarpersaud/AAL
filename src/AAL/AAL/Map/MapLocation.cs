@@ -30,7 +30,7 @@ namespace AAL.Map
         /// <summary>
         /// List of resources produced by this location
         /// </summary>
-        public List<ResourceRate> ResourcesProduced = new List<ResourceRate>(0);
+        public List<ResourceRate> ResourcesProduced = new List<ResourceRate>();
 
         /// <summary>
         /// List of resources needed by this location
