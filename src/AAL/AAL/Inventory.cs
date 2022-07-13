@@ -18,7 +18,7 @@ namespace AAL
         }
         public bool HasResource(Resource res)
         {
-            return Resources.Where(x => x.Key == res.ResourceId).Count() > 0;
+            return Resources.Where(x => x.Key == res.Id).Count() > 0;
         }
 
         public int GetAmount(int ResourceId)
@@ -36,7 +36,7 @@ namespace AAL
             {
                 return 0;
             }
-            return Resources[res.ResourceId];
+            return Resources[res.Id];
         }
 
     }
