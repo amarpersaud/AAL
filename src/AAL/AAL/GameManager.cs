@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AAL.Resources;
 using AAL.Map;
+using Newtonsoft.Json;
 
 namespace AAL
 {
@@ -44,6 +45,14 @@ namespace AAL
         /// </summary>
         public ResourceHandler rh;
 
-
+        /// <summary>
+        /// Json serializer settings to allow serialization with inherited classes
+        /// </summary>
+        public JsonSerializerSettings JsonSettings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All,
+            TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Full,
+            Formatting = Formatting.Indented
+        };
     }
 }
