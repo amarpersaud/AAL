@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace MonoGame.CExt.Utility
 {
@@ -81,6 +83,20 @@ namespace MonoGame.CExt.Utility
         public SpriteFont GetFont(string name)
         {
             return Fonts.GetValueOrDefault(name);
+        }
+
+        /// <summary>
+        /// Loads text string from file
+        /// </summary>
+        /// <param name="name">file name</param>
+        /// <returns>string with text content from file if it exists</returns>
+        public string LoadFileText(string name)
+        {
+            if (!File.Exists(name))
+            {
+                throw new FileNotFoundException("Could not find text file, {0}", name);
+            }
+            return File.ReadAllText(name);
         }
 
     }
