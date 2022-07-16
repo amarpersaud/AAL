@@ -20,3 +20,9 @@
 /processorParam:TextureFormat=Compressed
 /build:Arial.spritefont
 
+#begin JSON/Female_FirstNames.json
+/copy:JSON/Female_FirstNames.json
+
+#begin JSON/Male_FirstNames.json
+/copy:JSON/Male_FirstNames.json
+

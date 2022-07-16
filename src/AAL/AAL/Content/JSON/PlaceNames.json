@@ -1,0 +1,19 @@
+{
+  "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+  "$values": [
+    "Wimble-Downey-Shire",
+    "Fulltonburg",
+    "Glauchestershire",
+    "Avon",
+    "Dunburry",
+    "Seaftalan",
+    "Mianaighton",
+    "Harrington",
+    "Wimbledon",
+    "Territ",
+    "Partely",
+    "Stratton",
+    "Covington",
+    "Archany"
+  ]
+}
