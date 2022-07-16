@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MonoGame.CExt.Extensions;
+using MonoGame.CExt.Utility;
 
 namespace AAL.Contracts
 {
@@ -44,8 +45,13 @@ namespace AAL.Contracts
             "Barrels of ale"
         };
 
-        public static void Initialize()
+        public static void Initialize(ResourceHandler rh)
         {
+            //Load male names
+            List<string> names = rh.LoadJsonObject<List<string>>("JSON/Male_FirstNames.json", rh.JsonSettings);
+            //Load female names
+            names = names.Concat(rh.LoadJsonObject<List<string>>("JSON/Female_FirstNames.json", rh.JsonSettings)).ToList();
+
             ///Generate parties
             for(int i = 0; i < Names.Count; i++)
             {

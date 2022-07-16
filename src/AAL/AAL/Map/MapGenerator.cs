@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using AAL.Resources;
+using MonoGame.CExt.Utility;
 
 namespace AAL.Map
 {
@@ -23,12 +24,12 @@ namespace AAL.Map
 
         #endregion Parameters
 
-        public WorldMap GenerateRandomMap(GameManager gm)
+        public WorldMap GenerateRandomMap(ResourceHandler rh)
         {
             WorldMap m = new WorldMap();
             m.Regions = new List<Region>();
 
-            List<string> PlaceNames = gm.rh.LoadJsonObject<List<string>>("JSON/PlaceNames.json", gm.JsonSettings);
+            List<string> PlaceNames = rh.LoadJsonObject<List<string>>("JSON/PlaceNames.json", rh.JsonSettings);
 
             int numRegions = r.Next(MinRegions, MaxRegions);
 

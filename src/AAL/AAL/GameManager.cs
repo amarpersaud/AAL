@@ -45,14 +45,5 @@ namespace AAL
         /// </summary>
         public ResourceHandler rh;
 
-        /// <summary>
-        /// Json serializer settings to allow serialization with inherited classes
-        /// </summary>
-        public JsonSerializerSettings JsonSettings = new JsonSerializerSettings
-        {
-            TypeNameHandling = TypeNameHandling.All,
-            TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Full,
-            Formatting = Formatting.Indented
-        };
     }
 }

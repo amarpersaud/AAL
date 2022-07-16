@@ -84,7 +84,7 @@ namespace AAL.UI
             InboxPanel.Hide();
             AddControl(InboxPanel);
 
-            ContractGenerator.Initialize();
+            ContractGenerator.Initialize(_rh);
 
             for (int j = 0; j < 10; j++)
             {

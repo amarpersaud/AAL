@@ -56,6 +56,16 @@ namespace MonoGame.CExt.Utility
         /// </summary>
         public Dictionary<string, SpriteFont> Fonts = new Dictionary<string, SpriteFont>();
 
+        /// <summary>
+        /// Json serializer settings to allow serialization with inherited classes
+        /// </summary>
+        public JsonSerializerSettings JsonSettings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All,
+            TypeNameAssemblyFormatHandling = TypeNameAssemblyFormatHandling.Full,
+            Formatting = Formatting.Indented
+        };
+
         public ResourceHandler(ContentManager content, SpriteBatch sb, InputHelper ih, FrameCounter fc, ScreenSettings screenSettings)
         {
             this._content = content;
