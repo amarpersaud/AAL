@@ -16,8 +16,7 @@ namespace AAL.Contracts
         private static Random r = new Random();
         private static Person PlayerParty = new Person();
         private static List<Person> Parties = new List<Person>();
-        private static List<string> Names = "Albert – Alexander – Alfred – Algernon – Allen – Ambrose – Andrew – Anthony – Archibald – Archie – Arthur – Aubrey – August – Augustine – Augustus – Basil – Ben – Benjamin – Bernard – Bert – Bertram – Carl – Cecil – Cedric – Charles – Charley – Charlie – Chester – Clarence – Claude – Clement – Clifford – Clyde – Cornelius – Cuthbert – Cyril – Daniel – David – Donald – Douglas – Duncan – Earl – Ebenezer – Ed – Eddie – Edgar – Edmund – Edward – Edwin – Elmer – Ernest – Eugene – Eustace – Evan – Everett – Ewart – Felix – Fergus – Floyd – Francis – Frank – Franklin – Fred – Frederick – Geoffrey – George – Gerald – Gilbert – Grover – Guy – Harold – Harry – Harvey – Henry – Herbert – Herman – Horace – Howard – Hubert – Hugh – Hugo – Humphrey – Ira – Isaac – Ivan – Ivor – Jack – Jacob – James – Jasper – Jessie – Jim – Joe – John – Jonathan – Joseph – Julian – Julius – Kenneth – Laurence – Lawrence – Lee – Leo – Leonard – Leopold – Leroy – Leslie – Lewis – Lionel – Llewellyn – Lloyd – Louis – Luther – Malcolm – Marion – Martin – Maurice – Maxwell – Michael – Miles – Montague – Neville – Nigel – Oliver – Oscar – Otto – Owen – Patrick – Paul – Percival – Percy – Peter – Philip – Ralph – Randolph – Ray – Raymond – Reginald – Reuben – Richard – Robert – Roderick – Roger – Roy – Rufus – Rupert – Sam – Samuel – Septimus – Sidney – Silas – Simeon – Stanley – Stephen – Theodore – Thomas – Timothy – Tom – Valentine – Vernon – Victor – Vincent – Walter – Warren – Wilfred – Will – William – Willie".Split(" – ").ToList();
-       public static List<string> ClauseStrings = new List<string>{
+        public static List<string> ClauseStrings = new List<string>{
             "Provide {0} amount of {1}",
             "Accept {0} amount of {1}",
             "Dispose of {0} amount of {1}",
@@ -48,9 +47,9 @@ namespace AAL.Contracts
         public static void Initialize(ResourceHandler rh)
         {
             //Load male names
-            List<string> names = rh.LoadJsonObject<List<string>>("JSON/Male_FirstNames.json", rh.JsonSettings);
+            List<string> Names = rh.LoadJsonObject<List<string>>("JSON/Male_FirstNames.json", rh.JsonSettings);
             //Load female names
-            names = names.Concat(rh.LoadJsonObject<List<string>>("JSON/Female_FirstNames.json", rh.JsonSettings)).ToList();
+            Names = Names.Concat(rh.LoadJsonObject<List<string>>("JSON/Female_FirstNames.json", rh.JsonSettings)).ToList();
 
             ///Generate parties
             for(int i = 0; i < Names.Count; i++)
