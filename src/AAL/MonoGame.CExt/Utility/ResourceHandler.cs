@@ -102,11 +102,12 @@ namespace MonoGame.CExt.Utility
         /// <returns>string with text content from file if it exists</returns>
         public string LoadFileText(string name)
         {
-            if (!File.Exists(name))
+            string path = System.IO.Path.Combine(_content.RootDirectory, name);
+            if (!File.Exists(path))
             {
-                throw new FileNotFoundException("Could not find text file, {0}", name);
+                throw new FileNotFoundException("Could not find text file, {0}", path);
             }
-            return File.ReadAllText(System.IO.Path.Combine(_content.RootDirectory, name));
+            return File.ReadAllText(path);
         }
 
         public T LoadJsonObject<T>(string name, JsonSerializerSettings s)
