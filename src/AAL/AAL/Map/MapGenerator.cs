@@ -16,17 +16,6 @@ namespace AAL.Map
 
         #region Parameters
 
-        public List<string> PlaceNames = new List<string> {
-            "New York",
-            "London",
-            "England",
-            "Russia",
-            "Portland",
-            "Hell",
-            "France"
-        };
-
-
         public int MinRegions { get; set; } = 4;
         public int MaxRegions { get; set; } = 10;
         public int MinLocationsPerRegion { get; set; } = 2;
@@ -34,10 +23,13 @@ namespace AAL.Map
 
         #endregion Parameters
 
-        public WorldMap GenerateRandomMap()
+        public WorldMap GenerateRandomMap(GameManager gm)
         {
             WorldMap m = new WorldMap();
             m.Regions = new List<Region>();
+
+            List<string> PlaceNames = gm.rh.LoadJsonObject<List<string>>("JSON/PlaceNames.json", gm.JsonSettings);
+
             int numRegions = r.Next(MinRegions, MaxRegions);
 
             for (int i = 0; i < numRegions; i++)

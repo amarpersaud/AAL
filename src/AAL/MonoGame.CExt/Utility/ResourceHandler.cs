@@ -96,7 +96,13 @@ namespace MonoGame.CExt.Utility
             {
                 throw new FileNotFoundException("Could not find text file, {0}", name);
             }
-            return File.ReadAllText(name);
+            return File.ReadAllText(System.IO.Path.Combine(_content.RootDirectory, name));
+        }
+
+        public T LoadJsonObject<T>(string name, JsonSerializerSettings s)
+        {
+            string text = LoadFileText(name);
+            return JsonConvert.DeserializeObject<T>(text, s);
         }
 
     }
