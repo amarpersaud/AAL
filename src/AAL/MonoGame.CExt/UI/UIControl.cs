@@ -13,6 +13,9 @@ using MonoGame.CExt.Utility;
 
 namespace MonoGame.CExt.UI
 {
+    /// <summary>
+    /// Base UIControl class. Implements shared fields, methods, and events for drawing, interacting with and mananging UI elements.
+    /// </summary>
     public abstract class UIControl
     {
         #region Resources
@@ -600,7 +603,7 @@ namespace MonoGame.CExt.UI
                         }
                         if(c != null && c.Selectable)
                         {
-                            uih.SelectedControl = c;
+                            uih.SelectedControl = c;        //Breaks if controls overlap. Fix in One_Button
                         }
                     }
                 }

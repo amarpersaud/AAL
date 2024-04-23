@@ -11,7 +11,7 @@ using MonoGame.CExt.Utility;
 namespace MonoGame.CExt.UI
 {
     /// <summary>
-    /// UI Handler. Holds UI Controls and manages input to the UI
+    /// UI Handler. Holds UI Controls, manages input to the UI.
     /// </summary>
     public class UIHandler : UIControl
     {
@@ -45,6 +45,12 @@ namespace MonoGame.CExt.UI
             this.ScreenArea = ScreenArea;
         }
 
+        /// <summary>
+        /// Update UI elements and get user input to UI elements
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="ih"></param>
+        /// <param name="uih"></param>
         public void Update(GameTime gameTime, InputHelper ih, UIHandler uih = null)
         {
             //Update which is the current control containing the mouse
@@ -61,6 +67,9 @@ namespace MonoGame.CExt.UI
                 c.Update(gameTime, deltaTime, this);
             }
         }
+        /// <summary>
+        /// Draw UI Elements
+        /// </summary>
         public override void Draw()
         {
             //Draw child elements

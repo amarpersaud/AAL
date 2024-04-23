@@ -4,6 +4,9 @@ using System.Text;
 
 namespace MonoGame.CExt.UI
 {
+    /// <summary>
+    /// Positioning of UI element relative to parent or screen
+    /// </summary>
     public enum Position
     {
         /// <summary>

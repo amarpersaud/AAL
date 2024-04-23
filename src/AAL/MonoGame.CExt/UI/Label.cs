@@ -9,8 +9,14 @@ using System.Text;
 
 namespace MonoGame.CExt.UI
 {
+    /// <summary>
+    /// Label UI element for text labels
+    /// </summary>
     public class Label : UIControl
     {
+        /// <summary>
+        /// Text to display on the label
+        /// </summary>
         public string Text
         {
             get { return _text; }
@@ -41,7 +47,7 @@ namespace MonoGame.CExt.UI
         }
 
         /// <summary>
-        /// Centers the text on the given position
+        /// If true, centers the text on the given position.
         /// </summary>
         public bool Centered {
             get
@@ -49,7 +55,7 @@ namespace MonoGame.CExt.UI
                 return CenterX && CenterY;       
             }
             set {
-                CenterX = value;
+                CenterX = value; 
                 CenterY = value;
             }
         }
@@ -64,6 +70,9 @@ namespace MonoGame.CExt.UI
         /// </summary>
         public bool CenterY { get; set; }
 
+        /// <summary>
+        /// If text in label can be selected
+        /// </summary>
         public override bool Selectable => false;
 
         /// <summary>
@@ -75,7 +84,6 @@ namespace MonoGame.CExt.UI
             {
                 int TPX = ScreenX;
                 int TPY = ScreenY;
-
 
                 if (CenterX)
                 {
@@ -93,36 +101,48 @@ namespace MonoGame.CExt.UI
 
         private string _text;
 
+        /// <summary>
+        /// Create a text label
+        /// </summary>
+        /// <param name="resourceHandler">ResourceHandler object for obtaining loaded textures, fonts, and text.</param>
         public Label(ResourceHandler resourceHandler) : base(resourceHandler)
         {
 
         }
 
+        /// <summary>
+        /// Draw label element
+        /// </summary>
         public override void Draw()
         {
+            //Don't draw label if not visible
             if (!Visible)
             {
                 return;
             }
 
+            //Draw underlying UIControl 
             base.Draw();
 
             
             //Copy the current scissor rect so we can restore it after
             Rectangle currentRect = sb.GraphicsDevice.ScissorRectangle;
 
+            //Cut off text if label hides overflow
             if (Overflow == UIOverflow.Hidden)
             {
                 //Set the current scissor rectangle
                 sb.GraphicsDevice.ScissorRectangle = this.ScreenInnerRect;
             }
 
+            //If label has text and a font
             if (Text != null && Font != null)
             {
+                //Draw it to the screen
                 sb.DrawString(Font, Text, TextPosition.ToVector2(), ForeColor);
             }
 
-            //Restore scissor rectangle
+            //Restore scissor rectangle 
             sb.GraphicsDevice.ScissorRectangle = currentRect;
         }
 

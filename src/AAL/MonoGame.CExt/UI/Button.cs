@@ -9,6 +9,9 @@ using System.Text;
 
 namespace MonoGame.CExt.UI
 {
+    /// <summary>
+    /// User interface button UI Control. Implements mouse event based textures, colors, and text contents
+    /// </summary>
     public class Button : UIControl
     {
         public string Text

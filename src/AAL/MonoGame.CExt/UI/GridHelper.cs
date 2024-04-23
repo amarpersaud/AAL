@@ -5,6 +5,10 @@ using MonoGame.CExt.Sprites;
 using Microsoft.Xna.Framework;
 namespace MonoGame.CExt.UI
 {
+
+    /// <summary>
+    /// Helper for converting converting between coordinates and grid spaces.
+    /// </summary>
     public class GridHelper
     {
         public Point Start;

@@ -9,6 +9,9 @@ using System.Text;
 
 namespace MonoGame.CExt.UI
 {
+    /// <summary>
+    /// Panel UI control. Basic element for holding other elements. Implements the basic scrolling
+    /// </summary>
     public class Panel : UIControl
     {
 
@@ -49,6 +52,12 @@ namespace MonoGame.CExt.UI
             
         }
 
+        /// <summary>
+        /// Update the UI Panel and its children. TODO: add UpdateChildren function and call at end of Update to avoid base.update from updating child elements before main element
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="timeScale"></param>
+        /// <param name="uih"></param>
         public override void Update(GameTime gameTime, double timeScale, UIHandler uih)
         {
             if (!Enabled)

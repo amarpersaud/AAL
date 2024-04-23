@@ -4,6 +4,9 @@ using System.Text;
 
 namespace MonoGame.CExt.UI
 {
+    /// <summary>
+    /// Anchor struct for UI elements. Checks for if sides are anchored and the associated distance.
+    /// </summary>
     public struct Anchor
     {
         /// <summary>
