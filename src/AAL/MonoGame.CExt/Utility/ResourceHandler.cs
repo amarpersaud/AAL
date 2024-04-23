@@ -44,7 +44,7 @@ namespace MonoGame.CExt.Utility
         /// <summary>
         /// Screen settings, resolution 
         /// </summary>
-        public ScreenSettings ScreenSettings { get; private set; }
+        public WindowSettings ScreenSettings { get; private set; }
 
         /// <summary>
         /// Dictionary of sprites
@@ -66,7 +66,7 @@ namespace MonoGame.CExt.Utility
             Formatting = Formatting.Indented
         };
 
-        public ResourceHandler(ContentManager content, SpriteBatch sb, InputHelper ih, FrameCounter fc, ScreenSettings screenSettings)
+        public ResourceHandler(ContentManager content, SpriteBatch sb, InputHelper ih, FrameCounter fc, WindowSettings screenSettings)
         {
             this._content = content;
             this._sb = sb;

@@ -10,7 +10,7 @@ namespace MonoGame.CExt.UI
     /// <summary>
     /// Keeps track of window and game screen coordinate systems
     /// </summary>
-    public class ScreenSettings
+    public class WindowSettings
     {
         /// <summary>
         /// Dimensions in pixels of the game window

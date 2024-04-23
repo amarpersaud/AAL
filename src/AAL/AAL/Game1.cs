@@ -21,7 +21,7 @@ namespace AAL
         private SpriteBatch _spriteBatch;
         private InputHelper ih = new InputHelper();
         private FrameCounter fc = new FrameCounter();
-        private ScreenSettings ss = new ScreenSettings();
+        private WindowSettings ss = new WindowSettings();
 
         private ResourceHandler _rh;
 
@@ -50,7 +50,7 @@ namespace AAL
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            ss = new ScreenSettings();
+            ss = new WindowSettings();
             ss.WindowDimensions = new Point(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             ss.GameScreenDimensions = ss.WindowDimensions.ToVector2();
             _rh = new ResourceHandler(Content, _spriteBatch, ih, fc, ss);
